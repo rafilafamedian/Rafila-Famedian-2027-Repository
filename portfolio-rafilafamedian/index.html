@@ -1,0 +1,2867 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="black" data-view="works">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Works — Rafila Famedian</title>
+<meta name="description" content="Selected works by Rafila Famedian — visual identity, social media, packaging, typography and more.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<style>html{background:#000;color-scheme:dark}html[data-theme=about],html[data-theme=project]{background:#fff;color-scheme:light}html[data-theme=archive]{background:#f5f5f7;color-scheme:light}html[data-theme=contact]{background:#1d1d1f;color-scheme:dark}</style><!-- first paint in the right colour, before the CDN scripts arrive -->
+<script>/* opened straight on #about / #archive / #contact / #project/…: start in that page's palette (no black flash) */
+(function(){var h=location.hash,v=h==='#about'?'about':h==='#archive'?'archive':h==='#contact'?'contact':/^#project\//.test(h)?'project':'';if(!v)return;
+var r=document.documentElement,L={about:['#ffffff','About'],archive:['#f5f5f7','Archive'],project:['#ffffff','Project'],contact:['#1d1d1f','Contact']}[v];
+r.setAttribute('data-view',v);r.setAttribute('data-theme',v);document.title=L[1]+' \u2014 Rafila Famedian';
+var a=document.querySelector('meta[name="theme-color"]'),b=document.querySelector('meta[name="color-scheme"]');if(a)a.setAttribute('content',L[0]);if(b)b.setAttribute('content',v==='contact'?'dark':'light')})();</script>
+<link rel="icon" href="data:,">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Helvetica Neue', 'Arial', 'sans-serif'] } } }
+  };
+</script>
+
+<style>
+/* ==========================================================================
+   WORKS — Rafila Famedian
+   Layout, fluid type scale, grid and motion values are taken measurement for
+   measurement from the reference library page (1440 / 390 px checkpoints).
+   ========================================================================== */
+
+/* ---------- tokens ---------------------------------------------------------
+   Every fluid size interpolates linearly between a 20rem and a 120rem (90rem
+   for the page margin) viewport — same formula the reference uses.
+   ------------------------------------------------------------------------ */
+:root{
+  --gutter:1rem;
+  --margin:clamp(.5rem,calc((.5 - ((1.5 - .5)/(90 - 20)*20))*1rem + ((1.5 - .5)/(90 - 20))*100vw),1.5rem);
+  --text-main:clamp(.7475rem,calc((.7475 - ((1 - .7475)/(120 - 20)*20))*1rem + ((1 - .7475)/(120 - 20))*100vw),1rem);
+  --text-small:clamp(.65rem,calc((.65 - ((.85 - .65)/(120 - 20)*20))*1rem + ((.85 - .65)/(120 - 20))*100vw),.85rem);
+  --h2:clamp(1.25rem,calc((1.25 - ((4.25 - 1.25)/(120 - 20)*20))*1rem + ((4.25 - 1.25)/(120 - 20))*100vw),4.25rem);
+  --display:clamp(2.3125rem,calc((2.3125 - ((7.5 - 2.3125)/(120 - 20)*20))*1rem + ((7.5 - 2.3125)/(120 - 20))*100vw),7.5rem);
+  --space-1:clamp(.625rem,calc((.625 - ((1 - .625)/(120 - 20)*20))*1rem + ((1 - .625)/(120 - 20))*100vw),1rem);
+  --space-1-5:clamp(1rem,calc((1 - ((1.5 - 1)/(120 - 20)*20))*1rem + ((1.5 - 1)/(120 - 20))*100vw),1.5rem);
+
+  --ease-out-quart:cubic-bezier(.165,.84,.44,1);
+  --ease-ui:cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- themes ---------------------------------------------------------
+   Monochrome palette: black · white · dark gray · light gray.
+   A page or section picks one with data-theme="…" (the <html> tag for now).
+   The nav, the works list and the pointer label are white text with
+   mix-blend-mode:difference, so they re-colour themselves on every palette;
+   these tokens drive the solid surfaces.
+     --bg / --fg        page background / text
+     --hair             hairlines
+     --inv-bg / --inv-fg  filled controls (close button, selection)
+     --sheet-*          project sheet      --menu-*  mobile menu
+     --ph-a / --ph-b    empty image placeholder (gradient stops)
+     --breath-rgb / --breath-a   colour / strength of the breathing glow
+   ------------------------------------------------------------------------ */
+:root,
+[data-theme="black"]{
+  color-scheme:dark;
+  --bg:#000; --fg:#fff; --hair:rgba(255,255,255,.12);
+  --inv-bg:#fff; --inv-fg:#000;
+  --sheet-bg:#fff; --sheet-fg:#000;
+  --menu-bg:#1d1d1f; --menu-fg:#fff;
+  --ph-a:#d1d1d6; --ph-b:#aeaeb2;
+  --breath-rgb:255 255 255; --breath-a:.065;
+}
+[data-theme="white"]{
+  color-scheme:light;
+  --bg:#fff; --fg:#000; --hair:rgba(0,0,0,.08);
+  --inv-bg:#000; --inv-fg:#fff;
+  --sheet-bg:#000; --sheet-fg:#fff;
+  --menu-bg:#f5f5f7; --menu-fg:#000;
+  --ph-a:#e5e5ea; --ph-b:#d1d1d6;
+  --breath-rgb:0 0 0; --breath-a:.045;
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#1d1d1f; --fg:#fff; --hair:rgba(255,255,255,.12);
+  --inv-bg:#f5f5f7; --inv-fg:#1d1d1f;
+  --sheet-bg:#f5f5f7; --sheet-fg:#1d1d1f;
+  --menu-bg:#000; --menu-fg:#fff;
+  --ph-a:#d1d1d6; --ph-b:#aeaeb2;
+  --breath-rgb:255 255 255; --breath-a:.04;
+}
+[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f5f5f7; --fg:#1d1d1f; --hair:rgba(0,0,0,.08);
+  --inv-bg:#1d1d1f; --inv-fg:#f5f5f7;
+  --sheet-bg:#1d1d1f; --sheet-fg:#f5f5f7;
+  --menu-bg:#fff; --menu-fg:#1d1d1f;
+  --ph-a:#e5e5ea; --ph-b:#d1d1d6;
+  --breath-rgb:0 0 0; --breath-a:.035;
+}
+/* About — the reference's palette: white · black · warm grey #a1a098 (its shapes and its menu).
+   The breathing light is that warm grey, so the page stays white and the glow just tints it. */
+[data-theme="about"]{
+  color-scheme:light;
+  --bg:#fff; --fg:#000; --hair:rgba(0,0,0,.08);
+  --inv-bg:#000; --inv-fg:#fff;
+  --sheet-bg:#000; --sheet-fg:#fff;
+  --menu-bg:#a1a098; --menu-fg:#000; --menu-hair:rgba(255,255,255,.1);
+  --ph-a:#e5e5ea; --ph-b:#d1d1d6;
+  --breath-rgb:161 160 152; --breath-a:.4;
+}
+/* Archive — light grey paper (#f5f5f7); the breathing light is the same warm grey as About's */
+[data-theme="archive"]{
+  color-scheme:light;
+  --bg:#f5f5f7; --fg:#1d1d1f; --hair:rgba(0,0,0,.13);
+  --inv-bg:#1d1d1f; --inv-fg:#f5f5f7;
+  --sheet-bg:#1d1d1f; --sheet-fg:#f5f5f7;
+  --menu-bg:#a1a098; --menu-fg:#000; --menu-hair:rgba(255,255,255,.1);
+  --ph-a:#e5e5ea; --ph-b:#d1d1d6;
+  --breath-rgb:161 160 152; --breath-a:.34;
+}
+/* Project — optical white: the pictures are the colour */
+[data-theme="project"]{
+  color-scheme:light;
+  --bg:#fff; --fg:#000; --hair:rgba(0,0,0,.12);
+  --inv-bg:#000; --inv-fg:#fff;
+  --sheet-bg:#000; --sheet-fg:#fff;
+  --menu-bg:#a1a098; --menu-fg:#000; --menu-hair:rgba(255,255,255,.1);
+  --ph-a:#ececf0; --ph-b:#d9d9de;
+  --breath-rgb:161 160 152; --breath-a:.28;
+}
+/* Contact — dark grey (#1d1d1f). The breathing light is the same warm grey as About's, strong enough to read on grey.
+   --fg is what the header turns into over this grey (white, "difference"-blended), so page and header text match. */
+[data-theme="contact"]{
+  color-scheme:dark;
+  --bg:#1d1d1f; --fg:#e2e2e0; --hair:rgba(255,255,255,.2);
+  --inv-bg:#f5f5f7; --inv-fg:#1d1d1f;
+  --sheet-bg:#f5f5f7; --sheet-fg:#1d1d1f;
+  --menu-bg:#a1a098; --menu-fg:#000; --menu-hair:rgba(255,255,255,.1);
+  --ph-a:#2c2c2e; --ph-b:#3a3a3c;
+  --breath-rgb:161 160 152; --breath-a:.22;
+}
+
+/* ---------- base ---------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none}
+html body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:'Inter',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  font-size:var(--text-main);font-weight:500;line-height:1;letter-spacing:-.01em;
+  min-height:100vh;min-height:100dvh;overflow:hidden;overscroll-behavior:none;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-synthesis:none;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;letter-spacing:inherit}
+:focus{outline:none}
+:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+::selection{background:var(--inv-bg);color:var(--inv-fg)}
+/* ---------- breathing background ---------------------------------------------
+   A plain black block with three very faint, very large lights that slowly swell
+   and drift (9 s / 13.5 s / 18 s, so the three never line up). They give the page
+   a pulse; they are not meant to be looked at. The lights sit low on the screen,
+   away from the titles, and their strength is capped by --breath-a, so the white
+   titles stay pure white (the difference blend needs a near-black backdrop).
+   Only transform + opacity are animated (compositor only, nothing repaints).
+   The animation pauses while a sheet / the menu covers the page and stops for
+   prefers-reduced-motion. Tune it with --breath-a (strength) and --breath-rgb. */
+.bg-breath{
+  --glow:radial-gradient(closest-side,
+    rgb(var(--breath-rgb)/var(--breath-a)) 0%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.95)) 12.5%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.81)) 25%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.62)) 37.5%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.43)) 50%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.27)) 62.5%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.15)) 75%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.07)) 87.5%,
+    rgb(var(--breath-rgb)/0) 100%);
+  position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict;
+}
+.bg-breath i{position:absolute;display:block;background:var(--glow);opacity:0;will-change:transform,opacity}
+.bg-breath i:nth-child(1){width:78vmax;height:78vmax;left:-6vmax;bottom:-46vmax;animation:breathe-a 9s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(2){width:70vmax;height:70vmax;right:-14vmax;bottom:-40vmax;animation:breathe-b 13.5s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(3){width:56vmax;height:56vmax;left:34vw;top:46vh;animation:breathe-c 18s cubic-bezier(.37,0,.63,1) infinite}
+@keyframes breathe-a{0%,100%{opacity:.8;transform:translate3d(0,0,0) scale(.86)}50%{opacity:1;transform:translate3d(9vw,-7vh,0) scale(1.18)}}
+@keyframes breathe-b{0%,100%{opacity:1;transform:translate3d(0,0,0) scale(1.14)}50%{opacity:.75;transform:translate3d(-10vw,-5vh,0) scale(.84)}}
+@keyframes breathe-c{0%,100%{opacity:.7;transform:translate3d(-6vw,4vh,0) scale(.82)}50%{opacity:1;transform:translate3d(7vw,-6vh,0) scale(1.18)}}
+.is-sheet .bg-breath i,.is-menu .bg-breath i{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.bg-breath i:nth-child(n){animation:none;opacity:.7;transform:none}}
+
+/* palette change between pages: colours ease over .6 s (the reference's theme switch);
+   the glow fades out, takes the new colour while hidden, then fades back in */
+html.is-theme-switching,html.is-theme-switching body{transition:background-color .6s cubic-bezier(.4,0,0,1),color .6s cubic-bezier(.4,0,0,1)}
+.bg-breath{transition:opacity .6s cubic-bezier(.4,0,0,1)}
+html.is-swap .bg-breath{opacity:0;transition-duration:.3s}
+
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.u-container{position:relative;width:calc(100% - var(--margin));margin-left:auto;margin-right:auto}
+.u-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--gutter)}
+
+.t-main{font-size:var(--text-main);line-height:1;font-weight:500;letter-spacing:-.01em}
+.t-small{font-size:var(--text-small);line-height:1.3;font-weight:500;letter-spacing:-.01em}
+.t-h2{font-size:var(--h2);line-height:1;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+
+/* masked text lines (the "reel" + panel reveals animate the inner .ln) */
+.ln-mask{position:relative;display:block;overflow:clip;text-align:start}
+.ln{position:relative;display:block;padding-bottom:.2em;will-change:transform}
+
+/* hairline underline used by every link: draws in from the left, out to the right */
+[data-underline]{position:relative}
+[data-underline]::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-out-quart);pointer-events:none;
+}
+@media (hover:hover){[data-underline]:hover::after{transform:scaleX(1);transform-origin:left}}
+[data-underline].is-active::after{transform:scaleX(1);transform-origin:left}
+
+/* ---------- header -------------------------------------------------------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.nav-inner{display:flex;align-items:flex-start;justify-content:space-between;padding-top:var(--space-1);padding-bottom:var(--space-1);min-height:calc(var(--space-1)*2 + var(--text-main)*2.015)}
+.nav-logo{pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;white-space:nowrap;cursor:pointer}
+.nav-logo span{display:block}
+.nav-links{display:flex;align-items:center;justify-content:flex-end;gap:2rem;margin:0;padding:0;list-style:none}
+.nav-link{pointer-events:auto;position:relative;display:flex;align-items:flex-start;line-height:1;padding-bottom:2px;cursor:pointer}
+.nav-menu-btn{display:none;position:relative;overflow:clip;grid-template-columns:auto;pointer-events:auto;background:none;border:0;padding:0;cursor:pointer;line-height:1}
+.nav-menu-btn>span{grid-area:1/1;display:block;text-align:center}
+.nav-menu-btn>span+span{transform:translateY(calc(100% + 2px))}   /* +2px: the parked label can never peek through a fractional clip edge */
+/* Back — only on a project page: "← Works" / "← Archive", the list the visitor came from. Sits on grid column 7 (like the About text) */
+.nav-back{pointer-events:none;position:absolute;left:calc(50% + var(--gutter)/2);top:var(--space-1);display:flex;align-items:center;gap:.5rem;line-height:1;padding-bottom:2px;white-space:nowrap;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .4s var(--ease-ui),visibility 0s .4s}
+html[data-view="project"] .nav-back{pointer-events:auto;opacity:1;visibility:visible;transition-delay:0s}
+.nb-arr{display:block;width:.75rem;height:auto;flex:0 0 auto;overflow:visible;transform:scaleX(-1);transition:transform .5s var(--ease-out-quart)}
+@media (hover:hover){.nav-back:hover .nb-arr{transform:scaleX(-1) translateX(.3rem)}}
+
+/* Archive / Project / Contact scroll under the header: once the page has moved, a frosted strip keeps the header legible */
+.nav-veil{
+  position:fixed;top:0;left:0;right:0;z-index:998;height:var(--nav-h,3.75rem);pointer-events:none;
+  opacity:0;visibility:hidden;transition:opacity .5s var(--ease-ui),visibility 0s .5s;
+  background:rgba(255,255,255,.74);box-shadow:0 1px 0 var(--hair);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
+}
+@supports (background:color-mix(in srgb,red,blue)){.nav-veil{background:color-mix(in srgb,var(--bg) 70%,transparent)}}
+html.is-scrolled .nav-veil{opacity:1;visibility:visible;transition-delay:0s}
+[data-theme="contact"] .nav-veil{background:rgba(29,29,31,.74)}
+html:not([data-view="archive"]):not([data-view="project"]):not([data-view="contact"]) .nav-veil{display:none}
+
+/* ---------- library (works) ------------------------------------------------ */
+.lib{position:relative;height:100vh;height:100dvh;overflow:hidden;cursor:grab;touch-action:pan-y pinch-zoom;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.lib.is-dragging{cursor:grabbing}
+
+/* cards sit in their own stacking context, *below* the text, so the text can invert over them */
+.wheel{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+/* frameless landscape cards: the placeholder (and later the cover image) is the whole card */
+.card{position:absolute;left:0;top:0;opacity:0;visibility:hidden;overflow:hidden;background:linear-gradient(155deg,var(--ph-a),var(--ph-b));will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card.has-img{background:var(--ph-b)}
+.card-img{position:absolute;inset:0;overflow:hidden}
+.card-img img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
+.card-img img.is-loaded{opacity:1}
+
+/* NOTE: nothing between .lib and .lib-row may create a stacking context, or the blend stops working */
+.lib-gallery{position:relative;height:100%;padding-bottom:var(--space-1)}
+.lib-top{position:absolute;inset:0;padding-top:20vh;pointer-events:none;visibility:hidden}
+.is-ready .lib-top{visibility:visible}
+.lib-list{position:relative;width:100%;height:100%}
+.lib-row{position:absolute;top:0;left:0;width:100%;display:none;color:#fff;mix-blend-mode:difference;will-change:transform;transform:translateZ(0)}
+.lib-row.is-shown{display:grid}
+.lib-num{overflow:clip}
+.lib-title{position:relative;grid-column:4/span 6;font-size:var(--h2);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:.5rem;max-width:73ch;pointer-events:auto;cursor:pointer}
+.lib-year{grid-column:11/13;justify-self:end;display:flex;align-items:flex-start;justify-content:flex-start}
+.lib-row p{margin:0}
+@media (max-width:991px){.lib-title{grid-column:4/span 7}}
+@media (max-width:767px){
+  .lib-gallery{padding-bottom:var(--space-1-5)}
+  .lib-num{grid-column:1/3;grid-row:1/2}
+  .lib-title{grid-column:1/span 6}
+}
+@media (max-width:479px){.lib-title{grid-column:1/span 8}}
+
+/* label that follows the pointer over the title area */
+/* the blend layer is only as big as the band the label can travel in (cheaper than a full-screen blend) */
+.cursor{position:absolute;left:0;right:0;top:20vh;height:20vh;z-index:2;pointer-events:none;mix-blend-mode:difference}
+.cursor-area{position:relative;grid-column:4/span 5;height:20vh}
+.cursor-item{
+  position:absolute;left:0;top:0;opacity:0;visibility:hidden;white-space:nowrap;will-change:transform;
+  background:#fff;color:#000;padding:.5rem .75rem;border-radius:.25em;line-height:1;
+  font-size:var(--text-main);font-weight:500;letter-spacing:-.01em;
+}
+@media (max-width:767px){.cursor{display:none}}
+
+/* ---------- about ----------------------------------------------------------
+   One static screen, laid out like the reference's About hero: a headline whose
+   first line is indented 25 %, then (columns 7–10) a short paragraph above four
+   ruled rows. Nothing below it — no scroll.
+   Sizes are the reference's fluid formulas. --k is a fit factor (1 = reference size):
+   fitAbout() lowers it on short screens so nothing is ever cut off.
+   ------------------------------------------------------------------------ */
+html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not([data-view="archive"]) .archive,html:not([data-view="project"]) .project,html:not([data-view="contact"]) .contact{display:none}
+.about,.archive,.project,.contact{
+  --a-h1:clamp(1.5rem,calc((1.5 - ((5.625 - 1.5)/(120 - 20)*20))*1rem + ((5.625 - 1.5)/(120 - 20))*100vw),5.625rem);
+  --a-lg:clamp(.875rem,calc((.875 - ((2 - .875)/(120 - 20)*20))*1rem + ((2 - .875)/(120 - 20))*100vw),2rem);
+  --a-s15:clamp(1rem,calc((1 - ((1.5 - 1)/(120 - 20)*20))*1rem + ((1.5 - 1)/(120 - 20))*100vw),1.5rem);
+  --a-s45:clamp(2.125rem,calc((2.125 - ((4.5 - 2.125)/(120 - 20)*20))*1rem + ((4.5 - 2.125)/(120 - 20))*100vw),4.5rem);
+}
+.about{
+  --k:1;
+  position:fixed;inset:0;z-index:1;overflow:hidden;touch-action:pan-y pinch-zoom;
+}
+.ab-contain{position:relative;display:flex;flex-direction:column;justify-content:flex-end;width:calc(100% - var(--margin));height:100%;margin:0 auto;padding-bottom:var(--a-s15)}
+.ab-layout{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;width:100%;height:100%;min-height:100%}
+.ab-top{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;width:100%;padding-top:calc(20vh*var(--k));padding-top:calc(20dvh*var(--k))}
+.ab-h1{display:flow-root;width:100%;margin:0;font-size:calc(var(--a-h1)*var(--k)*var(--kh,1));line-height:1;font-weight:500;letter-spacing:-.03em}   /* --k: fits the screen's height · --kh: lets the first sentence fit on one line */
+.ab-measure{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;white-space:nowrap;text-indent:0;font-size:100px;line-height:1;font-weight:500;letter-spacing:-.03em}   /* (hidden copy of the first sentence — its width is read in JS) */
+.ab-h1::after{content:"";display:table;margin-bottom:.06em}
+.ab-split{display:block}
+.ab-h1 .ab-split,.ab-h1 .ln-mask:first-child{text-indent:var(--ab-ind,25%)}
+.ab-h1 .ln-mask{text-indent:0}
+.ab-h1 .ln-mask:first-child{text-indent:var(--ab-ind,25%)}
+
+/* lines are masked like everywhere else, but keep the real line pitch (the mask only reaches .2em lower, for descenders) */
+.about .ln-mask{padding-bottom:.2em;margin-bottom:-.2em}
+.about .ln{padding-bottom:0;white-space:nowrap;will-change:auto}
+.about.is-playing .ln{will-change:transform}                     /* only while the intro runs — a promoted layer would soften the text afterwards */
+.about:not(.is-ready) .ab-split{visibility:hidden}
+
+/* headline letters: each one is its own inline-block so it can leave the line when the cursor comes close (see abTick) */
+.ab-h1 .ch{display:inline-block;text-indent:0}                      /* the first line's indent is inherited — a letter must not indent itself */
+.ab-h1{touch-action:pinch-zoom}                                    /* a finger on the headline plays with the letters instead of starting a pan (pinch-zoom stays) */
+.about:not(.is-playing) .ab-h1 .ln-mask{overflow:visible}         /* the masks only clip while the intro runs */
+
+.ab-bottom{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--gutter);align-items:end;justify-items:stretch;width:100%}
+.ab-text{grid-column:7/span 4;min-width:0;display:flex;flex-direction:column;gap:calc(2rem*var(--k));padding-bottom:calc(var(--a-s45)*var(--k))}
+.ab-para{display:flow-root}
+
+/* the reference trims the leading above and below a block of text, so its boxes are .94em tall per line */
+.ab-tx{display:flow-root;margin:-.03em 0;font-size:var(--text-main);line-height:1;font-weight:500;letter-spacing:-.01em}
+.ab-lg{display:flow-root;margin:-.18em 0;font-size:calc(var(--a-lg)*var(--k));line-height:1.3;font-weight:500;letter-spacing:-.03em}
+
+.ab-list{margin:0;padding:0;list-style:none}
+.ab-item{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);padding:calc(1rem*var(--k)) 0}
+.ab-num{display:flow-root;font-variant-numeric:tabular-nums}
+.ab-title{display:flow-root;grid-column:2/-1;min-width:0}
+/* hairlines are borders, not 1px-tall boxes: a box's height is rounded to whole device pixels from wherever it happens to sit, so on a 125 % / 150 % screen some of the lines came out 1px and some 2px.
+   A border is always the same number of device pixels. A finished line carries no transform either (see abRule). */
+.ab-rule{position:absolute;left:0;top:0;width:100%;height:0;pointer-events:none}
+.ab-rule i{display:block;width:100%;height:0;border-top:1px solid var(--fg);transform:scaleX(0);transform-origin:0 50%}
+
+@media (max-width:991px){.ab-text{order:-1;grid-column:1/-1}}
+@media (max-width:479px){
+  .ab-contain{padding-left:.25rem;padding-right:1rem}
+  .ab-top{padding-top:calc(12vh*var(--k));padding-top:calc(12dvh*var(--k))}
+}
+/* last resort (a phone held sideways): even the smallest type does not fit, so this one screen may scroll */
+.about.is-tight{overflow-y:auto;overscroll-behavior:contain}
+.about.is-tight .ab-contain{height:auto;min-height:100%}
+.about.is-tight .ab-layout{height:auto;gap:1.5rem}
+
+/* ---------- archive + project: the two pages that scroll --------------------
+   Each is a full-screen scroller of its own (the document itself never scrolls, like the
+   other views), so "where I was" is just scrollTop: easy to remember and to restore.
+   ------------------------------------------------------------------------ */
+.archive,.project{
+  position:fixed;inset:0;z-index:1;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
+  touch-action:pan-y pinch-zoom;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.22) transparent;
+}
+.archive:focus,.project:focus{outline:none}
+.archive::-webkit-scrollbar,.project::-webkit-scrollbar{width:10px}
+.archive::-webkit-scrollbar-thumb,.project::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border:3px solid transparent;border-radius:10px;background-clip:content-box}
+
+/* ---------- archive: every project, newest first -----------------------------
+   A text lives in a clip (.ar-c) and rises (.ar-t) when its row gets .is-in; JS adds that
+   to the rows on screen when the page opens, and to the others as they scroll into view. */
+.ar-c,.ct-c{display:block;min-width:0;overflow:clip;padding-bottom:.2em;margin-bottom:-.2em}
+.ar-t,.ct-t{display:block;transform:translate3d(0,118%,0)}
+.is-in .ar-t,.is-in .ct-t{transform:none;transition:transform 1.2s var(--ease-ui) var(--d,0s)}
+.ar-contain{
+  --ar-size:clamp(1.125rem,calc(var(--h2)*.62),2.25rem);
+  padding-top:calc(var(--space-1)*2 + var(--text-main)*2.015 + 9vh);
+  padding-bottom:calc(12vh + env(safe-area-inset-bottom,0px));
+}
+.ar-head{align-items:end;margin-bottom:calc(var(--space-1-5)*2.5)}
+.ar-h1{grid-column:1/span 9;margin:0;font-size:var(--display);line-height:.95;font-weight:500;letter-spacing:-.04em}
+
+.ar-list{position:relative;margin:0;padding:0;list-style:none}
+.ar-list::after{content:"";display:block;height:0;border-top:1px solid var(--hair)}
+.ar-row{position:relative}
+.ar-rule{position:absolute;left:0;top:0;width:100%;height:0;border-top:1px solid var(--hair);transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+.ar-row.is-in .ar-rule{transform:none;transition:transform 1.5s var(--ease-ui) var(--d,0s)}
+.ar-link{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:baseline;padding:calc(var(--ar-size)*.42) 0;font-size:var(--ar-size);line-height:1;font-weight:500;letter-spacing:-.03em;color:var(--fg);cursor:pointer;transition:opacity .5s var(--ease-ui)}
+.ar-num{grid-column:1/3;font-variant-numeric:tabular-nums}
+.ar-name{grid-column:4/9}
+.ar-cat{grid-column:9/12;font-size:max(var(--text-main),calc(var(--ar-size)*.5));font-weight:400;letter-spacing:-.01em;opacity:.55}
+.ar-year{grid-column:12/13;justify-self:end;font-variant-numeric:tabular-nums}
+@media (hover:hover){
+  .ar-list:hover .ar-link{opacity:.28}
+  .ar-list:hover .ar-link:hover,.ar-list:hover .ar-link:focus-visible{opacity:1}
+}
+/* coming back from a project: the row you opened glows for a moment, so the eye finds it again */
+.ar-row.is-from .ar-link{animation:ar-from 2.2s var(--ease-ui) 1 both}
+@keyframes ar-from{0%{background:rgba(0,0,0,.09)}100%{background:rgba(0,0,0,0)}}
+.ar-foot{display:flex;justify-content:flex-end;align-items:baseline;gap:1rem;padding-top:var(--space-1-5);font-size:var(--text-main);line-height:1}
+.ar-top{position:relative;padding:0 0 2px;border:0;background:none;color:inherit;line-height:1;cursor:pointer}
+
+/* hover preview (mouse only): follows the cursor, flips to its left near the right edge */
+.ar-prev{position:fixed;left:0;top:0;z-index:3;width:min(22vw,24rem);aspect-ratio:3/2;pointer-events:none;will-change:transform}
+.ar-prev-in{position:absolute;inset:0;overflow:hidden;opacity:0;transform:scale(.9);transition:opacity .35s var(--ease-ui),transform .7s var(--ease-ui)}
+.ar-prev.is-on .ar-prev-in{opacity:1;transform:none}
+.ar-pc{position:absolute;inset:0;opacity:0;transition:opacity .3s var(--ease-ui);background:linear-gradient(155deg,var(--ph-a),var(--ph-b))}
+.ar-pc.is-on{opacity:1}
+.ar-pc.has-img{background:var(--ph-b)}
+.ar-pc img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s var(--ease-ui)}
+.ar-pc img.is-loaded{opacity:1}
+@media (hover:none),(max-width:767px){.ar-prev{display:none}}
+
+@media (max-width:991px){
+  .ar-name{grid-column:3/9}
+}
+@media (max-width:767px){
+  .ar-head{row-gap:var(--space-1-5)}
+  .ar-h1{grid-column:1/-1}
+  .ar-link{align-items:start}
+  .ar-num{grid-column:1/3;grid-row:1}
+  .ar-name{grid-column:3/11;grid-row:1}
+  .ar-year{grid-column:11/13;grid-row:1}
+  .ar-cat{grid-column:3/11;grid-row:2;margin-top:.55em}
+}
+
+/* ---------- project: one case study ------------------------------------------- */
+.about .ln-mask,.project .ln-mask{padding-bottom:.2em;margin-bottom:-.2em}
+.project .ln{padding-bottom:0;white-space:nowrap;will-change:auto}
+.project.is-playing .ln{will-change:transform}
+.pj{padding-top:calc(var(--space-1)*2 + var(--text-main)*2.015 + 7vh);padding-bottom:calc(10vh + env(safe-area-inset-bottom,0px))}
+.pj-bar{align-items:baseline;margin-bottom:calc(var(--space-1-5)*2.2)}
+.pj-index{grid-column:1/span 6;margin:0;font-variant-numeric:tabular-nums}
+.pj-pager{grid-column:8/13;justify-self:end;display:flex;gap:2rem}
+.pj-step{position:relative;display:block;padding-bottom:2px;line-height:1}
+.pj-title{margin:0 0 calc(var(--space-1-5)*2.5);font-size:var(--display);line-height:.98;font-weight:500;letter-spacing:-.04em}
+.pj-info{align-items:baseline;margin-bottom:calc(var(--space-1-5)*3)}                /* the first row (Year) sits on the same baseline as the first line of the text */
+.pj-meta{grid-column:1/span 4;margin:0;padding:0}
+.pj-m{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);padding:.3rem 0;font-size:var(--text-main);line-height:1.25;opacity:0;transform:translate3d(0,12px,0)}
+.pj-m.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
+.pj-m dt{grid-column:1/3;margin:0;opacity:.55}
+.pj-m dd{grid-column:3/-1;margin:0}
+.pj-m a{position:relative;display:inline-block;padding-bottom:2px}
+.pj-desc{grid-column:7/span 4}
+.pj-lead{display:flow-root;margin:-.18em 0;font-size:max(1.0625rem,var(--a-lg));line-height:1.3;font-weight:500;letter-spacing:-.03em}
+
+.pj-gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-bottom:calc(var(--space-1-5)*4)}
+
+/* appendix: its title stands in the same column as the list (7, the column of the text above), the rows under it — role in grey, name next to it */
+.pj-credits{align-items:baseline;row-gap:0}
+.pj-credits[hidden]{display:none}
+.pj-ck{grid-column:7/span 4;margin:0 0 .35rem;font-size:var(--text-main);line-height:1.25;font-weight:500;letter-spacing:-.01em}
+.pj-ck span{display:block;opacity:.55}
+.pj-clist{grid-column:7/span 4;margin:0;padding:0}
+.pj-rv{opacity:0;transform:translate3d(0,12px,0)}
+.pj-rv.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
+/* the way back up (the Archive's .ar-foot / .ar-top), after the appendix: a page of many pictures ends here */
+.pj-foot{margin-bottom:calc(var(--space-1-5)*4)}
+
+.pj-fig{margin:0;grid-column:1/-1;opacity:0;transform:translate3d(0,36px,0)}
+.pj-fig.is-half{grid-column:span 6}
+.pj-fig.is-in{opacity:1;transform:none;transition:opacity 1.1s var(--ease-ui) var(--d,0s),transform 1.4s var(--ease-ui) var(--d,0s)}
+.pj-media{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--ph-a),var(--ph-b))}
+.pj-media.has-img{background:var(--ph-b)}
+.pj-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
+.pj-media img.is-loaded{opacity:1}
+
+.pj-next{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--space-1-5);align-items:end;padding-top:var(--space-1-5);color:inherit;opacity:0;transform:translate3d(0,24px,0)}
+.pj-next.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
+.pj-next::before{content:"";position:absolute;left:0;top:0;width:100%;height:0;border-top:1px solid var(--fg)}
+.pj-next-k{grid-column:1/-1;display:flex;justify-content:space-between;font-size:var(--text-main);line-height:1;font-variant-numeric:tabular-nums}
+.pj-next-t{grid-column:1/span 10;font-size:var(--display);line-height:.98;font-weight:500;letter-spacing:-.04em;transition:transform .8s var(--ease-ui)}
+.pj-next-img{display:none}                                                          /* phones / touch: the next cover sits in the block; with a mouse it is the hover preview instead (.pj-peek) */
+.pj-next-a{grid-column:12/13;justify-self:end;display:block;width:clamp(1.5rem,4vw,3.5rem);overflow:hidden}
+.pj-next-a svg{display:block;width:100%;height:auto;overflow:visible;transition:transform .8s var(--ease-ui)}
+@media (hover:hover){
+  .pj-next:hover .pj-next-t{transform:translateX(.08em)}
+  .pj-next:hover .pj-next-a svg{transform:translateX(.35em)}
+}
+@media (hover:none),(max-width:767px){.pj-next-img{display:block;grid-column:1/span 5;aspect-ratio:3/2}}
+@media (max-width:991px){
+  .pj-pager{grid-column:7/13}
+  .pj-meta{grid-column:1/-1}
+  .pj-desc{grid-column:1/-1;order:-1;margin-bottom:var(--space-1-5)}
+  .pj-ck{grid-column:1/-1}
+  .pj-clist{grid-column:1/-1}
+}
+@media (max-width:767px){
+  .pj-fig.is-half{grid-column:1/-1}
+  .pj-next-t{grid-column:1/span 10}
+  .pj-next-img{grid-column:1/span 8}
+}
+.is-instant .ar-t,.is-instant .ar-rule,.is-instant .pj-m,.is-instant .pj-rv,.is-instant .pj-fig,.is-instant .pj-next,
+.is-instant .ct-t,.is-instant .ct-rule i,.is-instant .ct-vline i,.is-instant .ct-hline i,.is-instant .ct-mail::after,.is-instant .ln{transition:none!important}
+
+/* ---------- contact ----------------------------------------------------------
+   One screen, laid out like the Santal reference's contact: the address in big type on the left,
+   a ruled list and a short note on the right, a hairline down the middle (grid column 7 — the same
+   column the About text starts on). Below 768 px it stacks into one column.
+   The page is a scroller only so a very short screen can still reach everything.
+   Text sits in a clip (.ct-c) and rises (.ct-t); hairlines draw. All of it is CSS transitions that
+   start when the page gets .is-in (--d = each piece's delay), like the Archive. */
+.contact{
+  position:fixed;inset:0;z-index:1;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
+  touch-action:pan-y pinch-zoom;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent;
+}
+.contact:focus{outline:none}
+.contact::-webkit-scrollbar{width:10px}
+.contact::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border:3px solid transparent;border-radius:10px;background-clip:content-box}
+.ct-contain{
+  position:relative;display:flex;flex-direction:column;min-height:100%;
+  padding-top:var(--nav-h,calc(var(--space-1)*2 + var(--text-main)*2.015));
+  padding-bottom:calc(var(--a-s15) + env(safe-area-inset-bottom,0px));
+}
+.ct-grid{flex:1 1 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+
+/* left: the address, vertically centred */
+.ct-main{
+  grid-column:1/span 6;min-width:0;container-type:inline-size;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:calc(var(--space-1-5)*.7);
+  padding-bottom:calc(var(--nav-h,3.75rem)*.5);                            /* optical centre: a little above the middle */
+}
+.ct-k{margin:0;font-size:var(--text-main);line-height:1.25;font-weight:500;letter-spacing:-.01em;opacity:.55}
+.ct-mail{
+  --ct-size:clamp(1.25rem,3.4vw,4rem);
+  position:relative;display:block;width:fit-content;max-width:100%;padding-bottom:.06em;
+  font-size:var(--ct-size);line-height:1;font-weight:500;letter-spacing:-.04em;white-space:nowrap;
+}
+@supports (width:1cqw){.ct-mail{--ct-size:min(7.5rem,calc(100cqw*.077))}}      /* the whole address on ONE line, sized from the column it sits in (the address is ~11.4 em wide, so it takes ~88 % of the column) */
+.ct-mail .ct-c{padding-bottom:.2em;margin-bottom:-.2em}
+.ct-mail::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:max(1px,.026em);background:currentColor;
+  transform:scaleX(0);transform-origin:0 50%;pointer-events:none;
+}
+.contact.is-in .ct-mail::after{transform:none;transition:transform 1.5s var(--ease-ui) var(--d,0s)}
+@media (hover:hover){.contact.is-in .ct-mail:hover::after{animation:ct-redraw 1.1s var(--ease-ui) 1}}
+@keyframes ct-redraw{
+  0%{transform:scaleX(1);transform-origin:100% 50%}
+  45%{transform:scaleX(0);transform-origin:100% 50%}
+  46%{transform:scaleX(0);transform-origin:0 50%}
+  100%{transform:scaleX(1);transform-origin:0 50%}
+}
+
+/* right: the list at the top, the note at the bottom; the column starts at the hairline so the rules meet it */
+.ct-side{
+  --ct-in:calc(var(--gutter)*1.5);
+  grid-column:7/span 6;min-width:0;margin-left:calc(var(--gutter)/-2);padding-left:var(--ct-in);
+  display:flex;flex-direction:column;justify-content:space-between;gap:calc(var(--space-1-5)*2);
+}
+.ct-list{margin:0;padding:calc(var(--space-1-5)*1.4) 0 0}
+.ct-row{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--gutter);padding:1rem 0;font-size:var(--text-main);line-height:1.25}
+.ct-v{margin:0;font-weight:500;letter-spacing:-.01em}
+.ct-v a{position:relative;display:inline-block;padding-bottom:2px}
+.ct-row.has-link{cursor:pointer}                                                  /* the whole row is the link (see buildContact) */
+@media (hover:hover){.ct-row.has-link:hover [data-underline]::after{transform:scaleX(1);transform-origin:left}}
+.ct-rule{position:absolute;left:calc(var(--ct-in)*-1);top:0;width:calc(100% + var(--ct-in));height:0;pointer-events:none}
+.ct-rule.is-end{top:auto;bottom:0}
+.ct-rule i{display:block;width:100%;height:0;border-top:1px solid var(--hair);transform:scaleX(0);transform-origin:0 50%}
+.contact.is-in .ct-rule i{transform:none;transition:transform 1.5s var(--ease-ui) calc(var(--d,0s) - .08s)}
+.contact.is-in .ct-rule.is-end i{transition-delay:calc(var(--d,0s) + .08s)}
+.ct-note{position:relative;padding-top:1rem}
+.ct-lead{display:flow-root;width:calc(66.6667% + var(--gutter)/3);margin:-.18em 0;font-size:max(1.0625rem,var(--a-lg));line-height:1.3;font-weight:500;letter-spacing:-.03em;text-wrap:pretty}   /* no lone last word */
+.contact .ln-mask{padding-bottom:.2em;margin-bottom:-.2em}
+.contact .ln{padding-bottom:0;white-space:nowrap;will-change:auto;transform:translate3d(0,125%,0)}
+.contact.is-in .ln{transform:none;transition:transform 1.35s var(--ease-ui) var(--d,0s)}
+
+/* the hairline down the middle */
+.ct-vline{position:absolute;left:50%;top:var(--nav-h,3.75rem);bottom:0;width:0;pointer-events:none}
+.ct-vline i{display:block;width:0;height:100%;border-left:1px solid var(--hair);transform:scaleY(0);transform-origin:50% 0}
+.contact.is-in .ct-vline i{transform:none;transition:transform 1.6s var(--ease-ui) .1s}
+
+@media (min-width:992px){.ct-row{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}}
+@media (max-width:991px){.ct-lead{width:100%}}
+
+/* ---- phones: the Santal reference's contact --------------------------------------------------------------
+   A hairline under the header and one down the middle; the address on the left, the facts on the right (label over value, starting at
+   the middle line), both centred in the upper two thirds; under a full-width hairline the note, in the right half.
+   Everything for it sits inside this query (or is hidden outside it): the layout above 767 px is exactly as it was. */
+.ct-hline{display:none}
+.ct-t-m{display:none}
+@media (max-width:767px){
+  .contact .ct-contain{--ct-edge:calc(var(--margin)/2);width:100%;height:100%;min-height:0;padding-bottom:env(safe-area-inset-bottom,0px)}   /* full width: the middle line is the middle of the screen */
+  .ct-grid{position:relative;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:2fr 1fr;column-gap:0;row-gap:0}
+  .ct-main{grid-column:1;grid-row:1;justify-content:center;gap:.45rem;padding:0 var(--gutter) 0 var(--ct-edge)}
+  .ct-k{font-size:calc(var(--text-main)*.82);line-height:1.2}
+  .ct-mail{--ct-size:clamp(1rem,4.7vw,2.4rem)}
+  .ct-mail::after{height:max(1.5px,.07em)}
+  .ct-t-d{display:none}
+  .ct-t-m{display:block}                                                          /* the address on two lines: …@ / …com */
+  .ct-side{display:contents}
+  .ct-list{grid-column:2;grid-row:1;align-self:center;padding:0 var(--ct-edge) 0 .35rem}
+  .ct-row{display:block;padding:0 0 .95rem}
+  .ct-row:last-child{padding-bottom:0}
+  .ct-v{margin-top:.2rem}
+  .ct-list .ct-rule{display:none}
+  .ct-note{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding-top:1rem}
+  .ct-rule{left:0;width:100%}
+  .ct-lead{grid-column:2;width:auto;margin:-.18em var(--ct-edge) 0 0;padding-left:.35rem;font-size:var(--text-main);line-height:1.32;letter-spacing:-.01em}
+  .ct-hline{display:block;position:absolute;left:0;top:var(--nav-h,3.75rem);width:100%;height:0;pointer-events:none}
+  .ct-hline i{display:block;width:100%;height:0;border-top:1px solid var(--hair);transform:scaleX(0);transform-origin:0 50%}
+  .contact.is-in .ct-hline i{transform:none;transition:transform 1.5s var(--ease-ui) .05s}
+}
+@supports (width:1cqw){@media (max-width:767px){.ct-mail{--ct-size:clamp(1rem,calc(100cqw/8.9),2.6rem)}}}     /* sized from its column: the longer line, "rafilafamedian.com" (8.5 em), takes ~95 % of it */
+@media (max-width:479px){.contact .ct-contain{--ct-edge:var(--margin)}}                                              /* in line with the header's own edge on phones */
+
+/* ---------- toast: one short line at the bottom ------------------------------------------------------------ */
+.toast{
+  position:fixed;left:50%;bottom:calc(max(1rem,env(safe-area-inset-bottom,0px)) + .5rem);z-index:120;
+  max-width:calc(100% - var(--margin)*2);padding:.6rem 1rem;border-radius:999px;
+  background:#fff;color:#1d1d1f;font-size:var(--text-main);line-height:1.25;font-weight:500;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  opacity:0;visibility:hidden;transform:translate(-50%,.5rem);pointer-events:none;
+  transition:opacity .35s var(--ease-ui),transform .5s var(--ease-ui),visibility 0s linear .5s;
+}
+.toast.is-show{opacity:1;visibility:visible;transform:translate(-50%,0);transition-delay:0s}
+.toast.is-pick{pointer-events:auto;-webkit-user-select:text;user-select:text}                /* could not copy: the address can be selected by hand */
+
+/* ---------- info panel ---------------------------------------------------- */
+.info{position:fixed;inset:0;z-index:99;pointer-events:none;visibility:hidden}
+.info.is-open{visibility:visible}
+.info-bg{position:absolute;inset:0;z-index:10;opacity:0;background:rgba(0,0,0,.5);pointer-events:auto;cursor:pointer}   /* no backdrop blur: it was re-blurred on every frame of the opening and made it feel heavy */
+.info-panel:focus,.info-panel:focus-visible{outline:none}
+.info-panel{position:relative;z-index:1000;width:100%;height:55vh;height:55svh;background:var(--sheet-bg);color:var(--sheet-fg);overflow:hidden;clip-path:inset(0% 0% 100%);pointer-events:auto;cursor:default;-webkit-user-select:text;user-select:text}
+/* the page's selection colours are the *inverse* of the page (white on the black Works page) — on the white sheet that is white on white, so a selection was there but could not be seen */
+.info-panel::selection,.info-panel ::selection{background:var(--sheet-fg);color:var(--sheet-bg)}
+.info-collection{width:100%;height:100%;padding-top:1rem;padding-bottom:1rem}
+.info-list{position:relative;width:100%;height:100%}
+.info-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--margin);row-gap:var(--margin);padding-left:var(--gutter);padding-right:var(--gutter)}
+.info-grid p{margin:0}
+.info-spacer{flex:0 0 auto;width:min(16vw,16em);aspect-ratio:3/2}
+.info-numcol{grid-column:1;display:flex;flex-direction:column;height:100%;min-height:0}
+.info-yearcol{grid-column:12/12;display:flex;flex-direction:column;height:100%;min-height:0}
+.info-col-inner{flex:1 1 0;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
+.info-numcol .info-col-inner{align-items:flex-start}
+.info-yearcol .info-col-inner{align-items:flex-end}
+.info-content{grid-column:4/span 5;position:relative;min-height:0;height:100%;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start}
+.info-top{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-1-5)}
+.info-visual{position:relative;width:min(16vw,16em);aspect-ratio:3/2;flex:0 0 auto;clip-path:inset(0% 100% 0% 0%)}
+.info-visual-card{position:absolute;inset:0;overflow:hidden;background:linear-gradient(155deg,var(--ph-a),var(--ph-b))}
+.info-visual-img{position:absolute;inset:0;overflow:hidden}
+.info-visual-img img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
+.info-visual-img img.is-loaded{opacity:1}
+.info-visual.has-img .info-visual-card{background:var(--ph-b)}
+.info-title{display:flex;flex-direction:column;max-width:14.3em}
+.info-title-row{display:block}
+.info-desc{flex:1 1 0;min-height:0;width:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start}
+.info-desc-p{width:100%;max-width:26.4em}
+.info-meta{width:max-content}
+.info-btn-m{display:none}
+.info-btn-wrap{overflow:clip}
+.info-btn-in{display:flex;flex-direction:row;align-items:center;gap:.5rem}
+.info-btn{display:block;line-height:1;padding-bottom:3px;overflow:clip;white-space:nowrap;cursor:pointer}
+.info-arrow{position:relative;display:flex;justify-content:center;align-items:flex-start;width:1rem;overflow:clip;pointer-events:none}
+.info-arrow svg{display:block;width:1rem;height:auto;flex:0 0 auto;overflow:visible}
+.info-arrow .a-main{transition:transform .5s var(--ease-out-quart)}
+.info-arrow .a-abs{position:absolute;left:0;top:0;transform:translateX(-1.1rem);transition:transform .5s var(--ease-out-quart) .1s}
+@media (hover:hover){
+  .info-btn-in:hover .a-main{transform:translateX(1.1rem)}
+  .info-btn-in:hover .a-abs{transform:none}
+  .info-btn-in:hover [data-underline]::after{transform:scaleX(1);transform-origin:left}
+}
+.info-close-wrap{position:relative;z-index:13;display:flex;justify-content:center;width:100%;pointer-events:none}
+.info-close{display:block;margin-top:.5rem;padding:.5rem 1rem;border:0;background:var(--inv-bg);color:var(--inv-fg);font-size:var(--text-small);line-height:1;text-transform:uppercase;letter-spacing:-.01em;cursor:pointer;opacity:0;pointer-events:auto}
+
+@media (max-width:767px){
+  .info-panel{height:65vh;height:65dvh}
+  .info-grid{display:block}
+  .info-numcol{position:absolute;right:var(--gutter);top:calc(var(--text-main)*7.8);height:auto}
+  .info-numcol .info-spacer,.info-numcol .info-meta,.info-yearcol .info-spacer,.info-yearcol .info-btn-wrap{display:none}
+  .info-yearcol{position:absolute;right:var(--gutter);top:calc(var(--text-main)*7.7 + 10rem + 5em);height:auto}
+  .info-content{position:absolute;left:var(--gutter);right:var(--gutter);top:calc(var(--text-main)*7.7);bottom:0;height:auto}
+  .info-visual{width:15rem;aspect-ratio:3/2}
+  .info-top{gap:1rem;width:100%}
+  .info-title-row{display:block;width:100%}
+  .info-desc{gap:2rem;justify-content:flex-end}
+  .info-btn-m{display:block;overflow:clip}
+}
+@media (max-width:479px){
+  .info-panel{height:75vh;height:75dvh}
+  .info-visual{width:13.35rem}
+  .info-yearcol{top:calc(var(--text-main)*7.7 + 8.9rem + 5em)}
+}
+
+/* ---------- mobile menu ---------------------------------------------------- */
+.m-menu{position:fixed;inset:0;z-index:99;display:none;visibility:hidden;background:var(--menu-bg);color:var(--menu-fg);clip-path:inset(0% 0% 100%)}
+.m-menu.is-open{visibility:visible}
+@media (max-width:767px){
+  .m-menu{display:block}
+  .nav-links{display:none}
+  .nav-menu-btn{display:grid;padding:0}                                /* reference: flush with the container edge */
+  .nav-inner{min-height:calc(var(--space-1)*2 + var(--text-main)*1.3)}
+}
+@media (max-width:479px){
+  .nav-inner{width:calc(100% - var(--margin)*2)}                       /* reference: .nav container = 100% − 2·margin on phones */
+  .nav-menu-btn{padding:0 5px}
+}
+.m-inner{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center}
+@media (max-width:479px){.m-inner{width:calc(100% - var(--margin)*2)}}   /* reference: .mobile_menu_container = 100% − 2·margin on phones */
+.m-links{position:relative;top:-15%;width:100%;margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.m-link{position:relative;display:flex;justify-content:space-between;align-items:center;width:100%;padding-top:1rem;padding-bottom:1rem}
+.m-link-flex{position:relative;display:flex;flex-direction:column;height:calc(var(--display)*1.14)}   /* reference: row = 1.14em of text + 2×1rem; the 1.2em line mask sits .12em higher */
+.m-text{display:block;margin-top:calc(var(--display)*-.12);font-size:var(--display);line-height:1;font-weight:500;letter-spacing:-.03em}
+.m-line{position:absolute;left:0;bottom:0;width:100%;height:2px;display:block}   /* reference: .div_line.is-mob-link = 2px under 768px */
+.m-line i{display:block;width:100%;height:100%;background:var(--menu-hair,var(--hair));transform-origin:0% 50%}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- plain black block with a very faint, slow "breathing" glow (pure CSS, see .bg-breath) -->
+<div class="bg-breath" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<!-- frosted strip behind the header: it only appears on Archive / Project once the page has been scrolled -->
+<div class="nav-veil" aria-hidden="true"></div>
+
+<!-- ======================= HEADER ======================= -->
+<header class="nav" data-nav>
+  <div class="u-container nav-inner">
+    <a class="nav-logo" href="#works" data-logo aria-label="Rafila Famedian, ©2027 Repository — home"><span>Rafila Famedian</span><span>©2027 Repository</span></a>
+
+    <!-- project pages only: back to the list the visitor came from (label + address are set in JS) -->
+    <a class="nav-back" href="#works" data-back aria-label="Back to Works"><svg class="nb-arr" viewBox="0 0 12 9" fill="none" aria-hidden="true"><path d="M6.928 8.928L5.968 8.032L8.72 5.104H0V3.808H8.72L5.968 0.88L6.928 0L11.056 4.464L6.928 8.928Z" fill="currentColor"/></svg><span data-underline data-back-label>Works</span></a>
+
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a class="nav-link is-active" href="#works" data-underline data-nav-link="works" aria-current="page"><span>Works</span></a></li>
+        <li><a class="nav-link" href="#about" data-underline data-nav-link="about"><span>About</span></a></li>
+        <li><a class="nav-link" href="#archive" data-underline data-nav-link="archive"><span>Archive</span></a></li>
+        <li><a class="nav-link" href="#contact" data-underline data-nav-link="contact"><span>Contact</span></a></li>
+      </ul>
+    </nav>
+
+    <button class="nav-menu-btn" type="button" data-menu-btn aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <span data-menu-txt>Menu</span><span data-close-txt aria-hidden="true">Close</span>
+    </button>
+  </div>
+</header>
+
+<!-- ======================= MOBILE MENU ======================= -->
+<div class="m-menu" id="menu" data-menu role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+  <div class="u-container m-inner">
+    <ul class="m-links">
+      <li><a class="m-link" href="#works" data-nav-link="works" aria-current="page">
+        <span class="m-link-flex"><span class="m-text" data-menu-text>Works</span></span>
+        <span class="m-line" aria-hidden="true"><i></i></span></a></li>
+      <li><a class="m-link" href="#about" data-nav-link="about">
+        <span class="m-link-flex"><span class="m-text" data-menu-text>About</span></span>
+        <span class="m-line" aria-hidden="true"><i></i></span></a></li>
+      <li><a class="m-link" href="#archive" data-nav-link="archive">
+        <span class="m-link-flex"><span class="m-text" data-menu-text>Archive</span></span>
+        <span class="m-line" aria-hidden="true"><i></i></span></a></li>
+      <li><a class="m-link" href="#contact" data-nav-link="contact">
+        <span class="m-link-flex"><span class="m-text" data-menu-text>Contact</span></span>
+        <span class="m-line" aria-hidden="true"><i></i></span></a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================= WORKS ======================= -->
+<main id="view-works" class="lib" data-lib>
+  <h1 class="sr-only">Works — Rafila Famedian</h1>
+
+  <!-- placeholder cards on the wheel (below the text layer) -->
+  <div class="wheel" data-wheel aria-hidden="true"></div>
+
+  <!-- number · project name · year (rows are generated from the `projects` array) -->
+  <div class="lib-gallery u-container">
+    <div class="lib-top" data-top>
+      <div class="lib-list" data-list></div>
+    </div>
+  </div>
+
+  <!-- pointer-following label -->
+  <div class="cursor" aria-hidden="true">
+    <div class="u-container"><div class="u-grid"><div class="cursor-area" data-cursor-area><div class="cursor-item" data-cursor-item>View Project</div></div></div></div>
+  </div>
+
+  <p class="sr-only" aria-live="polite" data-live></p>
+</main>
+
+<!-- ======================= ABOUT ======================= -->
+<!-- text comes from the `about` object at the bottom of the file; lines and rules animate in (see buildAbout) -->
+<main id="view-about" class="about" data-about aria-label="About — Rafila Famedian">
+  <div class="ab-contain">
+    <div class="ab-layout">
+      <div class="ab-top">
+        <h1 class="ab-h1" data-a="headline"></h1>
+      </div>
+      <div class="ab-bottom">
+        <div class="ab-text">
+          <div class="ab-para"><p class="ab-lg" data-a="body"></p></div>
+          <ul class="ab-list" data-a="list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ======================= ARCHIVE ======================= -->
+<!-- every project, newest first; rows are generated from the `projects` array (see buildArchive) -->
+<main id="view-archive" class="archive" data-archive tabindex="-1" aria-label="Archive — Rafila Famedian">
+  <div class="u-container ar-contain">
+    <header class="ar-head u-grid" data-ar-head>
+      <h1 class="ar-h1"><span class="ar-c"><span class="ar-t">Archive</span></span></h1>
+    </header>
+    <ol class="ar-list" data-ar-list></ol>
+    <footer class="ar-foot">
+      <button class="ar-top" type="button" data-underline data-ar-top>Back to top</button>
+    </footer>
+  </div>
+  <!-- hover preview (mouse only) -->
+  <div class="ar-prev" data-ar-prev aria-hidden="true"><div class="ar-prev-in" data-ar-stack></div></div>
+</main>
+
+<!-- ======================= PROJECT ======================= -->
+<!-- one case study, filled by projectRender(); it is not in the menu — Back (top bar) returns to the list it was opened from -->
+<main id="view-project" class="project" data-project tabindex="-1" aria-label="Project">
+  <div class="u-container pj">
+    <div class="pj-bar u-grid">
+      <p class="pj-index" data-pj="index"></p>
+      <nav class="pj-pager" aria-label="Projects">
+        <a class="pj-step" href="#" data-underline data-step="-1" data-pj="prev">Previous</a>
+        <a class="pj-step" href="#" data-underline data-step="1" data-pj="forward">Next</a>
+      </nav>
+    </div>
+    <h1 class="pj-title" data-pj="title"></h1>
+    <div class="pj-info u-grid">
+      <dl class="pj-meta" data-pj="meta"></dl>
+      <div class="pj-desc"><p class="pj-lead" data-pj="desc"></p></div>
+    </div>
+    <div class="pj-gallery" data-pj="gallery"></div>
+    <section class="pj-credits u-grid" data-pj="credits" aria-labelledby="pj-credits-h">
+      <h2 class="pj-ck pj-rv" id="pj-credits-h"><span>Appendix</span></h2>
+      <dl class="pj-clist" data-pj="credits-list"></dl>
+    </section>
+    <footer class="ar-foot pj-foot">
+      <button class="ar-top" type="button" data-underline data-pj="top">Back to top</button>
+    </footer>
+    <a class="pj-next" href="#" data-next data-pj="next"></a>
+  </div>
+  <!-- hover preview of the next project (mouse only) — the Archive's preview, reused -->
+  <div class="ar-prev pj-peek" data-pj-peek aria-hidden="true"><div class="ar-prev-in" data-pj-stack></div></div>
+</main>
+
+<!-- ======================= CONTACT ======================= -->
+<!-- everything comes from the `contact` object at the bottom of the file (see buildContact); pieces rise / draw in with CSS (see .contact) -->
+<main id="view-contact" class="contact" data-contact tabindex="-1" aria-label="Contact — Rafila Famedian">
+  <div class="u-container ct-contain">
+    <h1 class="sr-only">Contact — Rafila Famedian</h1>
+    <div class="ct-grid">
+      <section class="ct-main">
+        <p class="ct-k" data-ct="mailkey"></p>
+        <a class="ct-mail" data-ct="mail"></a>
+      </section>
+      <div class="ct-side">
+        <dl class="ct-list" data-ct="list"></dl>
+        <div class="ct-note" style="--d:1.15s">
+          <span class="ct-rule" aria-hidden="true"><i></i></span>
+          <p class="ct-lead" data-ct="note"></p>
+        </div>
+      </div>
+    </div>
+    <span class="ct-vline" aria-hidden="true"><i></i></span>
+    <span class="ct-hline" aria-hidden="true"><i></i></span>
+  </div>
+</main>
+
+<!-- ======================= PROJECT PANEL ======================= -->
+<div class="info" data-info aria-hidden="true">
+  <div class="info-bg" data-info-bg></div>
+  <section class="info-panel" data-info-panel tabindex="-1" role="dialog" aria-modal="true" aria-label="Project details">
+    <div class="info-collection"><div class="info-list"><div class="info-grid" data-info-grid></div></div></div>
+  </section>
+  <div class="info-close-wrap"><button class="info-close" type="button" data-info-close>Close</button></div>
+</div>
+
+<!-- a link the browser would not open (a sandboxed preview refuses the mail app / new tabs): the address is copied and said here -->
+<div class="toast" data-toast role="status" aria-live="polite" aria-atomic="true"></div>
+<script>
+/* ==========================================================================
+   APP — Works (wheel + index), About, Archive, Project, Contact and the router between them (no dependencies)
+   --------------------------------------------------------------------------
+   Reference mechanics, re-implemented with CSS transforms instead of WebGL:
+
+   • WHEEL   cards sit on a huge ring:   radius = 1.8·H,  centre = 0.1·H − radius
+             angle t = shortest(i − position)·2π/N
+             x = R·sin t,  y = cy + R·cos t,  rotation = 1.2·t,  z = cos t
+   • SLIDER  infinite · snap(10 %/frame) · lerp 0.08 s · drag 0.005 / px · wheel ×0.5·0.001
+   • REEL    only two rows exist at a time; their text lines are scrubbed
+             (−110 % · s  /  110 % · (1 − s)) by the fractional wheel position
+   • INTRO   one full revolution in 3 s, ease back.inOut(.54); cards fade in as
+             they pass 0.85 rad; text lines rise at 2.5 s; input unlocks at 4 s
+   • PANEL   backdrop .8 s · clip-path reveal 1.35 s · visual 1.3 s · lines 1.2 s
+   • ABOUT   one screen, never scrolls; type is fitted to the viewport (--k); copy lives in `const about` at the bottom
+   • ARCHIVE every project, newest first (rows → the project page) · PROJECT one case-study page, not in the menu
+   • CONTACT one screen: the address in big type, a ruled list, a note; copy lives in `const contact` at the bottom
+   • ROUTER  #works · #about · #archive · #contact · #project/<slug> — cross-fade .5 s + palette switch .6 s; Back restores where you were
+             (history entries carry their own position; see "ROUTER")
+   ========================================================================== */
+(function () {
+'use strict';
+
+/* ---------- helpers ------------------------------------------------------- */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const mod = (i, n) => ((i % n) + n) % n;
+const wrapRound = (v, n) => mod(Math.round(v), n);
+const shortest = (t, n) => { let i = t % n; if (Math.abs(i) > n / 2) i = i > 0 ? i - n : i + n; return i; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pad = n => String(n).padStart(2, '0');                              // 1 → "01"
+const mqReduce = matchMedia('(prefers-reduced-motion: reduce)');
+const mqHover = matchMedia('(hover: hover) and (pointer: fine)');
+const reduced = () => mqReduce.matches;
+
+/* yPercent-style transform (percent of the element's own height) */
+const setY = (el, pct) => { el._y = pct; el.style.transform = pct ? 'translate3d(0,' + pct.toFixed(3) + '%,0)' : ''; };
+
+/* ---------- easing -------------------------------------------------------- */
+function bezier(x1, y1, x2, y2) {
+  const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+  const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+  const X = t => ((ax * t + bx) * t + cx) * t;
+  const Y = t => ((ay * t + by) * t + cy) * t;
+  const dX = t => (3 * ax * t + 2 * bx) * t + cx;
+  return p => {
+    if (p <= 0) return 0;
+    if (p >= 1) return 1;
+    let t = p;
+    for (let i = 0; i < 8; i++) {
+      const e = X(t) - p;
+      if (Math.abs(e) < 1e-6) return Y(t);
+      const d = dX(t);
+      if (Math.abs(d) < 1e-6) break;
+      t = clamp(t - e / d, 0, 1);
+    }
+    let lo = 0, hi = 1; t = p;
+    for (let i = 0; i < 40; i++) {
+      const x = X(t);
+      if (Math.abs(x - p) < 1e-6) break;
+      if (x < p) lo = t; else hi = t;
+      t = (lo + hi) / 2;
+    }
+    return Y(t);
+  };
+}
+const E = {
+  linear: p => p,
+  sineOut: p => Math.sin(p * Math.PI / 2),
+  sineInOut: p => -(Math.cos(Math.PI * p) - 1) / 2,
+  p2In: p => p * p,
+  p2Out: p => 1 - (1 - p) * (1 - p),
+  p3Out: p => 1 - Math.pow(1 - p, 3),
+  p3InOut: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  p4InOut: p => p < .5 ? 8 * p * p * p * p : 1 - Math.pow(-2 * p + 2, 4) / 2,
+  expoInOut: p => p === 0 ? 0 : p === 1 ? 1 : p < .5 ? Math.pow(2, 20 * p - 10) / 2 : (2 - Math.pow(2, -20 * p + 10)) / 2,
+  backInOut: s => { const out = p => { p -= 1; return p * p * ((s + 1) * p + s) + 1; }; return p => p < .5 ? (1 - out(1 - p * 2)) / 2 : .5 + out((p - .5) * 2) / 2; },
+  transition: bezier(.6, .11, .18, .99),
+  heading: bezier(.3851, .0101, .0884, .9991),
+  ui: bezier(.16, 1, .3, 1),                                // the site's own curve (--ease-ui): moves at once, settles softly
+  sheetOut: bezier(.5, 0, .1, 1)                            // the Works panel closing
+};
+E.spin = E.backInOut(.54);
+
+/* ---------- tiny tween engine + single render loop ------------------------- */
+const app = { projects: [], all: [], archive: [], bySlug: new Map(), inWorks: new Set(), N: 0, slider: null, wheel: null, reel: null, cards: [], rows: [], paused: true, active: -1, view: 'works', entry: 0, depth: 0, blocked: () => true };
+const tweens = new Set();
+let raf = 0, lastT = 0, oopsN = 0;
+const oops = e => { if (oopsN++ < 6) { try { console.error(e); } catch (x) {} } };       // reported, never thrown: a render loop that dies leaves the page frozen
+const safe = (fn, a) => { try { return fn(a); } catch (e) { oops(e); return false; } };
+
+function wake() { if (!raf) { lastT = performance.now(); raf = requestAnimationFrame(frame); } }
+
+function tween(o) {
+  const t = {
+    start: performance.now() + (o.delay || 0) * 1000, dur: Math.max(1, (o.dur || 0) * 1000),
+    ease: o.ease || E.linear, run: o.run, done: o.done, from: o.from == null ? 0 : o.from, to: o.to == null ? 1 : o.to, dead: false
+  };
+  tweens.add(t);
+  wake();
+  return { kill() { t.dead = true; tweens.delete(t); } };
+}
+const killAll = list => { list.forEach(h => h && h.kill()); list.length = 0; };
+
+function frame(now) {
+  raf = 0;
+  const dt = Math.max(0, Math.min(.1, (now - lastT) / 1000));
+  lastT = now;
+  let busy = false;
+  tweens.forEach(t => {
+    if (t.dead) { tweens.delete(t); return; }
+    if (now < t.start) { busy = true; return; }
+    const p = Math.min(1, (now - t.start) / t.dur);
+    let failed = false;
+    try { t.run(t.from + (t.to - t.from) * t.ease(p)); } catch (e) { oops(e); failed = true; }
+    if (p >= 1 || failed) { tweens.delete(t); if (t.done) { try { t.done(); } catch (e) { oops(e); } } } else busy = true;
+  });
+  if (app.slider && app.wheel) busy = safe(tick, dt) || busy;
+  if (app.view === 'about') busy = safe(abTick, dt) || busy;
+  if (app.view === 'archive') busy = safe(arTick, dt) || busy;
+  if (app.view === 'project') busy = safe(pkTick, dt) || busy;
+  if (busy) raf = requestAnimationFrame(frame);
+}
+
+/* ---------- line splitting (masked lines, like the reference's SplitText) --- */
+function splitLines(el) {
+  const text = el.dataset.text != null ? el.dataset.text : el.textContent.trim();
+  el.dataset.text = text;
+  const words = text.split(/\s+/).filter(Boolean);
+  el.textContent = '';
+  const spans = words.map((w, i) => {
+    const s = document.createElement('span');
+    s.style.display = 'inline-block';
+    s.style.textIndent = '0';                                            // (a px indent is inherited by every word box; the headline's first-line indent is one)
+    s.textContent = w;
+    el.appendChild(s);
+    if (i < words.length - 1) el.appendChild(document.createTextNode(' '));
+    return s;
+  });
+  const groups = [];
+  let top = null;
+  spans.forEach(s => {
+    const t = s.offsetTop;
+    if (top === null || Math.abs(t - top) > 2) { groups.push([]); top = t; }
+    groups[groups.length - 1].push(s.textContent);
+  });
+  el.textContent = '';
+  return groups.map(g => {
+    const mask = document.createElement('span');
+    mask.className = 'ln-mask';
+    mask.setAttribute('aria-hidden', 'true');
+    const ln = document.createElement('span');
+    ln.className = 'ln';
+    ln.textContent = g.join(' ');
+    mask.appendChild(ln);
+    el.appendChild(mask);
+    return ln;
+  });
+}
+
+/* ==========================================================================
+   SLIDER — infinite, snapping, inertial
+   ========================================================================== */
+class Slider {
+  constructor() {
+    this.current = 0; this.target = 0;
+    this.dragging = false; this.snap = true; this.locked = true;
+    this.lastWheel = 0; this.g = { n: 0, sum: 0, start: 0, assisted: false, timer: 0 };
+  }
+  get moving() {
+    return this.dragging || Math.abs(this.target - this.current) > 1e-4 || Math.abs(this.target - Math.round(this.target)) > 1e-4;
+  }
+  update(dt) {
+    if (this.snap && !this.dragging) this.target += (Math.round(this.target) - this.target) * (1 - Math.pow(1 - .1, dt * 60));
+    this.current += (this.target - this.current) * (1 - Math.exp(-dt / .08));
+    if (!this.dragging && Math.abs(this.target - this.current) < 1e-4 && Math.abs(this.target - Math.round(this.target)) < 1e-4) {
+      this.target = this.current = Math.round(this.target);
+    }
+  }
+  step(dir) { this.target = Math.round(this.target) - dir; wake(); }
+
+  /* wheel / trackpad — same maths as the reference (virtual-scroll ×0.5, ×0.001) */
+  onWheel(e) {
+    const wx = e.wheelDeltaX, wy = e.wheelDeltaY;
+    let dx = wx ? wx : -e.deltaX, dy = wy ? wy : -e.deltaY;
+    if (!wx && !wy && e.deltaMode === 1) { dx *= 30; dy *= 30; }
+    dx *= .5; dy *= .5;
+    const v = (Math.abs(dx) > Math.abs(dy) ? dx : dy) * .001;
+    if (!v) return;
+    const now = performance.now(), g = this.g;
+    if (now - this.lastWheel > 150) { g.n = 0; g.sum = 0; g.assisted = false; g.start = Math.round(this.target); }
+    const isolated = now - this.lastWheel > 35 && Math.abs(v) >= .04;   // a single mouse-wheel notch
+    this.lastWheel = now; g.n++; g.sum += v;
+    if (isolated) { this.target = Math.round(this.target) + (v > 0 ? 1 : -1); g.assisted = true; }
+    else this.target += v;
+    clearTimeout(g.timer);
+    g.timer = setTimeout(() => {                                        // tiny gesture that would just spring back → commit one step
+      if (!g.assisted && Math.abs(g.sum) >= .012 && Math.round(this.target) === g.start) this.target = g.start + (g.sum > 0 ? 1 : -1);
+      wake();
+    }, 150);
+    wake();
+  }
+}
+
+/* ==========================================================================
+   WHEEL — cards on a giant ring
+   ========================================================================== */
+class Wheel {
+  constructor(cards) { this.cards = cards; this.N = cards.length; this.pull = 0; this.measure(); }
+  measure() {
+    this.W = innerWidth; this.H = innerHeight;
+    this.R = 1.8 * this.H; this.step = 2 * Math.PI / this.N;
+    this.cw = Math.min(.45 * this.H, .72 * this.W); this.ch = this.cw / 1.5;            // landscape 3:2
+    this.cy = this.H / 2 - (.225 * this.H + this.ch / 2) - this.R;                     // active card: top edge at 22.5% of the height
+    this.cards.forEach(c => { c.style.width = this.cw + 'px'; c.style.height = this.ch + 'px'; c._vis = null; c._blur = null; c._parked = false; });
+  }
+  update(e, target, current, dt) {
+    const s = clamp(-(target - current), -1.2, 1.2);
+    this.pull += (1 - Math.pow(1 - .15, dt * 60)) * (s - this.pull);
+    if (Math.abs(this.pull) < 1e-3) this.pull = 0;
+    const { W, H, R, cy, step, cw, ch, N } = this;
+    const blur = Math.abs(this.pull) > .02 && !reduced() ? (Math.abs(this.pull) * 2.4).toFixed(2) : '0';
+    for (let i = 0; i < N; i++) {
+      const t = shortest(i - e, N) * step;
+      const px = W / 2 + R * Math.sin(t), py = H / 2 - (cy + R * Math.cos(t));
+      const c = this.cards[i];
+      const ca = Math.abs(Math.cos(1.2 * t)), sa = Math.abs(Math.sin(1.2 * t));
+      const hw = (cw * ca + ch * sa) / 2, hh = (cw * sa + ch * ca) / 2;          // half-size of the rotated card
+      const vis = px + hw > 0 && px - hw < W && py + hh > 0 && py - hh < H;
+      const near = px + hw > -W && px - hw < 2 * W && py + hh > -H && py - hh < 2 * H;   // within one screen of the viewport
+      if (vis !== c._vis) { c._vis = vis; c.style.visibility = vis ? 'visible' : 'hidden'; }
+      if (!near) { if (!c._parked) { c._parked = true; c.style.transform = 'translate3d(-9999px,-9999px,0)'; } continue; }
+      c._parked = false;
+      c.style.transform = 'translate3d(' + (px - cw / 2).toFixed(2) + 'px,' + (py - ch / 2).toFixed(2) + 'px,0) rotate(' + (1.2 * t).toFixed(5) + 'rad)';
+      c.style.zIndex = Math.round(100 * Math.cos(t)) + 100;
+      if (blur !== c._blur) { c._blur = blur; c.style.filter = blur === '0' ? '' : 'blur(' + blur + 'px)'; }
+    }
+  }
+}
+
+/* ==========================================================================
+   REEL — text rows scrubbed by the wheel position
+   ========================================================================== */
+class Reel {
+  constructor(rows) { this.rows = rows; this.lines = rows.map(() => []); this.shown = rows.map(() => false); }
+  split() {
+    this.rows.forEach((row, i) => {
+      row.style.display = 'grid'; row.style.visibility = 'hidden';
+      this.lines[i] = $$('[data-split]', row).flatMap(splitLines);
+      row.style.display = ''; row.style.visibility = '';
+    });
+    this.shown.fill(false);
+    this.rows.forEach(r => r.classList.remove('is-shown'));              // …and so does the DOM: a stale class here left the old rows' text stuck over the headline after coming back to Works
+  }
+  _show(i, on) {
+    if (this.shown[i] === on) return;
+    this.shown[i] = on;
+    this.rows[i].classList.toggle('is-shown', on);
+  }
+  scrub(n) {
+    const N = this.rows.length;
+    if (reduced()) {
+      const a = wrapRound(n, N);
+      for (let i = 0; i < N; i++) this._show(i, i === a);
+      this.lines[a].forEach(l => setY(l, 0));
+      return;
+    }
+    const r = Math.floor(n), s = n - r, a = mod(r, N), o = mod(r + 1, N);
+    for (let i = 0; i < N; i++) this._show(i, i === a || i === o);
+    this.lines[a].forEach(l => setY(l, -110 * s));
+    if (o !== a) this.lines[o].forEach(l => setY(l, 110 * (1 - s)));
+  }
+}
+
+/* ==========================================================================
+   frame tick — slider → wheel → reel
+   ========================================================================== */
+function tick(dt) {
+  const { slider, wheel, reel } = app;
+  slider.update(dt);
+  const e = -slider.current;
+  if (!app.paused) reel.scrub(e);
+  wheel.update(e, slider.target, slider.current, dt);
+  const idx = wrapRound(e, app.N);
+  if (idx !== app.active && !app.paused) setActive(idx);
+  return slider.moving || wheel.pull !== 0;
+}
+
+function setActive(idx) {
+  app.active = idx;
+  app.rows.forEach((r, i) => { const t = $('.lib-title', r); t.tabIndex = i === idx ? 0 : -1; if (i === idx) t.setAttribute('aria-label', 'Open project: ' + app.projects[i].name); });
+  const p = app.projects[idx];
+  $('[data-live]').textContent = pad(idx + 1) + ' of ' + pad(app.N) + ': ' + p.name + ', ' + p.year;
+}
+
+/* ==========================================================================
+   BUILD
+   ========================================================================== */
+function buildRows(P) {
+  const list = $('[data-list]');
+  const frag = document.createDocumentFragment();
+  P.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'lib-row u-grid';
+    row.dataset.index = i;
+    row.innerHTML =
+      '<div class="lib-num"><p class="t-h2" data-split>' + pad(i + 1) + '</p></div>' +
+      '<div class="lib-title" role="button" tabindex="-1" data-open><p class="t-h2" data-split>' + esc(p.name) + '</p></div>' +
+      '<div class="lib-year"><p class="t-h2" data-split>' + esc(p.year) + '</p></div>';
+    frag.appendChild(row);
+    app.rows.push(row);
+  });
+  list.appendChild(frag);
+}
+
+function buildCards(P) {
+  const host = $('[data-wheel]');
+  P.forEach((p, i) => {
+    const c = document.createElement('div');
+    c.className = 'card';
+    c.innerHTML = '<div class="card-img"></div>';
+    if (p.image) { c.classList.add('has-img'); loadImg($('.card-img', c), p.image, p.name); }
+    host.appendChild(c);
+    app.cards.push(c);
+  });
+}
+
+/* lazy image with fade-in (used as soon as a project gets an `image`) */
+function loadImg(host, src, alt) {
+  const img = new Image();
+  img.loading = 'lazy'; img.decoding = 'async'; img.alt = alt || '';
+  img.addEventListener('load', () => img.classList.add('is-loaded'));
+  img.src = src;
+  host.appendChild(img);
+  if (img.complete && img.naturalWidth) img.classList.add('is-loaded');
+}
+
+/* ==========================================================================
+   INTRO
+   ========================================================================== */
+const intro = { tw: [] };                                   // the intro's tweens, so a second run (coming back from About) can cancel the first
+function runIntro() {
+  const { slider, wheel, reel, cards, N } = app;
+  const T = intro.tw;
+  killAll(T);
+  document.documentElement.classList.add('is-ready');
+
+  if (reduced()) {
+    cards.forEach(c => { c.style.opacity = 1; });
+    slider.locked = false; slider.snap = true; app.paused = false;
+    reel.scrub(0); setActive(0); wake();
+    return;
+  }
+
+  slider.locked = true; slider.snap = false; app.paused = true;
+  const first = () => reel.lines[0];
+  const spin = { p: -N };
+  const set = () => { slider.current = slider.target = -spin.p; };
+  set();
+  reel.scrub(0);
+  first().forEach(l => setY(l, 100));
+  cards.forEach(c => { c.style.opacity = 0; });
+
+  const faded = new Set();
+  let prev = null;
+  const fadeIn = i => { faded.add(i); T.push(tween({ dur: .4, ease: E.sineInOut, run: v => { cards[i].style.opacity = v; } })); };
+  const check = e => {
+    const ang = cards.map((_, i) => shortest(i - e, N) * wheel.step);
+    if (prev) for (let i = 0; i < N; i++) if (!faded.has(i) && prev[i] > .85 && ang[i] <= .85 && prev[i] - ang[i] < 1) fadeIn(i);
+    prev = ang;
+  };
+
+  T.push(tween({ from: -N, to: 0, dur: 3, ease: E.spin, run: v => { spin.p = v; set(); check(-slider.current); }, done: () => { spin.p = 0; set(); } }));
+  T.push(tween({ delay: 3, dur: .001, run: () => {}, done: () => { for (let i = 0; i < N; i++) if (!faded.has(i)) fadeIn(i); } }));
+
+  first().forEach((l, k) => T.push(tween({ delay: 2.5 + k * .0475, dur: 1.25, ease: E.p3Out, run: v => setY(l, 100 * (1 - v)) })));
+
+  T.push(tween({ delay: 4, dur: .001, run: () => {}, done: () => { slider.snap = true; slider.locked = false; app.paused = false; if (app.resplit) app.resplit(); setActive(wrapRound(-slider.current, N)); wake(); } }));
+}
+
+/* ==========================================================================
+   INPUT — drag · wheel · keys · click
+   ========================================================================== */
+function initInput() {
+  const root = $('[data-lib]');
+  const { slider } = app;
+  let drag = null, suppress = 0;
+
+  root.addEventListener('pointerdown', e => {
+    if (app.blocked() || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, t: slider.target, moved: false };
+  }, { passive: true });
+
+  window.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.hypot(dx, e.clientY - drag.y) < 5) return;
+      drag.moved = true; slider.dragging = true; root.classList.add('is-dragging');
+    }
+    slider.target = drag.t + dx * .005;
+    wake();
+  }, { passive: true });
+
+  const end = e => {
+    if (!drag || (e && e.pointerId !== drag.id)) return;
+    if (drag.moved) suppress = performance.now() + 60;
+    drag = null; slider.dragging = false; root.classList.remove('is-dragging');
+    wake();
+  };
+  window.addEventListener('pointerup', end);
+  window.addEventListener('pointercancel', end);
+
+  window.addEventListener('wheel', e => {
+    if (e.ctrlKey) return;                      // browser zoom
+    if (app.view === 'about') { if (!ab.scroll) e.preventDefault(); return; }   // About: no scroll (unless the screen is too small to fit it)
+    if (app.view !== 'works') return;           // Archive, Project and Contact scroll natively
+    e.preventDefault();                         // no history-swipe / rubber-band
+    if (app.blocked()) return;
+    slider.onWheel(e);
+  }, { passive: false });
+
+  /* the "View Project" label promises a click anywhere inside its area, not only on the title text */
+  const area = $('[data-cursor-area]');
+  const inArea = e => {
+    if (!area || !mqHover.matches || (e.pointerType && e.pointerType !== 'mouse')) return false;
+    const r = area.getBoundingClientRect();
+    return r.width > 0 && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+  };
+  root.addEventListener('click', e => {
+    if (performance.now() < suppress || app.blocked()) return;
+    if (!e.target.closest('[data-open]') && !inArea(e)) return;
+    openInfo(wrapRound(-slider.current, app.N));
+  });
+
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (menu.open) { closeMenu(); e.preventDefault(); }
+      else if (info.state === 'open' || info.state === 'opening') { closeInfo(); e.preventDefault(); }
+      else if (app.view === 'project' && !tr.busy) { goBack(); e.preventDefault(); }
+      return;
+    }
+    if (e.key === 'Tab' && info.state !== 'closed') { trapFocus(e); return; }
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (app.view === 'project') {
+      if (e.key === 'ArrowRight') { e.preventDefault(); if (!e.repeat) projectStep(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); if (!e.repeat) projectStep(-1); }
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.matches('.lib-title') && !app.blocked()) {
+      e.preventDefault(); openInfo(wrapRound(-slider.current, app.N)); return;
+    }
+    if (app.blocked()) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); slider.step(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); slider.step(-1); }
+  });
+}
+
+/* ==========================================================================
+   POINTER LABEL — follows the cursor over the title area ("quickTo" .6 s power3.out)
+   ========================================================================== */
+function initCursor() {
+  const area = $('[data-cursor-area]'), item = $('[data-cursor-item]');
+  if (!area || !item) return;
+  let inside = false, placed = false, opv = 0, fade = null, tx = null, ty = null;
+  const pos = { x: 0, y: 0 };
+  const render = () => { item.style.transform = 'translate3d(' + pos.x.toFixed(1) + 'px,' + pos.y.toFixed(1) + 'px,0) translate(-50%,-50%)'; };
+  const show = on => {
+    if (fade) fade.kill();
+    fade = tween({ from: opv, to: on ? 1 : 0, dur: .4, ease: E.p2Out, run: v => { opv = v; item.style.opacity = v; item.style.visibility = v > 0 ? 'visible' : 'hidden'; } });
+  };
+  const leave = () => { if (inside) { inside = false; show(false); } };
+  window.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' || !mqHover.matches || app.blocked() || app.paused) { leave(); return; }
+    const r = area.getBoundingClientRect();
+    const hit = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+    if (hit !== inside) {
+      inside = hit;
+      if (hit && (!placed || reduced())) {
+        pos.x = reduced() ? r.width / 2 : e.clientX - r.left; pos.y = reduced() ? r.height / 2 : e.clientY - r.top;
+        placed = true; render();
+      }
+      show(hit);
+    }
+    if (hit && !reduced()) {
+      if (tx) tx.kill(); if (ty) ty.kill();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      tx = tween({ from: pos.x, to: x, dur: .6, ease: E.p3Out, run: v => { pos.x = v; render(); } });
+      ty = tween({ from: pos.y, to: y, dur: .6, ease: E.p3Out, run: v => { pos.y = v; render(); } });
+    }
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', leave);
+  app.hideCursor = leave;
+}
+
+/* ==========================================================================
+   PROJECT PANEL
+   ========================================================================== */
+const info = { state: 'closed', index: 0, tw: [], bg: 0, clip: 0, visual: 0, trigger: null, after: null };
+let viaKeyboard = false;
+addEventListener('keydown', () => { viaKeyboard = true; }, true);
+addEventListener('pointerdown', () => { viaKeyboard = false; }, true);
+const ARROW = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 9" fill="none" aria-hidden="true"><path d="M6.928 8.928L5.968 8.032L8.72 5.104H0V3.808H8.72L5.968 0.88L6.928 0L11.056 4.464L6.928 8.928Z" fill="currentColor"/></svg>';
+let infoEl, infoBg, infoPanel, infoGrid, infoClose, mainEl;
+
+function fillInfo(i) {
+  const p = app.projects[i];
+  const sub = p.category || '';
+  const link =
+    '<a class="info-btn-in" href="' + esc(pjHref(p)) + '" data-info-link>' +
+      '<span class="info-btn" data-underline>View</span>' +
+      '<span class="info-arrow" aria-hidden="true">' + ARROW.replace('<svg', '<svg class="a-main"') + ARROW.replace('<svg', '<svg class="a-abs"') + '</span>' +
+    '</a>';
+  infoGrid.innerHTML =
+    '<div class="info-numcol">' +
+      '<div class="info-spacer" aria-hidden="true"></div>' +
+      '<div class="info-col-inner">' +
+        '<p class="t-main info-num" data-reveal="b">' + pad(i + 1) + '</p>' +
+        '<p class="t-main info-meta" data-reveal="b">' + (p.role ? '(' + esc(p.role) + ')' : '') + '</p>' +
+      '</div>' +
+    '</div>' +
+    '<div class="info-content">' +
+      '<div class="info-top">' +
+        '<div class="info-visual" data-visual><div class="info-visual-card"><div class="info-visual-img"></div></div></div>' +
+        '<div class="info-title-row">' +
+          '<div class="info-title">' +
+            '<p class="t-main" data-reveal="a">' + esc(p.name) + '</p>' +
+            '<p class="t-main" data-reveal="a">' + esc(sub) + '</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="info-desc">' +
+        '<p class="t-main info-desc-p" data-reveal="a">' + esc(p.description || '') + '</p>' +
+        '<div class="info-btn-wrap info-btn-m" data-reveal-btn>' + link + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="info-yearcol">' +
+      '<div class="info-spacer" aria-hidden="true"></div>' +
+      '<div class="info-col-inner">' +
+        '<p class="t-main info-year" data-reveal="b">(' + esc(p.year) + ')</p>' +
+        '<div class="info-btn-wrap" data-reveal-btn>' + link + '</div>' +
+      '</div>' +
+    '</div>';
+  if (p.image) { $('.info-visual', infoGrid).classList.add('has-img'); loadImg($('.info-visual-img', infoGrid), p.image, p.name); }
+  infoGrid.setAttribute('aria-label', p.name);
+  $$('[data-info-link]', infoGrid).forEach(a => a.addEventListener('click', ev => {
+    if (modified(ev)) return;                                  // "open in a new tab" goes straight to the browser
+    ev.preventDefault();
+    openProject(p.slug, 'works', { i });                       // the panel fades out together with Works; Back returns here, panel closed
+  }));
+}
+
+const setBg = v => { info.bg = v; infoBg.style.opacity = v; };
+const setClip = v => { info.clip = v; infoPanel.style.clipPath = 'inset(0% 0% ' + ((1 - v) * 100).toFixed(3) + '%)'; };
+const setVisual = v => { info.visual = v; const el = $('[data-visual]', infoGrid); if (el) el.style.clipPath = 'inset(0% ' + ((1 - v) * 100).toFixed(3) + '% 0% 0%)'; };
+
+function openInfo(i) {
+  if (info.state === 'opening' || info.state === 'open') return;
+  killAll(info.tw);
+  if (app.hideCursor) app.hideCursor();
+  info.index = i; info.trigger = document.activeElement;
+  fillInfo(i);
+  info.state = 'opening';
+  infoEl.classList.add('is-open'); infoEl.setAttribute('aria-hidden', 'false');
+  document.documentElement.classList.add('is-sheet');          // pauses the background breathing while the sheet covers the page
+  mainEl.inert = true;
+
+  const A = [], B = [];
+  $$('[data-reveal="a"]', infoGrid).forEach(el => A.push(...splitLines(el)));
+  $$('[data-reveal="b"]', infoGrid).forEach(el => B.push(...splitLines(el)));
+  $$('[data-reveal-btn] .info-btn-in', infoGrid).forEach(el => B.push(el));
+  const vis = B.filter(el => el.offsetParent !== null);
+
+  infoClose.style.opacity = 0;
+  (viaKeyboard ? infoClose : infoPanel).focus({ preventScroll: true });
+
+  if (reduced()) {
+    setBg(1); setClip(1); setVisual(1); infoClose.style.opacity = 1;
+    A.forEach(l => setY(l, 0)); B.forEach(l => setY(l, 0));
+    info.state = 'open';
+    return;
+  }
+
+  setBg(0); setClip(0); setVisual(0);
+  A.forEach(l => setY(l, 110)); B.forEach(l => setY(l, 125));
+
+  /* everything starts at once and overlaps: the sheet drops open, the cover and the lines follow right behind it */
+  const T = info.tw;
+  T.push(tween({ dur: .5, ease: E.sineOut, run: setBg }));
+  T.push(tween({ dur: .95, ease: E.ui, run: setClip }));
+  T.push(tween({ delay: .1, dur: .95, ease: E.ui, run: setVisual }));
+  A.forEach((l, k) => T.push(tween({ delay: .2 + k * .04, dur: .95, ease: E.ui, run: v => setY(l, 110 * (1 - v)) })));
+  vis.forEach((l, k) => T.push(tween({ delay: .3 + (vis.length > 1 ? k * (.08 / (vis.length - 1)) : 0), dur: .85, ease: E.ui, run: v => setY(l, 125 * (1 - v)) })));
+  T.push(tween({ delay: .3, dur: .65, ease: E.p3Out, run: v => { infoClose.style.opacity = v; }, done: () => { if (info.state === 'opening') info.state = 'open'; } }));
+}
+
+/* back to "closed" without any animation (a page change that fades the panel out together with its page ends here) */
+function resetInfo() {
+  killAll(info.tw);
+  setBg(0); setClip(0); infoClose.style.opacity = 0;
+  infoEl.classList.remove('is-open'); infoEl.setAttribute('aria-hidden', 'true');
+  document.documentElement.classList.remove('is-sheet');
+  mainEl.inert = false;
+  infoGrid.innerHTML = '';
+  info.state = 'closed'; info.trigger = null; info.after = null;
+}
+
+function closeInfo(fast) {
+  if (info.state === 'closed' || info.state === 'closing') return;
+  killAll(info.tw);
+  info.state = 'closing';
+  const finish = () => {
+    infoEl.classList.remove('is-open'); infoEl.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('is-sheet');
+    mainEl.inert = false;
+    infoGrid.innerHTML = '';
+    info.state = 'closed';
+    const t = info.trigger && document.contains(info.trigger) ? info.trigger : $('.lib-title[tabindex="0"]');
+    if (t) t.focus({ preventScroll: true });
+    wake();
+    if (info.after) { const f = info.after; info.after = null; f(); }       // e.g. the page change that was waiting for the panel
+  };
+  if (reduced()) { setBg(0); setClip(0); infoClose.style.opacity = 0; finish(); return; }
+  const T = info.tw, c0 = parseFloat(infoClose.style.opacity) || 0, k0 = info.clip, b0 = info.bg;
+  const dur = fast ? .4 : .6;
+  T.push(tween({ from: c0, to: 0, dur: .25, ease: E.p2Out, run: v => { infoClose.style.opacity = v; } }));
+  T.push(tween({ from: k0, to: 0, dur, ease: E.sheetOut, run: setClip }));
+  T.push(tween({ from: b0, to: 0, delay: .1, dur: .4, ease: E.p2Out, run: setBg }));
+  T.push(tween({ delay: Math.max(dur, .5), dur: .001, run: () => {}, done: finish }));
+}
+
+function trapFocus(e) {
+  const f = [infoClose, ...$$('[data-info-link]', infoGrid).filter(a => a.offsetParent !== null)];
+  const i = f.indexOf(document.activeElement);
+  if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+  else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+  else if (i === -1) { e.preventDefault(); f[0].focus(); }
+}
+
+function initInfo() {
+  infoEl = $('[data-info]'); infoBg = $('[data-info-bg]'); infoPanel = $('[data-info-panel]');
+  infoGrid = $('[data-info-grid]'); infoClose = $('[data-info-close]'); mainEl = $('[data-lib]');
+  infoClose.addEventListener('click', () => closeInfo());
+  infoBg.addEventListener('click', () => closeInfo());
+}
+
+/* ==========================================================================
+   MOBILE MENU
+   ========================================================================== */
+const menu = { open: false, tw: [], clip: 0, sw: 0, timer: 0, lines: [], rules: [] };
+function initMenu() {
+  const btn = $('[data-menu-btn]'), el = $('[data-menu]');
+  const tMenu = $('[data-menu-txt]', btn), tClose = $('[data-close-txt]', btn);
+  menu.lines = $$('[data-menu-text]', el).flatMap(splitLines);
+  menu.lines.forEach(l => setY(l, 115));
+  menu.rules = $$('.m-line i', el);
+  menu.rules.forEach(r => { r.style.transform = 'scaleX(0)'; });
+
+  /* while the menu closes over a page that is changing palette, keep the menu's own colours (so it does not flash) */
+  const FROZEN = ['--menu-bg', '--menu-fg', '--menu-hair'];
+  const freeze = () => {
+    const cs = getComputedStyle(el), ln = $('.m-line i', el);
+    el.style.setProperty('--menu-bg', cs.backgroundColor);
+    el.style.setProperty('--menu-fg', cs.color);
+    if (ln) el.style.setProperty('--menu-hair', getComputedStyle(ln).backgroundColor);
+  };
+  const thaw = () => FROZEN.forEach(p => el.style.removeProperty(p));
+
+  const setClip = v => { menu.clip = v; el.style.clipPath = 'inset(0% 0% ' + ((1 - v) * 100).toFixed(3) + '%)'; };
+  const setSwap = v => { menu.sw = v; tMenu.style.transform = 'translateY(calc(' + (-100 * v).toFixed(3) + '% + ' + (-2 * v).toFixed(3) + 'px))'; tClose.style.transform = 'translateY(calc(' + (100 * (1 - v)).toFixed(3) + '% + ' + (2 * (1 - v)).toFixed(3) + 'px))'; };   // 2px extra: a parked label never peeks through a fractional clip edge
+  const setRule = (r, v) => { r._s = v; r.style.transform = 'scaleX(' + v.toFixed(4) + ')'; };
+
+  window.openMenu = () => {
+    if (menu.open) return;
+    menu.open = true; killAll(menu.tw); clearTimeout(menu.timer);
+    thaw();
+    if (app.hideCursor) app.hideCursor();
+    el.classList.add('is-open'); el.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('is-menu');
+    btn.setAttribute('aria-expanded', 'true'); btn.setAttribute('aria-label', 'Close menu');
+    if (reduced()) { setClip(1); setSwap(1); menu.lines.forEach(l => setY(l, 0)); menu.rules.forEach(r => setRule(r, 1)); return; }
+    const T = menu.tw;
+    T.push(tween({ from: menu.sw, to: 1, dur: .4, ease: E.transition, run: setSwap }));
+    T.push(tween({ from: menu.clip, to: 1, dur: .8, ease: E.transition, run: setClip }));
+    menu.lines.forEach((l, k) => T.push(tween({ from: l._y == null ? 115 : l._y, to: 0, delay: .4 + k * .09, dur: 1, ease: E.heading, run: v => setY(l, v) })));
+    menu.rules.forEach((r, k) => T.push(tween({ from: r._s || 0, to: 1, delay: .6 + k * .1, dur: 1, ease: E.p4InOut, run: v => setRule(r, v) })));
+  };
+  window.closeMenu = () => {
+    if (!menu.open) return;
+    menu.open = false; killAll(menu.tw); clearTimeout(menu.timer);
+    freeze();
+    btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-label', 'Open menu');
+    const done = () => {
+      el.classList.remove('is-open'); el.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('is-menu');
+      menu.lines.forEach(l => setY(l, 115)); menu.rules.forEach(r => setRule(r, 0));
+      thaw();
+      btn.focus({ preventScroll: true });
+    };
+    if (reduced()) { setClip(0); setSwap(0); done(); return; }
+    const T = menu.tw;
+    T.push(tween({ from: menu.sw, to: 0, dur: .4, ease: E.transition, run: setSwap }));
+    T.push(tween({ from: menu.clip, to: 0, dur: .5, ease: E.transition, run: setClip, done }));
+    menu.lines.forEach(l => T.push(tween({ from: l._y || 0, to: 115, dur: .35, ease: E.p2In, run: v => setY(l, v) })));
+  };
+  btn.addEventListener('click', () => (menu.open ? window.closeMenu() : window.openMenu()));
+  matchMedia('(max-width: 767px)').addEventListener('change', m => { if (!m.matches && menu.open) { window.closeMenu(); } });
+}
+
+/* ==========================================================================
+   ABOUT — one static screen, no scroll
+   --------------------------------------------------------------------------
+   The reference draws its text in WebGL; here it is DOM text with the same timing:
+   • every text line sits in a mask and rises from below   1.35 s · power3.out · .045 s apart, from .6 s
+   • the four rules wipe in, left → right                   1.6 s · power3.inOut · .08 s apart, from .6 s
+   (the headline letters also react to the cursor — see "ABOUT · headline letters" below)
+   fitAbout() makes sure the whole screen stays inside the viewport: if the reference
+   sizes would overflow (short laptop windows, phones held sideways) it scales the type,
+   paddings and gaps by --k (down to .5) and, only as a last resort, lets the screen scroll.
+   ========================================================================== */
+const ab = { el: null, lines: [], rules: [], tw: [], scroll: false, k: 1, lead: '', leadEm: 0, baseFs: 0 };
+const AB_FLOOR = .5;
+const AB_LEAD_FLOOR = .72;                                               // the headline's first sentence stays on one line unless that would shrink the headline below this fraction
+
+/* a text line group = visible split text (aria-hidden) + a screen-reader copy */
+const abText = (text, a11y) =>
+  (a11y ? '<span class="sr-only">' + esc(text) + '</span>' : '') +
+  '<span class="ab-split" data-a-split aria-hidden="true">' + esc(text) + '</span>';
+
+function buildAbout(c) {
+  const el = ab.el = $('[data-about]');
+  $('[data-a="headline"]', el).innerHTML = abText(c.headline, true);
+  const first = /^.*?[.!?](?=\s|$)/.exec(String(c.headline || ''));       // its first sentence — kept on one line (see abLead)
+  ab.lead = first && first[0].length < String(c.headline).length ? first[0] : '';
+  $('[data-a="body"]', el).innerHTML = abText(c.body, true);
+  $('[data-a="list"]', el).innerHTML = c.services.map((name, i) =>
+    '<li class="ab-item">' +
+      '<div class="ab-num"><p class="ab-tx" aria-hidden="true">' + abText('(' + (i + 1) + ')', false) + '</p></div>' +
+      '<div class="ab-title"><p class="ab-tx">' + abText(name, true) + '</p></div>' +
+      '<span class="ab-rule" aria-hidden="true"><i></i></span>' +
+    '</li>').join('');
+  ab.rules = $$('.ab-rule i', el);
+}
+
+const interReady = () => !document.fonts || !document.fonts.check || document.fonts.check('500 20px Inter');
+const abRule = (r, v) => { r.style.transform = v >= 1 ? 'none' : 'scaleX(' + v.toFixed(4) + ')'; };   // finished = no transform: a transformed hairline sits on its own layer and comes out soft / uneven on fractional screen scales
+const abReveal = () => { ab.lines.forEach(l => setY(l, 0)); ab.rules.forEach(r => abRule(r, 1)); };
+const abHide = () => { ab.lines.forEach(l => setY(l, 125)); ab.rules.forEach(r => abRule(r, 0)); };
+
+/* split every text into masked lines (text is rebuilt from its stored plain copy each time) */
+function abSplit() {
+  ab.lines = [];
+  $$('[data-a-split]', ab.el).forEach(t => ab.lines.push(...splitLines(t)));
+}
+
+/* the width of the headline's first sentence in ems (measured on a hidden copy, so it follows the font that actually loaded) */
+function abLeadEm() {
+  if (!ab.lead) return 0;
+  const h1 = $('.ab-h1', ab.el), m = document.createElement('span');
+  m.className = 'ab-measure'; m.textContent = ab.lead;
+  h1.appendChild(m);
+  const w = m.getBoundingClientRect().width / 100;                       // .ab-measure is set in 100px
+  m.remove();
+  return w;
+}
+
+/* the first sentence on one line: the headline scales down a little (--kh) and whatever room is left becomes the first
+   line's indent (--ab-ind, at least 2 em). Too narrow for that (phones): the sentence wraps like any other text.
+   Leaves the headline split. */
+function abLead(k) {
+  const el = ab.el, h1 = $('.ab-h1', el);
+  const set = (kh, ind) => {
+    el.style.setProperty('--kh', kh.toFixed(4));
+    if (ind == null) el.style.removeProperty('--ab-ind'); else el.style.setProperty('--ab-ind', ind.toFixed(1) + 'px');
+  };
+  const W = h1.clientWidth, fs = ab.baseFs * k, gap = W * .01;
+  let kh = ab.lead ? Math.min(1, (W - gap) / (ab.leadEm + 2) / fs) : 0;
+  if (kh < AB_LEAD_FLOOR) { set(1, null); abSplit(); return; }
+  for (let n = 0; n < 8; n++) {
+    set(kh, Math.min(W * .25, W - gap - ab.leadEm * fs * kh));
+    abSplit();
+    if (ab.lines[0] && ab.lines[0].textContent.indexOf(ab.lead) === 0) return;       // the whole sentence sits on the first line
+    kh *= .985;
+  }
+}
+
+/* choose the largest --k (≤ 1) for which headline + paragraph + list fit with a little air between headline and paragraph.
+   Measured on the real, split lines — they wrap a hair differently from plain text. */
+function abFit() {
+  const el = ab.el, layout = $('.ab-layout', el), top = $('.ab-top', el), bottom = $('.ab-bottom', el), h1 = $('.ab-h1', el);
+  el.classList.remove('is-tight');
+  el.style.setProperty('--k', '1'); el.style.setProperty('--kh', '1'); el.style.removeProperty('--ab-ind');
+  ab.baseFs = parseFloat(getComputedStyle(h1).fontSize);                 // the headline's size at full scale
+  ab.leadEm = abLeadEm();
+  const fits = k => {
+    el.style.setProperty('--k', k.toFixed(3));
+    abLead(k);                                                           // (splits the page)
+    const air = Math.max(16, parseFloat(getComputedStyle(h1).fontSize) * .3);
+    return top.offsetHeight + bottom.offsetHeight + air <= layout.clientHeight;
+  };
+  let k = 1;
+  if (!fits(1)) {
+    k = AB_FLOOR;
+    if (fits(AB_FLOOR)) { let lo = AB_FLOOR, hi = 1; for (let i = 0; i < 9; i++) { const mid = (lo + hi) / 2; if (fits(mid)) lo = mid; else hi = mid; } k = lo; }
+  }
+  const ok = fits(k);                                                    // leaves the page split at the chosen size
+  ab.k = k; ab.scroll = !ok;
+  el.classList.toggle('is-tight', !ok);
+}
+
+function abLayout(hidden) {
+  abFit();
+  abChars();
+  ab.el.classList.add('is-ready');
+  if (hidden) abHide(); else abReveal();
+}
+
+/* play the intro (base = seconds to wait before the reference's own timeline starts) */
+function abIntro(base) {
+  killAll(ab.tw);
+  abx.live = false;
+  abLayout(true);
+  if (reduced()) { abReveal(); return; }
+  const T = ab.tw, d0 = base + .6;
+  ab.el.classList.add('is-playing');
+  ab.lines.forEach((l, i) => T.push(tween({ delay: d0 + i * .045, dur: 1.35, ease: E.p3Out, run: v => setY(l, 125 * (1 - v)) })));
+  ab.rules.forEach((r, i) => T.push(tween({ delay: d0 + i * .08, dur: 1.6, ease: E.p3InOut, run: v => abRule(r, v) })));
+  const end = Math.max(d0 + (ab.lines.length - 1) * .045 + 1.35, d0 + (ab.rules.length - 1) * .08 + 1.6);
+  T.push(tween({ delay: end + .05, dur: .001, run: () => {}, done: () => { ab.el.classList.remove('is-playing'); abLive(); } }));
+}
+
+/* window resized / webfont arrived: re-fit and re-split, show the finished state */
+function abRelayout() { killAll(ab.tw); ab.el.classList.remove('is-playing'); abLayout(false); abLive(); }
+
+/* ==========================================================================
+   ABOUT · headline letters
+   --------------------------------------------------------------------------
+   Every letter of the headline is its own inline-block. When the cursor (or a finger)
+   comes close, the letters around it are pushed out of their line a little, lifted,
+   enlarged and tilted, then settle back with a springy overshoot. The whole thing is
+   transforms on ~100 tiny elements, only while something is moving, inside the same
+   render loop as everything else. Off for prefers-reduced-motion.
+   Tune the feel here (sizes are in em of the headline, tilt in degrees):
+   ========================================================================== */
+const AB_FX = {
+  reach: 2.3,        // how far the cursor reaches, in headline sizes (a finger gets reachTouch)
+  reachTouch: 3.4,
+  push: .18,         // how far letters are shoved away from the cursor
+  lift: .06,         // extra rise above the baseline
+  grow: .17,         // extra scale
+  tilt: 22,          // lean, grows with the horizontal distance to the cursor
+  jitter: 5,         // a little individual wobble per letter
+  stiff: 190,        // spring stiffness …
+  damp: .52          // … and damping ratio (< 1 = a little overshoot)
+};
+const abx = { chars: [], live: false, on: false, down: false, touch: false, px: 0, py: 0, fs: 24, dirty: false };
+
+/* wrap every letter of the headline in an inline-block without changing the typography:
+   separate boxes lose the kerning between neighbours, so every letter is nudged (margin-right)
+   until it sits exactly where the same glyph sat in the plain text. Positions are compared, not
+   widths, so rounding errors can't pile up along the line. */
+function abChars() {
+  abx.chars = [];
+  $$('.ab-h1 .ln', ab.el).forEach(ln => {
+    const node = ln.firstChild;
+    if (!node || node.nodeType !== 3) return;
+    const txt = node.nodeValue, rg = document.createRange(), at = [];
+    for (let i = 0; i < txt.length; i++) { rg.setStart(node, i); rg.setEnd(node, i + 1); at.push(rg.getBoundingClientRect().left); }   // where each glyph sits in the plain text
+    const frag = document.createDocumentFragment(), made = [];
+    for (let i = 0; i < txt.length; i++) {
+      if (txt[i] === ' ') { frag.appendChild(document.createTextNode(' ')); continue; }
+      const el = document.createElement('span');
+      el.className = 'ch'; el.textContent = txt[i];
+      frag.appendChild(el); made.push({ el, at: at[i] });
+    }
+    ln.textContent = ''; ln.appendChild(frag);
+    made.forEach(m => { m.off = m.at - m.el.getBoundingClientRect().left; });                            // all the reads … (how far each letter is from where it should be)
+    made.forEach((m, i) => {                                                                              // … then the writes: a margin moves everything behind it,
+      const nx = made[i + 1]; if (!nx) return;                                                           // so it only covers the change in offset up to the next letter
+      const d = nx.off - m.off;
+      if (Math.abs(d) > .004) m.el.style.marginRight = d.toFixed(3) + 'px';
+    });
+    abx.chars.push(...made);
+  });
+  abx.chars.forEach((c, i) => {
+    const h = Math.sin(i * 12.9898 + 1.7) * 43758.5453, f = h - Math.floor(h);
+    c.j = f * 2 - 1; c.a = f * 6.2832;                                                                   // fixed per-letter wobble / direction
+    c.x = c.y = c.r = c.vx = c.vy = c.vr = c.vs = 0; c.s = 1; c.cx = c.cy = 0; c.moving = false;
+  });
+}
+
+/* where every letter sits at rest (the current push is subtracted, so this is safe to call at any time) */
+function abCentres() {
+  abx.fs = parseFloat(getComputedStyle($('.ab-h1', ab.el)).fontSize) || 24;
+  abx.chars.forEach(c => { const r = c.el.getBoundingClientRect(); c.cx = r.left + r.width / 2 - c.x; c.cy = r.top + r.height / 2 - c.y; });
+  abx.dirty = false;
+}
+
+/* the lines are in place (intro over / re-laid out): start listening to the cursor */
+function abLive() {
+  abx.live = true;
+  abCentres();
+  if (abx.on) wake();                                                                                    // the cursor was already resting on the headline
+}
+
+function abReset() {
+  abx.live = false; abx.on = false; abx.down = false;
+  abx.chars.forEach(c => { c.x = c.y = c.r = c.vx = c.vy = c.vr = c.vs = 0; c.s = 1; c.moving = false; if (c.el) c.el.style.transform = ''; });
+}
+
+/* one step of the spring simulation; returns true while any letter is still travelling */
+function abTick(dt) {
+  const n = abx.chars.length;
+  if (!n) return false;
+  if (abx.dirty && abx.live) abCentres();
+  const on = abx.live && abx.on && !reduced() && !menu.open;
+  const fs = abx.fs, R = fs * (abx.touch ? AB_FX.reachTouch : AB_FX.reach);
+  const K = AB_FX.stiff, C = 2 * AB_FX.damp * Math.sqrt(K);
+  const steps = Math.max(1, Math.ceil(dt / .012)), h = dt / steps;
+  let busy = false;
+  for (let i = 0; i < n; i++) {
+    const c = abx.chars[i];
+    let tx = 0, ty = 0, tr = 0, ts = 1;
+    if (on) {
+      const dx = c.cx - abx.px, dy = c.cy - abx.py, d2 = dx * dx + dy * dy;
+      if (d2 < R * R) {
+        const d = Math.sqrt(d2), t = 1 - d / R, f = t * t * (3 - 2 * t);                                 // 1 under the cursor → 0 at the edge, smooth
+        const ux = d > 1 ? dx / d : Math.cos(c.a), uy = d > 1 ? dy / d : Math.sin(c.a);
+        tx = ux * f * AB_FX.push * fs;
+        ty = uy * f * AB_FX.push * fs - f * AB_FX.lift * fs;
+        tr = (dx / R * AB_FX.tilt + c.j * AB_FX.jitter) * f;
+        ts = 1 + f * AB_FX.grow;
+      }
+    }
+    if (!c.moving && tx === 0 && ty === 0 && tr === 0 && ts === 1) continue;                             // at rest, nothing pulling on it
+    for (let k = 0; k < steps; k++) {
+      c.vx += ((tx - c.x) * K - c.vx * C) * h; c.x += c.vx * h;
+      c.vy += ((ty - c.y) * K - c.vy * C) * h; c.y += c.vy * h;
+      c.vr += ((tr - c.r) * K - c.vr * C) * h; c.r += c.vr * h;
+      c.vs += ((ts - c.s) * K - c.vs * C) * h; c.s += c.vs * h;
+    }
+    const still = Math.abs(c.x - tx) < .02 && Math.abs(c.y - ty) < .02 && Math.abs(c.r - tr) < .03 && Math.abs(c.s - ts) < .0008 &&
+                  Math.abs(c.vx) < .06 && Math.abs(c.vy) < .06 && Math.abs(c.vr) < .12 && Math.abs(c.vs) < .003;
+    if (still && tx === 0 && ty === 0 && tr === 0 && ts === 1) {                                         // home again: drop the transform completely
+      c.x = c.y = c.r = c.vx = c.vy = c.vr = c.vs = 0; c.s = 1; c.moving = false; c.el.style.transform = '';
+      continue;
+    }
+    c.moving = true;
+    c.el.style.transform = 'translate3d(' + c.x.toFixed(2) + 'px,' + c.y.toFixed(2) + 'px,0) rotate(' + c.r.toFixed(2) + 'deg) scale(' + c.s.toFixed(3) + ')';
+    if (!still) busy = true;                                                                             // settled under a resting cursor → let the loop sleep
+  }
+  return busy;
+}
+
+function initAboutFx() {
+  const ok = () => app.view === 'about' && !reduced() && !menu.open;
+  const aim = e => { abx.px = e.clientX; abx.py = e.clientY; abx.touch = e.pointerType === 'touch'; abx.on = true; if (abx.live) wake(); };
+  window.addEventListener('pointermove', e => { if (!ok() || (e.pointerType === 'touch' && !abx.down)) return; aim(e); }, { passive: true });
+  window.addEventListener('pointerdown', e => { if (!ok() || e.pointerType !== 'touch') return; abx.down = true; aim(e); }, { passive: true });
+  const release = e => { if (e.pointerType === 'touch') { abx.down = false; abx.on = false; wake(); } };
+  window.addEventListener('pointerup', release);
+  window.addEventListener('pointercancel', release);
+  const leave = () => { abx.on = false; wake(); };
+  document.documentElement.addEventListener('mouseleave', leave);
+  window.addEventListener('blur', leave);
+  ab.el.addEventListener('scroll', () => { abx.dirty = true; wake(); }, { passive: true });             // something scrolled the view (focus, find-in-page): the letters moved under a still cursor
+}
+
+/* ==========================================================================
+   DATA — slugs, the Works list (the projects with a `works` place) and the Archive list (everything, newest year first, the written order inside a year)
+   ========================================================================== */
+const slugify = s => String(s).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const modified = e => e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0;      // "open in a new tab" & co. go straight to the browser
+const pjHref = p => '#project/' + encodeURIComponent(p.slug);
+
+function prepare(all) {
+  const used = new Set();
+  all.forEach((p, i) => {
+    const base = slugify(p.slug || p.name) || 'project';
+    let s = base, n = 2;
+    while (used.has(s)) s = base + '-' + n++;
+    used.add(s); p.slug = s; p.id = i;
+    if (p.year == null) p.year = '';
+  });
+  app.all = all;
+  app.bySlug = new Map(all.map(p => [p.slug, p]));
+  const feat = all.filter(p => p.works != null || p.featured)            // `works: n` = its place on the wheel (`featured: true` still works: array order)
+    .sort((a, b) => (a.works == null ? 1e9 : a.works) - (b.works == null ? 1e9 : b.works) || a.id - b.id);
+  app.projects = feat.length ? feat : all.slice();                       // nothing on the wheel → it shows everything
+  app.N = app.projects.length;
+  app.inWorks = new Set(app.projects);
+  app.archive = all.map((p, i) => [p, i]).sort((a, b) => (Number(b[0].year) || 0) - (Number(a[0].year) || 0) || a[1] - b[1]).map(x => x[0]);
+}
+const listOf = name => (name === 'archive' ? app.archive : app.projects);
+
+/* ==========================================================================
+   ARCHIVE — every project in one long list, newest first
+   --------------------------------------------------------------------------
+   Rows rise out of their clips when the page opens (the ones on screen, staggered) and as
+   they scroll into view. Coming back from a project nothing animates: the scroll position is
+   restored and the project you were looking at glows once. Mouse only: a preview of the hovered
+   project follows the cursor (each card is created on its first hover, so nothing loads early).
+   ========================================================================== */
+const ar = { el: null, rows: [], idx: new Map(), io: null, prev: null, stack: null, cards: [], shown: -1, on: false, placed: false, x: 0, y: 0, tx: 0, rt: 0, rb: 0, w: 0, h: 0, from: null };
+
+function buildArchive() {
+  const el = ar.el = $('[data-archive]'), list = $('[data-ar-list]', el);
+  const N = app.archive.length, w = Math.max(2, String(N).length);
+  list.innerHTML = app.archive.map((p, i) =>
+    '<li class="ar-row">' +
+      '<a class="ar-link" href="' + esc(pjHref(p)) + '" data-slug="' + esc(p.slug) + '">' +
+        '<span class="ar-c ar-num"><span class="ar-t">' + String(i + 1).padStart(w, '0') + '</span></span>' +
+        '<span class="ar-c ar-name"><span class="ar-t">' + esc(p.name) + '</span></span>' +
+        '<span class="ar-c ar-cat"><span class="ar-t">' + esc(p.category || '') + '</span></span>' +
+        '<span class="ar-c ar-year"><span class="ar-t">' + esc(p.year) + '</span></span>' +
+      '</a>' +
+      '<i class="ar-rule" aria-hidden="true"></i>' +
+    '</li>').join('');
+  ar.rows = $$('.ar-row', list);
+  app.archive.forEach((p, i) => ar.idx.set(p.slug, i));
+
+  ar.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); ar.io.unobserve(e.target); } }), { root: el, rootMargin: '0px 0px -6% 0px' });
+  ar.prev = $('[data-ar-prev]', el); ar.stack = $('[data-ar-stack]', el);
+
+  list.addEventListener('click', e => {
+    const a = e.target.closest('.ar-link');
+    if (!a || modified(e)) return;
+    e.preventDefault();
+    if (tr.busy) return;
+    ar.from = a.dataset.slug;
+    openProject(a.dataset.slug, 'archive', { y: Math.round(el.scrollTop), slug: a.dataset.slug });
+  });
+  $('[data-ar-top]', el).addEventListener('click', () => el.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }));
+
+  list.addEventListener('pointerover', e => {
+    if (e.pointerType !== 'mouse' || !mqHover.matches) return;
+    const a = e.target.closest('.ar-link');
+    if (a) arShow(a, e);
+  });
+  list.addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; ar.tx = e.clientX; if (ar.on) wake(); }, { passive: true });
+  list.addEventListener('pointerleave', arHide);
+  el.addEventListener('scroll', () => { if (ar.on) arHide(); }, { passive: true });      // a wheel turn moves the rows under a still cursor: drop the preview
+}
+
+function arShow(a, e) {
+  const i = ar.idx.get(a.dataset.slug);
+  if (i == null) return;
+  const r = a.getBoundingClientRect();
+  ar.tx = e.clientX; ar.rt = r.top; ar.rb = r.bottom;                      // the card hangs under the hovered row, so that row stays readable
+  if (ar.on && ar.shown === i) { wake(); return; }
+  let c = ar.cards[i];
+  if (!c) {
+    const p = app.archive[i];
+    c = ar.cards[i] = document.createElement('div');
+    c.className = 'ar-pc';
+    if (p.image) { c.classList.add('has-img'); loadImg(c, p.image, p.name); }
+    ar.stack.appendChild(c);
+  }
+  if (ar.shown >= 0 && ar.cards[ar.shown]) ar.cards[ar.shown].classList.remove('is-on');
+  c.classList.add('is-on'); ar.shown = i;
+  if (!ar.on) { ar.on = true; ar.placed = false; ar.w = ar.prev.offsetWidth; ar.h = ar.prev.offsetHeight; ar.prev.classList.add('is-on'); }
+  wake();
+}
+
+function arHide() {
+  if (!ar.on) return;
+  ar.on = false; ar.placed = false;
+  ar.prev.classList.remove('is-on');
+  if (ar.cards[ar.shown]) ar.cards[ar.shown].classList.remove('is-on');
+  ar.shown = -1;
+}
+
+/* the preview follows the pointer sideways and glides from row to row (≈ .09 s); it sits under the hovered row, or above it when there is no room below.
+   Returns true while it is still travelling. */
+function arTick(dt) {
+  if (!ar.on) return false;
+  const m = 16, gap = 14;
+  const gx = clamp(ar.tx - ar.w / 2, m, Math.max(m, innerWidth - ar.w - m));
+  let gy = ar.rb + gap;
+  if (gy + ar.h > innerHeight - m) gy = ar.rt - gap - ar.h;
+  gy = clamp(gy, m, Math.max(m, innerHeight - ar.h - m));
+  if (!ar.placed) { ar.x = gx; ar.y = gy; ar.placed = true; }
+  const k = 1 - Math.exp(-dt / .09);
+  ar.x += (gx - ar.x) * k; ar.y += (gy - ar.y) * k;
+  ar.prev.style.transform = 'translate3d(' + ar.x.toFixed(1) + 'px,' + ar.y.toFixed(1) + 'px,0)';
+  return Math.abs(gx - ar.x) > .25 || Math.abs(gy - ar.y) > .25;
+}
+
+/* restore = { y, slug } puts the page back where it was · instant = coming back (Back / Forward): no animation, and the project you were looking at glows */
+function archiveEnter(restore, instant) {
+  const el = ar.el, head = $('[data-ar-head]', el), calm = !!instant || reduced();
+  ar.io.disconnect(); arHide();
+  el.classList.toggle('is-instant', calm);
+  head.classList.remove('is-in'); ar.rows.forEach(r => r.classList.remove('is-in', 'is-from'));
+  el.scrollTop = 0;
+  void el.offsetHeight;                                                  // the hidden state is laid out before anything transitions
+  if (restore && restore.y) el.scrollTop = restore.y;
+  const row = instant && restore && restore.slug != null ? ar.rows[ar.idx.get(restore.slug)] : null;
+  if (row) {                                                             // keep that row in view (the window may have been resized meanwhile, or you moved on with Next / Previous)
+    const r = row.getBoundingClientRect();
+    if (r.top < 0 || r.bottom > innerHeight) el.scrollTop += r.top - (innerHeight - r.height) / 2;
+  }
+  if (calm) {
+    head.classList.add('is-in'); ar.rows.forEach(r => r.classList.add('is-in'));
+  } else {
+    head.style.setProperty('--d', '.15s'); head.classList.add('is-in');
+    let k = 0;
+    ar.rows.forEach(r => {
+      const b = r.getBoundingClientRect();
+      if (b.bottom <= 0) { r.style.setProperty('--d', '0s'); r.classList.add('is-in'); }                                     // above the fold after a reload: already there
+      else if (b.top < innerHeight) { r.style.setProperty('--d', (.35 + k++ * .05).toFixed(3) + 's'); r.classList.add('is-in'); }
+      else { r.style.setProperty('--d', '0s'); ar.io.observe(r); }
+    });
+  }
+  if (row) row.classList.add('is-from');
+  syncVeil(el);
+  if (row && viaKeyboard) $('.ar-link', row).focus({ preventScroll: true }); else el.focus({ preventScroll: true });   // the scroller itself holds focus, so PageDown / Space / arrows scroll it
+  ar.from = null;
+}
+
+/* ==========================================================================
+   PROJECT — one case study (not in the menu)
+   --------------------------------------------------------------------------
+   Opened from the Works panel ("View") or from an Archive row. Back (top bar, ESC, the
+   browser's own button) returns to that list, where it was. ← / → or Previous / Next move
+   through the list it was opened from.
+   ========================================================================== */
+const pj = { el: null, slug: '', p: null, origin: 'works', list: [], idx: 0, lines: [], tw: [], io: null, busy: false, credits: [], queue: 0, dog: 0, from: null, openPos: null };
+const PJ_REVEAL = '.pj-m, .pj-fig, .pj-next, .pj-rv';
+
+function projectRender(p) {
+  const el = pj.el, n = pj.list.length, i = pj.idx, w = Math.max(2, String(n).length);
+  const get = k => $('[data-pj="' + k + '"]', el);
+  const prev = pj.list[mod(i - 1, n)], next = pj.list[mod(i + 1, n)];
+  get('index').textContent = String(i + 1).padStart(w, '0') + ' / ' + String(n).padStart(w, '0');
+  [get('prev'), get('forward')].forEach((a, k) => { a.hidden = n < 2; a.href = pjHref(k ? next : prev); });
+  get('title').innerHTML = abText(p.name, true);
+  get('desc').innerHTML = p.description ? abText(p.description, true) : '';
+  get('desc').parentNode.hidden = !p.description;
+
+  const ext = p.link && /^https?:/i.test(p.link);
+  const rows = [['Year', esc(p.year)], ['Category', esc(p.category || '')]];
+  if (p.client) rows.push(['Client', esc(p.client)]);
+  if (p.role) rows.push(['Role', esc(p.role)]);
+  if (ext) rows.push(['Link', '<a href="' + esc(p.link) + '" target="_blank" rel="noopener" data-underline>Visit project ↗</a>']);
+  const shown = rows.filter(r => r[1]);
+  get('meta').innerHTML = shown.map(r => '<div class="pj-m"><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>').join('');
+
+  /* pictures: the cover first, then `images`; none at all → four placeholder frames. The first is full width, then pairs; an odd one out closes full width. */
+  const pics = [];
+  if (p.image) pics.push({ src: p.image, alt: p.name });
+  (p.images || []).forEach(x => pics.push(typeof x === 'string' ? { src: x, alt: p.name } : Object.assign({ alt: p.name }, x)));
+  if (!pics.length) ['3/2', '4/5', '4/5', '3/2'].forEach(r => pics.push({ ratio: r }));
+  const loneLast = (pics.length - 1) % 2 === 1;
+  get('gallery').innerHTML = pics.map((x, k) => {
+    const half = k > 0 && !(loneLast && k === pics.length - 1);
+    const ratio = x.ratio || (half ? '4/5' : '3/2');
+    return '<figure class="pj-fig' + (half ? ' is-half' : '') + '"' + (x.src ? '' : ' aria-hidden="true"') + '>' +
+      '<div class="pj-media' + (x.src ? ' has-img' : '') + '" style="aspect-ratio:' + esc(ratio) + '"' + (x.src ? ' data-src="' + esc(x.src) + '" data-alt="' + esc(x.alt || '') + '"' : '') + '></div></figure>';
+  }).join('');
+  $$('.pj-media[data-src]', el).forEach(m => loadImg(m, m.dataset.src, m.dataset.alt));
+
+  /* the appendix under the pictures: this project's own rows, else the shared placeholder rows; none at all → no block */
+  const cr = (Array.isArray(p.credits) ? p.credits : pj.credits)
+    .map(c => (Array.isArray(c) ? { role: c[0], name: c[1] } : c || {})).filter(c => c.role || c.name);
+  get('credits').hidden = !cr.length;
+  get('credits-list').innerHTML = cr.map(c => '<div class="pj-m"><dt>' + esc(c.role || '') + '</dt><dd>' + esc(c.name || '') + '</dd></div>').join('');
+
+  const nx = get('next');
+  nx.hidden = n < 2; nx.href = pjHref(next);
+  nx.innerHTML = n < 2 ? '' :
+    '<span class="pj-next-k"><span>Next project</span><span>' + String(mod(i + 1, n) + 1).padStart(w, '0') + ' / ' + String(n).padStart(w, '0') + '</span></span>' +
+    '<span class="pj-next-img pj-media' + (next.image ? ' has-img' : '') + '" aria-hidden="true"></span>' +
+    '<span class="pj-next-t">' + esc(next.name) + '</span>' +
+    '<span class="pj-next-a" aria-hidden="true">' + ARROW + '</span>';
+  if (next.image && n > 1) loadImg($('.pj-next-img', nx), next.image, '');
+}
+
+/* ---------- the "Next project" block: a preview of that project's cover (mouse only) ----------
+   The same preview as the Archive's: it follows the pointer sideways, hangs under the block — or above it when
+   there is no room — and glides there. Phones show the cover inside the block instead (see .pj-next-img). */
+const pk = { el: null, stack: null, card: null, slug: '', on: false, placed: false, x: 0, y: 0, tx: 0, rt: 0, rb: 0, w: 0, h: 0 };
+
+function pkShow(e) {
+  const nx = $('[data-pj="next"]', pj.el);
+  if (!pj.p || nx.hidden || pj.busy || tr.busy) return;
+  const next = pj.list[mod(pj.idx + 1, pj.list.length)], r = nx.getBoundingClientRect();
+  pk.tx = e.clientX; pk.rt = r.top; pk.rb = r.bottom;
+  if (pk.on && pk.slug === next.slug) { wake(); return; }
+  if (pk.card) pk.card.remove();
+  const c = pk.card = document.createElement('div');
+  c.className = 'ar-pc is-on';
+  if (next.image) { c.classList.add('has-img'); loadImg(c, next.image, next.name); }
+  pk.stack.appendChild(c); pk.slug = next.slug;
+  if (!pk.on) { pk.on = true; pk.placed = false; pk.w = pk.el.offsetWidth; pk.h = pk.el.offsetHeight; pk.el.classList.add('is-on'); }
+  wake();
+}
+
+function pkHide() {
+  if (!pk.on) return;
+  pk.on = false; pk.placed = false; pk.slug = '';
+  pk.el.classList.remove('is-on');
+}
+
+/* returns true while the preview is still travelling */
+function pkTick(dt) {
+  if (!pk.on) return false;
+  const m = 16, gap = 14;
+  const gx = clamp(pk.tx - pk.w / 2, m, Math.max(m, innerWidth - pk.w - m));
+  let gy = pk.rb + gap;
+  if (gy + pk.h > innerHeight - m) gy = pk.rt - gap - pk.h;
+  gy = clamp(gy, m, Math.max(m, innerHeight - pk.h - m));
+  if (!pk.placed) { pk.x = gx; pk.y = gy; pk.placed = true; }
+  const k = 1 - Math.exp(-dt / .09);
+  pk.x += (gx - pk.x) * k; pk.y += (gy - pk.y) * k;
+  pk.el.style.transform = 'translate3d(' + pk.x.toFixed(1) + 'px,' + pk.y.toFixed(1) + 'px,0)';
+  return Math.abs(gx - pk.x) > .25 || Math.abs(gy - pk.y) > .25;
+}
+
+function pjSplit() {
+  pj.lines = [];
+  $$('[data-a-split]', pj.el).forEach(t => pj.lines.push(...splitLines(t)));
+}
+
+/* the title and the paragraph rise line by line; the list, the pictures and the "next" block fade up when they come into view */
+function pjPlay(calm) {
+  const el = pj.el;
+  killAll(pj.tw); pj.io.disconnect();
+  el.classList.remove('is-playing');
+  el.classList.toggle('is-instant', calm);
+  const items = $$(PJ_REVEAL, el);
+  items.forEach(x => x.classList.remove('is-in'));
+  void el.offsetHeight;
+  if (calm) { pj.lines.forEach(l => setY(l, 0)); items.forEach(x => x.classList.add('is-in')); return; }
+
+  const T = pj.tw, vh = innerHeight, d0 = .15;
+  const title = $$('[data-pj="title"] .ln', el), desc = $$('[data-pj="desc"] .ln', el);
+  el.classList.add('is-playing');
+  pj.lines.forEach(l => setY(l, 125));
+  title.forEach((l, k) => T.push(tween({ delay: d0 + k * .06, dur: 1.3, ease: E.p3Out, run: v => setY(l, 125 * (1 - v)) })));
+  desc.forEach((l, k) => T.push(tween({ delay: d0 + .4 + k * .045, dur: 1.2, ease: E.p3Out, run: v => setY(l, 125 * (1 - v)) })));
+  let k = 0;
+  items.forEach(x => {
+    const r = x.getBoundingClientRect();
+    if (r.top < vh && r.bottom > 0) { x.style.setProperty('--d', (.5 + k++ * .08).toFixed(3) + 's'); x.classList.add('is-in'); }
+    else { x.style.setProperty('--d', '0s'); pj.io.observe(x); }
+  });
+  T.push(tween({ delay: d0 + 2.2, dur: .001, run: () => {}, done: () => el.classList.remove('is-playing') }));
+}
+
+function setBack(origin) {
+  const a = $('[data-back]'), name = origin === 'archive' ? 'Archive' : 'Works';
+  $('[data-back-label]', a).textContent = name;
+  a.setAttribute('href', '#' + origin); a.setAttribute('aria-label', 'Back to ' + name);
+}
+
+function projectEnter(slug, origin, restore, instant) {
+  const p = app.bySlug.get(slug), el = pj.el;
+  pj.slug = slug; pj.p = p; pj.origin = origin; pj.list = listOf(origin);
+  pj.idx = Math.max(0, pj.list.indexOf(p)); pj.busy = false; pj.queue = 0;
+  setBack(origin);
+  projectRender(p);
+  el.scrollTop = 0; void el.offsetHeight;
+  if (restore && restore.y) el.scrollTop = restore.y;
+  pjSplit();
+  pjPlay(!!instant || reduced());
+  syncVeil(el);
+  el.focus({ preventScroll: true });
+}
+
+/* window resized / webfont arrived: split the title and the paragraph again */
+function pjRelayout() {
+  if (!pj.p || pj.busy) return;
+  killAll(pj.tw); pj.el.classList.remove('is-playing');
+  pjSplit(); pj.lines.forEach(l => setY(l, 0));
+}
+
+/* project → project (Previous / Next / ← →): the page stays, its content cross-fades.
+   Whatever happens in between (an error while the new project is drawn, an animation clock that stops), the page comes back:
+   the fade-in always starts, and a timer finishes the swap by hand if it has not finished by itself. */
+function projectSwap(slug, origin) {
+  const next = app.bySlug.get(slug);
+  if (pj.busy || !next) return;
+  const el = pj.el;
+  origin = origin || pj.origin;
+  let drawn = false;
+  const done = () => { clearTimeout(pj.dog); el.style.opacity = ''; pj.busy = false; pjDrain(); };
+  const draw = () => {
+    if (drawn) return;
+    drawn = true;
+    try {
+      killAll(pj.tw); pkHide();
+      pj.slug = slug; pj.p = next; pj.origin = origin; pj.list = listOf(origin);
+      pj.idx = Math.max(0, pj.list.indexOf(next));
+      setBack(origin); setCurrent(origin);
+      projectRender(next);
+      el.scrollTop = 0; void el.offsetHeight;
+      syncVeil(el);
+      pjSplit(); pjPlay(reduced());
+    } catch (e) { oops(e); }
+  };
+  const run = () => {
+    draw();
+    if (reduced()) { done(); return; }
+    pj.tw.push(tween({ dur: .35, ease: E.sineInOut, run: v => { el.style.opacity = v; }, done }));
+  };
+  document.title = next.name + ' — Rafila Famedian';
+  pj.busy = true;
+  clearTimeout(pj.dog);
+  pj.dog = setTimeout(() => { if (!pj.busy) return; killAll(pj.tw); draw(); done(); }, 2400);
+  if (reduced()) { run(); return; }
+  killAll(pj.tw);
+  pj.tw.push(tween({ from: 1, to: 0, dur: .28, ease: E.sineInOut, run: v => { el.style.opacity = v; }, done: run }));
+}
+
+/* a Previous / Next tap that lands during the crossfade still counts (two at most), it just plays right after */
+function pjDrain() {
+  const q = pj.queue | 0;
+  if (!q) return;
+  pj.queue = q - Math.sign(q);
+  projectStep(Math.sign(q));
+}
+
+function projectStep(dir) {
+  if (app.view !== 'project' || tr.busy || menu.open || pj.list.length < 2) return;
+  if (pj.busy) { pj.queue = clamp((pj.queue | 0) + dir, -2, 2); return; }
+  const p = pj.list[mod(pj.idx + dir, pj.list.length)], s = history.state || {}, known = s.id != null;
+  const entry = { id: known ? s.id : app.entry, depth: known ? s.depth | 0 : app.depth | 0, from: pj.origin, pos: null };
+  if (!histWrite('replaceState', entry, pjHref(p))) setHash(pjHref(p));   // replace, never push: one Back always leaves the project
+  nav.key = hashNow();
+  projectSwap(p.slug, pj.origin);                                         // (the list is the one this page is in: nothing is read back from the History API)
+}
+
+function initProject() {
+  pj.el = $('[data-project]');
+  pk.el = $('[data-pj-peek]', pj.el); pk.stack = $('[data-pj-stack]', pj.el);
+  const nx = $('[data-pj="next"]', pj.el);
+  nx.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && mqHover.matches) pkShow(e); });
+  nx.addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; if (pk.on) { pk.tx = e.clientX; wake(); } else if (mqHover.matches) pkShow(e); }, { passive: true });
+  nx.addEventListener('pointerleave', pkHide);
+  pj.el.addEventListener('scroll', () => { if (pk.on) pkHide(); }, { passive: true });                     // a wheel turn moves the block under a still cursor: drop the preview
+  pj.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); pj.io.unobserve(e.target); } }), { root: pj.el, rootMargin: '0px 0px -8% 0px' });
+  $('[data-pj="top"]', pj.el).addEventListener('click', () => pj.el.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }));   // as the Archive's "Back to top"
+  pj.el.addEventListener('click', e => {
+    const a = e.target.closest('[data-step],[data-next]');
+    if (!a || modified(e)) return;
+    e.preventDefault();
+    projectStep(a.hasAttribute('data-next') ? 1 : Number(a.dataset.step));
+  });
+}
+
+/* ==========================================================================
+   CONTACT — the address in big type, a ruled list, a note
+   --------------------------------------------------------------------------
+   Same idea as the Santal reference's contact (a big line on the left, small labelled facts on
+   the right, a hairline between) in this site's own manner. Nothing here is typed by hand: the
+   words come from `const contact` at the bottom of the file.
+   Every piece rises out of a clip (.ct-c → .ct-t) or draws (hairlines) with a CSS transition once the
+   page gets .is-in; --d is that piece's delay. The note is the only text whose line breaks depend on the
+   width, so it is split into masked lines (and split again when the window changes).
+   Coming back to the page (Back / Forward) or prefers-reduced-motion: no animation at all.
+   ========================================================================== */
+const ct = { el: null, lines: [] };
+const CT_NOTE = 1.2;                                                     // seconds before the note's first line starts rising
+
+/* A link that leaves the page (the mail app, another site) can be refused without a word by a sandboxed preview pane. If nothing seems to
+   have happened a moment after the click (the window kept its focus, the page was not hidden), the address is copied and a small note says so.
+   On the live site the link simply works and none of this shows. */
+const toast = { el: null, timer: 0 };
+function say(text, pick) {
+  const el = toast.el || (toast.el = $('[data-toast]'));
+  if (!el) return;
+  clearTimeout(toast.timer);
+  el.textContent = text;
+  el.classList.toggle('is-pick', !!pick);
+  void el.offsetWidth;
+  el.classList.add('is-show');
+  toast.timer = setTimeout(() => el.classList.remove('is-show'), pick ? 7000 : 3200);
+}
+function copyText(text) {
+  const legacy = () => {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return !!ok;
+    } catch (e) { return false; }
+  };
+  try { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(() => true, () => legacy()); } catch (e) {}
+  return Promise.resolve(legacy());
+}
+function guardLink(a, text, done, fail) {
+  a.addEventListener('click', e => {
+    if (modified(e)) return;                                             // "open in a new tab" & co.: the browser's own business
+    let left = false;
+    const seen = () => { left = true; };
+    window.addEventListener('blur', seen); window.addEventListener('pagehide', seen); document.addEventListener('visibilitychange', seen);
+    setTimeout(() => {
+      window.removeEventListener('blur', seen); window.removeEventListener('pagehide', seen); document.removeEventListener('visibilitychange', seen);
+      if (left || document.hidden || !document.hasFocus()) return;       // something took over: the app opened, a tab came up
+      copyText(text).then(ok => (ok ? say(done, false) : say(fail, true)));
+    }, 1000);
+  });
+}
+
+function buildContact(c) {
+  const el = ct.el = $('[data-contact]');
+  const rise = t => '<span class="ct-c"><span class="ct-t">' + esc(t) + '</span></span>';
+  const at = n => n.toFixed(3) + 's';
+  const link = (href, inner) => '<a href="' + esc(href) + '"' + (/^https?:/i.test(href) ? ' target="_blank" rel="noopener"' : '') + ' data-underline>' + inner + '</a>';
+
+  /* the address: label above, then the address itself on one line — a mailto: link */
+  const m = c.mail || {}, addr = String(m.value || '').trim();
+  const key = $('[data-ct="mailkey"]', el), mail = $('[data-ct="mail"]', el);
+  key.innerHTML = rise(m.label || ''); key.style.setProperty('--d', at(.6));
+  mail.setAttribute('href', m.href || 'mailto:' + addr);
+  guardLink(mail, addr, 'Email copied · ' + addr, 'Email · ' + addr);
+  mail.style.setProperty('--d', at(.98));                                // (the underline)
+  const at1 = addr.indexOf('@') + 1, two = at1 > 1 && at1 < addr.length ? esc(addr.slice(0, at1)) + '<br>' + esc(addr.slice(at1)) : esc(addr);   // phones: "…@" / "….com"
+  mail.innerHTML = '<span class="sr-only">' + esc(addr) + '</span>' +
+    '<span class="ct-c" aria-hidden="true" style="--d:' + at(.68) + '"><span class="ct-t ct-t-d">' + esc(addr) + '</span><span class="ct-t ct-t-m">' + two + '</span></span>';
+
+  /* the list: a rule above every row (and one under the last), label · value; a row with an `href` is a link all the way across */
+  const items = c.items || [], list = $('[data-ct="list"]', el);
+  list.innerHTML = items.map((it, i) => {
+    const d = .72 + i * .09, v = rise(it.value);
+    return '<div class="ct-row' + (it.href ? ' has-link' : '') + '" style="--d:' + at(d) + '">' +
+      '<dt class="ct-k">' + rise(it.label) + '</dt>' +
+      '<dd class="ct-v" style="--d:' + at(d + .04) + '">' + (it.href ? link(it.href, v) : v) + '</dd>' +
+      '<span class="ct-rule" aria-hidden="true"><i></i></span>' +
+      (i === items.length - 1 ? '<span class="ct-rule is-end" aria-hidden="true"><i></i></span>' : '') +
+    '</div>';
+  }).join('');
+  $$('.ct-row.has-link', list).forEach((row, i) => {
+    const it = items.filter(x => x.href)[i], a = $('a[href]', row);
+    if (it && a) guardLink(a, it.href, it.label + ' link copied', it.label + ' · ' + it.href);
+  });
+  list.addEventListener('click', e => {
+    const row = e.target.closest('.has-link'), a = row && $('a[href]', row);
+    if (a && !e.target.closest('a') && !modified(e)) a.click();         // the click landed beside the words: it still counts
+  });
+
+  $('[data-ct="note"]', el).innerHTML = abText(c.note || '', true);
+}
+
+/* the note's lines for the current width (needs the page on screen: it measures) */
+function ctSplit() {
+  ct.lines = [];
+  $$('[data-a-split]', ct.el).forEach(t => ct.lines.push(...splitLines(t)));
+  ct.lines.forEach((l, i) => l.style.setProperty('--d', (CT_NOTE + i * .045).toFixed(3) + 's'));
+}
+
+/* restore = { y } puts the page back where it was · instant = coming back (Back / Forward): no animation */
+function contactEnter(restore, instant) {
+  const el = ct.el;
+  el.classList.remove('is-in');
+  el.classList.toggle('is-instant', !!instant || reduced());
+  el.scrollTop = 0;
+  ctSplit();
+  void el.offsetHeight;                                                  // the hidden state is laid out before anything transitions
+  if (restore && restore.y) el.scrollTop = restore.y;
+  el.classList.add('is-in');
+  syncVeil(el);
+  el.focus({ preventScroll: true });                                     // the scroller itself holds focus, so PageDown / Space / arrows scroll it
+}
+
+/* window resized / webfont arrived: the note's lines change, the rest is plain CSS */
+function ctRelayout() { if (ct.el) ctSplit(); }
+
+/* ==========================================================================
+   ROUTER — #works · #about · #archive · #contact · #project/<slug>, with the reference's page change:
+   the old page fades out (.5 s, sine.inOut), the palette eases over (.6 s), the new page fades
+   in (.3 s) and plays its own intro.
+   --------------------------------------------------------------------------
+   HISTORY. Every entry we make carries { id, depth, from, pos }:
+     id     unique, so a remembered position can be found again (in memory while the page lives,
+            and in the entry itself — history.state — across a reload)
+     depth  how many of our own entries lie behind it (> 0: Back stays inside the site)
+     from   for a project: the list it was opened from ("works" | "archive")
+     pos    where the page was when it was left: Works { i } · Archive { y, slug } · Project { y } · Contact { y }
+   Going forward (nav, a row, "View") pushes an entry and plays the intro; going back / forward
+   (browser buttons, the Back link, ESC) restores that position and skips the intros.
+   Previous / Next inside a project REPLACE the entry, so one Back always returns to the list.
+   ========================================================================== */
+const THEMES = { works: 'black', about: 'about', archive: 'archive', contact: 'contact', project: 'project' };
+const BAR = { black: '#000000', about: '#ffffff', archive: '#f5f5f7', contact: '#1d1d1f', project: '#ffffff' };
+const DARK = new Set(['black', 'contact']);                             // palettes with light text
+const TITLES = { works: 'Works — Rafila Famedian', about: 'About — Rafila Famedian', archive: 'Archive — Rafila Famedian', contact: 'Contact — Rafila Famedian' };
+const titleFor = r => (r.name === 'project' ? app.bySlug.get(r.slug).name + ' — Rafila Famedian' : TITLES[r.name]);
+const tr = { busy: false, tw: [], queued: null, themeTimer: 0, stage: 0, dog: 0, force: null };
+const nav = { key: '', last: 0, vs: new Map() };                        // vs: entry id → remembered position (while this page lives)
+const stamp = () => (nav.last = Math.max(Date.now(), nav.last + 1));
+const HASHES = { works: '#works', about: '#about', archive: '#archive', contact: '#contact' };
+const hashFor = r => (r.name === 'project' ? pjHref(app.bySlug.get(r.slug)) : HASHES[r.name]);
+
+/* ---------- the address bar and the History API, written defensively -------------------------------------------
+   A preview pane may run this page as a srcdoc / blob: / data: frame or inside a sandbox. There the History API refuses some
+   calls, and a bare "#hash" is resolved against the address of the *embedding* page — so a plain location.replace('#…') would load
+   that page inside the frame (blank, nothing to click). Rules: every address is built from this document's own URL, every call is
+   wrapped, location.replace / assign are never used, and nothing in the app depends on a History call having worked. */
+const docUrl = () => { try { return String(location.href).split('#')[0]; } catch (e) { return ''; } };
+const hashNow = () => { try { return location.hash; } catch (e) { return nav.key || ''; } };
+function histWrite(kind, state, hash) {                                  // pushState / replaceState → did the browser take it?
+  try { history[kind](state, '', docUrl() + hash); return true; } catch (e) { return false; }
+}
+function setHash(hash) {                                                 // when it did not: a plain fragment change still moves the address
+  nav.key = hash;                                                        // (the hashchange this raises is our own: onLocation ignores it)
+  try { location.hash = hash; } catch (e) {}
+}
+const viewEl = name => (name === 'about' ? ab.el : name === 'archive' ? ar.el : name === 'contact' ? ct.el : name === 'project' ? pj.el : $('[data-lib]'));
+
+function parseHash(h) {
+  h = h == null ? location.hash : h;
+  if (h === '#about') return { name: 'about' };
+  if (h === '#archive') return { name: 'archive' };
+  if (h === '#contact') return { name: 'contact' };
+  const m = /^#project\/([^/?#]+)$/.exec(h);
+  if (m) { let s = m[1]; try { s = decodeURIComponent(s); } catch (e) {} if (app.bySlug.has(s)) return { name: 'project', slug: s }; }
+  return { name: 'works' };
+}
+const sameRoute = (a, b) => a.name === b.name && (a.name !== 'project' || a.slug === b.slug);
+const curRoute = () => (app.view === 'project' ? { name: 'project', slug: pj.slug } : { name: app.view });
+
+/* which list a project page belongs to: the one it was opened from; opened directly → the list it lives in */
+function originOf(slug, state) {
+  const p = app.bySlug.get(slug), from = state && state.from;
+  if (from === 'archive') return 'archive';
+  if (from === 'works' && app.inWorks.has(p)) return 'works';
+  return app.inWorks.has(p) ? 'works' : 'archive';
+}
+
+/* where the current page is right now */
+function viewPos() {
+  if (app.view === 'works') return { i: info.state !== 'closed' ? info.index : wrapRound(-app.slider.current, app.N) };
+  if (app.view === 'archive') return { y: Math.round(ar.el.scrollTop), slug: ar.from };
+  if (app.view === 'project') return { y: Math.round(pj.el.scrollTop) };
+  if (app.view === 'contact') return { y: Math.round(ct.el.scrollTop) };
+  return null;
+}
+function saveState(pos) {
+  try { history.replaceState(Object.assign({}, history.state, { pos: pos === undefined ? viewPos() : pos }), ''); } catch (e) { /* not fatal: the position then lives in memory only */ }
+}
+
+/* our own navigation: remember where this page was, add an entry, show the new page with its intro */
+function push(route, opts) {
+  opts = opts || {};
+  saveState(opts.pos);
+  const s = history.state || {}, known = s.id != null;
+  const entry = { id: stamp(), depth: (known ? s.depth | 0 : app.depth | 0) + 1, from: opts.from || null };
+  if (!histWrite('pushState', entry, hashFor(route))) setHash(hashFor(route));   // no History API here: a plain hash change (the page still moves on)
+  nav.key = hashNow();
+  go(route, { restore: null, from: entry.from, entry });
+}
+
+/* same, but the new page takes the place of the current entry (the Back link on a page that was opened directly) */
+function replaceRoute(route, opts) {
+  opts = opts || {};
+  const s = history.state || {}, known = s.id != null;
+  const entry = { id: stamp(), depth: known ? s.depth | 0 : app.depth | 0, from: null };
+  if (!histWrite('replaceState', entry, hashFor(route))) setHash(hashFor(route));
+  nav.key = hashNow();
+  go(route, { restore: opts.restore || null, traversal: !!opts.traversal, entry });
+}
+
+/* the browser moved through history (Back / Forward / an edited address) */
+function onLocation() {
+  if (hashNow() === nav.key) return;                                     // already there: our own pushState, or the second of two events
+  nav.key = hashNow();
+  let s = history.state;
+  const ours = !!(s && s.id != null);
+  if (!ours) {                                                           // an entry we did not make (typed address, pasted link): a fresh page, with its intro
+    s = { id: stamp(), depth: (app.depth | 0) + 1, from: null };
+    try { history.replaceState(s, ''); } catch (e) {}
+  }
+  go(parseHash(), { restore: ours ? (nav.vs.get(s.id) || s.pos || null) : null, traversal: ours, entry: s });
+}
+
+/* Back. The entry behind this one is the list we came from → just go there (its position comes back with it).
+   Opened directly (typed address, new tab, reload of a shared link) → open the list it belongs to in this entry's place: no Back-trap, no loop.
+   If the browser then reports nothing (a preview pane that keeps the history to itself), the page goes there by itself. */
+function goBack() {
+  if (app.view !== 'project') return;
+  const s = history.state || {};
+  if (s.from && (s.depth | 0) > 0) {
+    const key = nav.key;
+    try { history.back(); } catch (e) { leaveProject(); return; }
+    setTimeout(() => { if (app.view === 'project' && !tr.busy && nav.key === key) leaveProject(); }, 450);
+    return;
+  }
+  leaveProject();
+}
+
+/* to the list this project page belongs to, in this entry's place. When this visit came from that list the way back is the same as Back:
+   no intro, and the list is where it was. */
+function leaveProject() {
+  const origin = pj.origin, came = pj.from === origin;
+  replaceRoute({ name: origin }, came ? { traversal: true, restore: pj.openPos || null } : null);
+}
+
+function openProject(slug, from, pos) {
+  if (tr.busy || !app.bySlug.has(slug)) return;
+  push({ name: 'project', slug }, { from, pos });
+}
+
+function setTheme(name, animate) {
+  const root = document.documentElement, t = THEMES[name], light = !DARK.has(t);
+  if (animate) {
+    root.classList.add('is-theme-switching');
+    clearTimeout(tr.themeTimer);
+    tr.themeTimer = setTimeout(() => root.classList.remove('is-theme-switching'), 700);
+  }
+  root.setAttribute('data-theme', t);
+  const a = $('meta[name="theme-color"]'), b = $('meta[name="color-scheme"]');
+  if (a) a.setAttribute('content', BAR[t]);
+  if (b) b.setAttribute('content', light ? 'light' : 'dark');
+}
+
+/* the nav underline follows the current page (a project page marks the list it belongs to) */
+function setCurrent(name) {
+  $$('[data-nav-link]').forEach(a => {
+    const on = a.dataset.navLink === name;
+    if (a.classList.contains('nav-link')) a.classList.toggle('is-active', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+}
+
+function worksEnter(restore, instant) {
+  app.wheel.measure();
+  app.reel.split();
+  if (instant && restore && restore.i != null) worksResume(restore.i);
+  else runIntro();
+}
+
+/* back on the wheel without the intro: the slider goes straight to the project that was open (the panel stays closed) */
+function worksResume(i) {
+  const { slider, reel, cards, N } = app;
+  killAll(intro.tw);
+  document.documentElement.classList.add('is-ready');
+  i = mod(i | 0, N);
+  slider.current = slider.target = -i;
+  slider.locked = false; slider.snap = true; app.paused = false;
+  cards.forEach(c => { c.style.opacity = 1; });
+  reel.scrub(i); setActive(i); wake();
+}
+
+/* the frosted strip behind the header shows while the page on screen is scrolled */
+const syncVeil = el => document.documentElement.classList.toggle('is-scrolled', !!el && app.view === (el === ar.el ? 'archive' : el === ct.el ? 'contact' : 'project') && el.scrollTop > 6);
+const measureNav = () => document.documentElement.style.setProperty('--nav-h', Math.ceil($('.nav-inner').getBoundingClientRect().height) + 'px');
+
+function leaveView(v) {
+  syncVeil(null);
+  if (v === 'archive') { arHide(); ar.io.disconnect(); }
+  else if (v === 'project') { killAll(pj.tw); pj.io.disconnect(); clearTimeout(pj.dog); pj.busy = false; pj.queue = 0; pj.el.style.opacity = ''; pj.el.classList.remove('is-playing'); pkHide(); }
+}
+
+function enterView(route, run, origin) {
+  const instant = !!run.traversal, restore = run.restore || null;
+  if (route.name === 'works') worksEnter(restore, instant);
+  else if (route.name === 'about') { if (instant) abRelayout(); else abIntro(0); }
+  else if (route.name === 'archive') archiveEnter(restore, instant);
+  else if (route.name === 'contact') contactEnter(restore, instant);
+  else projectEnter(route.slug, origin, restore, instant);
+}
+
+function go(route, opts) {
+  opts = opts || {};
+  if (tr.busy) { tr.queued = { route, opts }; return; }
+  if (menu.open) closeMenu();
+  const leaving = app.entry, hs = history.state, s = (hs && hs.id != null) ? hs : (opts.entry || {});   // (the entry we are moving to; the History API may not show it)
+  if (s.id != null) { app.entry = s.id; app.depth = s.depth | 0; }
+  if (sameRoute(route, curRoute())) { if (info.state !== 'closed') closeInfo(true); return; }
+
+  const from = app.view, to = route.name, root = document.documentElement;
+  if (from === 'project' && to === 'project') { projectSwap(route.slug, originOf(route.slug, s)); return; }
+
+  const left = viewPos();
+  nav.vs.set(leaving, left);                                             // remember where the page we are leaving was …
+  if (to === 'project') { pj.from = from; pj.openPos = left; }           // … and which list this project page was opened from (its Back link returns there)
+  let restore = opts.restore || null;
+  if (from === 'project' && to === pj.origin && opts.traversal)          // back to the list: land on the project you were just looking at (it may not be the one you opened)
+    restore = to === 'works' ? { i: Math.max(0, app.projects.indexOf(pj.p)) } : Object.assign({}, restore, { slug: pj.slug });
+  const run = { traversal: !!opts.traversal, restore };
+  const fromEl = viewEl(from), toEl = viewEl(to), withPanel = info.state !== 'closed';
+  const origin = to === 'project' ? originOf(route.slug, s) : null;
+  tr.busy = true; tr.queued = null; tr.stage = 0;
+  if (app.hideCursor) app.hideCursor();
+  setCurrent(origin || to);
+  document.title = titleFor(route);
+
+  const swap = () => {                                                   // old page is gone, show the new one (still transparent)
+    tr.stage = 1;
+    try {
+      if (from === 'works') killAll(intro.tw);
+      killAll(ab.tw); ab.el.classList.remove('is-playing'); abReset();
+      leaveView(from);
+      if (withPanel) { resetInfo(); infoEl.style.opacity = ''; }
+      root.setAttribute('data-view', to); app.view = to;
+      fromEl.style.opacity = '';
+      toEl.style.opacity = '0';
+      enterView(route, run, origin);
+    } catch (e) { oops(e); root.setAttribute('data-view', to); app.view = to; fromEl.style.opacity = ''; }   // whatever failed, the new page is the one on screen
+  };
+  const finish = () => {
+    clearTimeout(tr.dog);
+    toEl.style.opacity = '';
+    tr.busy = false; tr.force = null;
+    const q = tr.queued; tr.queued = null;
+    if (q) go(q.route, q.opts);
+  };
+  tr.force = () => { killAll(tr.tw); root.classList.remove('is-swap'); if (!tr.stage) { setTheme(to, false); swap(); } finish(); };   // the safety net below
+  clearTimeout(tr.dog);
+  tr.dog = setTimeout(() => { if (tr.busy && tr.force) tr.force(); }, 3200);   // a transition that has not finished by itself (a stopped animation clock) is finished by hand
+
+  if (withPanel) { killAll(info.tw); info.state = 'closing'; }          // an open project panel fades out together with its page
+  if (reduced()) { setTheme(to, false); swap(); finish(); return; }
+
+  const out = opts.traversal ? .32 : .5;                                 // coming back is quicker than going somewhere new
+  killAll(tr.tw);
+  root.classList.add('is-swap');                                         // glow fades out …
+  tr.tw.push(tween({ dur: out, ease: E.sineInOut, from: 1, to: 0, run: v => { fromEl.style.opacity = v; if (withPanel) infoEl.style.opacity = v; } }));
+  tr.tw.push(tween({ delay: out * .6, dur: .001, run: () => {}, done: () => { setTheme(to, true); root.classList.remove('is-swap'); } }));   // … comes back in the new palette
+  tr.tw.push(tween({ delay: out, dur: .001, run: () => {}, done: () => {
+    swap();
+    tr.tw.push(tween({ dur: .3, ease: E.sineInOut, run: v => { toEl.style.opacity = v; }, done: finish }));
+  } }));
+}
+
+/* a nav / logo click */
+function navigate(name) {
+  if (app.view === 'project' && name === pj.origin) { goBack(); return; }      // the nav item of the list we came from = Back
+  if (app.view === name && parseHash(hashNow()).name === name) {              // already there (and the address agrees): close the panel / menu, and Archive / Contact go back to their top
+    if ((name === 'archive' || name === 'contact') && !menu.open) viewEl(name).scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
+    go({ name });
+    return;
+  }
+  push({ name });                                                              // (while a transition runs the address is ahead of the page on screen: a click on that page is a real trip back to it)
+}
+
+function initNav() {
+  $$('[data-nav-link]').forEach(a => a.addEventListener('click', e => {
+    if (modified(e)) return;                                             // let "open in new tab" through
+    e.preventDefault();
+    navigate(a.dataset.navLink);
+  }));
+  $('[data-logo]').addEventListener('click', e => {
+    if (modified(e)) return;
+    e.preventDefault();
+    navigate('works');
+  });
+  $('[data-back]').addEventListener('click', e => {
+    if (modified(e)) return;
+    e.preventDefault();
+    goBack();
+  });
+  document.addEventListener('click', e => {                              // runs last: only links no handler took
+    const a = !e.defaultPrevented && e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (a && !modified(e)) e.preventDefault();
+  });
+  window.addEventListener('popstate', onLocation);
+  window.addEventListener('hashchange', onLocation);                     // browsers that only fire this one (the key check makes the pair harmless)
+  window.addEventListener('pagehide', () => saveState());                // leaving the page keeps where you were …
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveState(); });
+}
+
+/* … but some browsers ignore a history write made while the page is being unloaded (a reload), so the scroll position of
+   Archive / Project / Contact is also written into the entry once the scrolling pauses. It only ever writes into the entry that was
+   current when the scrolling happened, and only while that page is the one on screen. */
+function initScrollMemory() {
+  let timer = 0, last = 0;
+  [['archive', ar.el], ['project', pj.el], ['contact', ct.el]].forEach(([view, el]) => el.addEventListener('scroll', () => {
+    if (app.view === view) syncVeil(el);
+    if (app.view !== view || tr.busy) return;
+    const id = (history.state || {}).id;
+    clearTimeout(timer);
+    const wait = () => {
+      timer = setTimeout(() => {
+        if (app.view !== view || tr.busy || (history.state || {}).id !== id) return;
+        if (performance.now() - last < 600) { wait(); return; }          // browsers limit how often the history may be written
+        last = performance.now(); saveState();
+      }, 350);
+    };
+    wait();
+  }, { passive: true }));
+}
+
+/* ==========================================================================
+   BOOT
+   ========================================================================== */
+function boot(projects, aboutCopy, contactCopy, creditsCopy) {
+  pj.credits = Array.isArray(creditsCopy) ? creditsCopy : [];
+  prepare(projects);
+  buildRows(app.projects); buildCards(app.projects);
+  buildAbout(aboutCopy); buildArchive(); buildContact(contactCopy || {});
+  app.slider = new Slider();
+  app.wheel = new Wheel(app.cards);
+  app.reel = new Reel(app.rows);
+  const route = parseHash(), root = document.documentElement;
+  app.view = route.name;                                                 // <html data-view> was already set from the hash by the inline script in <head>
+  if (root.getAttribute('data-view') !== route.name) { root.setAttribute('data-view', route.name); setTheme(route.name, false); }   // e.g. a #project/… address that matches no project
+  app.blocked = () => app.view !== 'works' || tr.busy || app.slider.locked || info.state !== 'closed' || menu.open;
+
+  try { history.scrollRestoration = 'manual'; } catch (e) {}
+  let s0 = history.state;
+  if (!s0 || s0.id == null) { s0 = { id: stamp(), depth: 0, from: null }; try { history.replaceState(s0, ''); } catch (e) {} }
+  else nav.last = Math.max(nav.last, s0.id);
+  app.entry = s0.id; app.depth = s0.depth | 0; nav.key = location.hash;
+
+  initInfo(); initMenu(); initNav(); initInput(); initCursor(); initAboutFx(); initProject(); initScrollMemory();
+  measureNav();
+  setCurrent(route.name === 'project' ? originOf(route.slug, s0) : route.name);
+
+  const resplit = () => { if (app.view !== 'works') return; app.reel.split(); if (!app.paused) app.reel.scrub(-app.slider.current); wake(); };
+  app.resplit = resplit;
+
+  let rt = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => {
+      measureNav();
+      app.wheel.measure();
+      if (app.view === 'about') abRelayout(); else if (app.view === 'project') pjRelayout(); else if (app.view === 'contact') ctRelayout(); else if (!app.paused) resplit();
+      wake();
+    }, 120);
+  }, { passive: true });
+
+  const start = () => {
+    ab.fontOk = interReady();
+    const s = history.state || {};
+    document.title = titleFor(route);
+    if (route.name === 'about') abIntro(0);
+    else if (route.name === 'archive') archiveEnter(s.pos, false);       // (a reload keeps the scroll position)
+    else if (route.name === 'project') projectEnter(route.slug, originOf(route.slug, s), s.pos, false);
+    else if (route.name === 'contact') contactEnter(s.pos, false);
+    else { app.reel.split(); runIntro(); }
+  };
+  // webfont arriving late: re-measure the lines (Works: once its intro is over · About: only if it was laid out with the fallback font · Project: its split lines)
+  if (document.fonts && document.fonts.addEventListener) {
+    let ft = 0;
+    document.fonts.addEventListener('loadingdone', () => {
+      clearTimeout(ft);
+      ft = setTimeout(() => {
+        if (app.view === 'about') { if (interReady() && !ab.fontOk) { ab.fontOk = true; abRelayout(); } }
+        else if (app.view === 'project') pjRelayout();
+        else if (app.view === 'contact') ctRelayout();
+        else if (app.view === 'works' && !app.paused) resplit();
+      }, 60);
+    });
+  }
+  const fonts = document.fonts
+    ? Promise.all([document.fonts.load('500 20px Inter'), document.fonts.load('400 20px Inter')]).catch(() => {})
+    : Promise.resolve();
+  Promise.race([fonts, new Promise(r => setTimeout(r, 1800))]).then(start);
+}
+
+window.__works = { boot, app };
+})();
+</script>
+<!-- ============ DATA — edit here only ============ -->
+<script>
+/* ------------------------------------------------------------------
+   PROJECTS. To add one: copy a { ... } line, paste it where it should sit and change its content.
+   Everything else — the Works wheel, the Archive list, the project pages, prev / next, numbers
+   and links — is generated from this list.
+
+   THE ORDER OF THIS LIST IS THE ORDER OF THE ARCHIVE (newest year first; inside a year, the order
+   written here). A project page follows the list it was opened from: from the Archive it counts
+   through the whole list (01 / 30), from Works through the wheel (01 / 15).
+
+     name        shown everywhere
+     year        shown everywhere
+     category    second line in the panel / Archive  ("Social Media")
+     description the paragraph in the panel and on the project page
+     image       cover image, landscape 3:2 (empty = placeholder). Used on the Works wheel, in the
+                 panel, in the hover previews and as the first picture of the project page.
+                 Loaded lazily with a soft fade-in.
+     works       its place on the Works wheel: 1, 2, 3 … (leave it out → the project is only in the Archive)
+
+   Optional — the project page uses them when they are there:
+     images      more pictures for the project page, in order. A picture is "file.jpg"
+                 or { src: "file.jpg", ratio: "4/5", alt: "…" }  (ratio = width/height,
+                 default 3/2; the layout alternates full width · two side by side).
+                 No images yet? Four placeholder frames are shown.
+     client      shown in the project's info list
+     role        shown in the info list (and in brackets in the Works panel)
+     link        an external page (Behance, the client's site …) → "Visit project ↗"
+     credits     [{ role: "Creative Director", name: "Jane Doe" }, …] — the Appendix under the pictures.
+                 Left out → the placeholder rows in  const credits  below.  credits: [] → no Appendix.
+     slug        the web address, #project/houm-yoga — made from the name if left out
+                 (set it yourself if you rename a project and want the old link to live on)
+   ------------------------------------------------------------------ */
+const LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.";
+
+const projects = [
+  /* 2026 */
+  { name: "Houm Yoga",                  year: 2026, category: "Social Media",    works: 1,  description: LOREM, image: "" },
+  { name: "Houm Grounds",               year: 2026, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Goethe Institut",            year: 2026, category: "Social Media",    works: 13, description: LOREM, image: "" },
+  { name: "Two Hands Full",             year: 2026, category: "Packaging",       works: 7,  description: LOREM, image: "" },
+  { name: "7 Speed",                    year: 2026, category: "Social Media",    works: 6,  description: LOREM, image: "" },
+  { name: "Jullien",                    year: 2026, category: "Social Media",    works: 4,  description: LOREM, image: "" },
+  { name: "Garis Tegak",                year: 2026, category: "Visual Identity", works: 2,  description: LOREM, image: "" },
+  { name: "Seperti Angka 8",            year: 2026, category: "Visual Identity", works: 14, description: LOREM, image: "" },
+  { name: "Bukan Kendalimu",            year: 2026, category: "Visual Identity", works: 10, description: LOREM, image: "" },
+  { name: "Terabas",                    year: 2026, category: "Visual Identity", works: 5,  description: LOREM, image: "" },
+  { name: "Pulang Ke Stadion",          year: 2026, category: "Documentary",                 description: LOREM, image: "" },
+
+  /* 2025 */
+  { name: "Bru",                        year: 2025, category: "Packaging",                   description: LOREM, image: "" },
+  { name: "Umbira",                     year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Rimbun",                     year: 2025, category: "Visual Identity", works: 15, description: LOREM, image: "" },
+  { name: "Tanirra",                    year: 2025, category: "Visual Identity", works: 11, description: LOREM, image: "" },
+  { name: "Mandala",                    year: 2025, category: "Typography",      works: 12, description: LOREM, image: "" },
+  { name: "Aloev",                      year: 2025, category: "Exhibition",      works: 9,  description: LOREM, image: "" },
+  { name: "Bikasoga",                   year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Atklub",                     year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Stiluso",                    year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Lemarbel",                   year: 2025, category: "Visual Identity", works: 8,  description: LOREM, image: "" },
+  { name: "Cass up!",                   year: 2025, category: "Campaign",                    description: LOREM, image: "" },
+  { name: "Dualoque",                   year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Bona",                       year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Zenki",                      year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
+  { name: "Tachi",                      year: 2025, category: "Social Media",                description: LOREM, image: "" },
+
+  /* 2024 */
+  { name: "The Less I Know The Better", year: 2024, category: "Music Video",     works: 3,  description: LOREM, image: "" },
+  { name: "Bodypack Audagami",          year: 2024, category: "Campaign",                    description: LOREM, image: "" },
+  { name: "Apex Media+",                year: 2024, category: "Magazine",                    description: LOREM, image: "" },
+  { name: "Alam Santosa",               year: 2024, category: "Documentary",                 description: LOREM, image: "" }
+];
+
+/* ------------------------------------------------------------------
+   CREDITS — the placeholder rows every project page shows in its Appendix, under the pictures, until
+   the project has its own  credits: [...]  (see above). Role on the left, name on the right.
+   ------------------------------------------------------------------ */
+const credits = [
+  { role: "Creative Director", name: "John Doe" },
+  { role: "Art Director",      name: "John Doe" },
+  { role: "Graphic Designer",  name: "John Doe" },
+  { role: "Graphic Designer",  name: "John Doe" },
+  { role: "Graphic Designer",  name: "John Doe" }
+];
+
+/* ------------------------------------------------------------------
+   ABOUT page text — edit here only.
+     headline    the big statement. Its first sentence is kept on one line (on screens wide enough):
+                 the type scales a little and the first line's indent takes up the room that is left.
+     body        the short paragraph under it; it leads into the list
+     services    the four numbered rows: (1) … (4)
+   Longer text still fits: the type just scales down a little.
+   ------------------------------------------------------------------ */
+const about = {
+  headline:   "Graphic designer based in Jakarta, Indonesia. I provide graphic design needs, approaching each project in a humanist way, with care for the details from start to finish.",
+  body:       "This approach isn’t tied to one type of work. It’s what I bring to every project, and it’s the foundation of my four main services:",
+  services:   ["Creative Direction", "Visual Identity", "Editorial Design", "Social Media Strategy"]
+};
+
+/* ------------------------------------------------------------------
+   CONTACT page — edit here only.
+     mail    the big address on the left (a mailto: link); its label sits above it.
+     items   the ruled list on the right, in this order: { label, value, href } — with  href  the whole
+             row is a link (https://… opens in a new tab; tel: and mailto: work too).
+     note    the paragraph at the bottom right
+   ------------------------------------------------------------------ */
+const contact = {
+  mail: { label: "Mail", value: "work@rafilafamedian.com" },
+  items: [
+    { label: "Address",   value: "Jakarta, Indonesia" },
+    { label: "Instagram", value: "rbfamedian",        href: "https://www.instagram.com/rbfamedian/" },
+    { label: "Phone",     value: "+62 895-1796-5909", href: "https://wa.me/+6289517965909" },
+    { label: "Behance",   value: "Rafila Famedian",   href: "https://www.behance.net/rafilafamedian1" },
+    { label: "LinkedIn",  value: "Rafila Famedian",   href: "https://www.linkedin.com/in/rafilafamedian/" }
+  ],
+  note: "Thank you for navigating through this repository. Open for inquiries, collaborative systems, or perspective sharing. Available via the links above."
+};
+
+window.__works.boot(projects, about, contact, credits);
+</script>
+</body>
+</html>
