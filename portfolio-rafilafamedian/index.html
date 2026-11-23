@@ -13,7 +13,8 @@
 var r=document.documentElement,L={about:['#ffffff','About'],archive:['#f5f5f7','Archive'],project:['#ffffff','Project'],contact:['#1d1d1f','Contact']}[v];
 r.setAttribute('data-view',v);r.setAttribute('data-theme',v);document.title=L[1]+' \u2014 Rafila Famedian';
 var a=document.querySelector('meta[name="theme-color"]'),b=document.querySelector('meta[name="color-scheme"]');if(a)a.setAttribute('content',L[0]);if(b)b.setAttribute('content',v==='contact'?'dark':'light')})();</script>
-<link rel="icon" href="data:,">
+<link rel="icon" href="favicon.ico?v=2" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,8 +73,11 @@ var a=document.querySelector('meta[name="theme-color"]'),b=document.querySelecto
   --sheet-bg:#fff; --sheet-fg:#000;
   --menu-bg:#1d1d1f; --menu-fg:#fff;
   --ph-a:#d1d1d6; --ph-b:#aeaeb2;
-  --breath-rgb:255 255 255; --breath-a:.065;
+  --breath-rgb:255 255 255; --breath-a:.09;
 }
+/* Works only: the three lights are also 1.2x larger (same centres), so the grey reaches further across the page without getting harder-edged.
+   The other pages keep their own sizes (--breath-k is not set there, see .bg-breath). */
+[data-theme="black"]{--breath-k:1.2}
 [data-theme="white"]{
   color-scheme:light;
   --bg:#fff; --fg:#000; --hair:rgba(0,0,0,.08);
@@ -169,6 +173,7 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
    The animation pauses while a sheet / the menu covers the page and stops for
    prefers-reduced-motion. Tune it with --breath-a (strength) and --breath-rgb. */
 .bg-breath{
+  --bk:var(--breath-k,1);                                   /* size factor of the three lights: each grows around its own centre */
   --glow:radial-gradient(closest-side,
     rgb(var(--breath-rgb)/var(--breath-a)) 0%,
     rgb(var(--breath-rgb)/calc(var(--breath-a)*.95)) 12.5%,
@@ -182,9 +187,9 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
   position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict;
 }
 .bg-breath i{position:absolute;display:block;background:var(--glow);opacity:0;will-change:transform,opacity}
-.bg-breath i:nth-child(1){width:78vmax;height:78vmax;left:-6vmax;bottom:-46vmax;animation:breathe-a 9s cubic-bezier(.37,0,.63,1) infinite}
-.bg-breath i:nth-child(2){width:70vmax;height:70vmax;right:-14vmax;bottom:-40vmax;animation:breathe-b 13.5s cubic-bezier(.37,0,.63,1) infinite}
-.bg-breath i:nth-child(3){width:56vmax;height:56vmax;left:34vw;top:46vh;animation:breathe-c 18s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(1){width:calc(78vmax*var(--bk));height:calc(78vmax*var(--bk));left:calc(-6vmax - 39vmax*(var(--bk) - 1));bottom:calc(-46vmax - 39vmax*(var(--bk) - 1));animation:breathe-a 9s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(2){width:calc(70vmax*var(--bk));height:calc(70vmax*var(--bk));right:calc(-14vmax - 35vmax*(var(--bk) - 1));bottom:calc(-40vmax - 35vmax*(var(--bk) - 1));animation:breathe-b 13.5s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(3){width:calc(56vmax*var(--bk));height:calc(56vmax*var(--bk));left:calc(34vw - 28vmax*(var(--bk) - 1));top:calc(46vh - 28vmax*(var(--bk) - 1));animation:breathe-c 18s cubic-bezier(.37,0,.63,1) infinite}
 @keyframes breathe-a{0%,100%{opacity:.8;transform:translate3d(0,0,0) scale(.86)}50%{opacity:1;transform:translate3d(9vw,-7vh,0) scale(1.18)}}
 @keyframes breathe-b{0%,100%{opacity:1;transform:translate3d(0,0,0) scale(1.14)}50%{opacity:.75;transform:translate3d(-10vw,-5vh,0) scale(.84)}}
 @keyframes breathe-c{0%,100%{opacity:.7;transform:translate3d(-6vw,4vh,0) scale(.82)}50%{opacity:1;transform:translate3d(7vw,-6vh,0) scale(1.18)}}
@@ -226,9 +231,24 @@ html.is-swap .bg-breath{opacity:0;transition-duration:.3s}
 .nav-logo span{display:block}
 .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:2rem;margin:0;padding:0;list-style:none}
 .nav-link{pointer-events:auto;position:relative;display:flex;align-items:flex-start;line-height:1;padding-bottom:2px;cursor:pointer}
-.nav-menu-btn{display:none;position:relative;overflow:clip;grid-template-columns:auto;pointer-events:auto;background:none;border:0;padding:0;cursor:pointer;line-height:1}
-.nav-menu-btn>span{grid-area:1/1;display:block;text-align:center}
-.nav-menu-btn>span+span{transform:translateY(calc(100% + 2px))}   /* +2px: the parked label can never peek through a fractional clip edge */
+/* Mobile menu button: three stripes as tall as the logo's two lines (the first and the last line up with the top of the capitals and the baseline of the second
+   line, give or take the rounding each browser applies to line boxes). Opening turns them into an X: the outer two slide to the middle while the middle one thins out, then they swing to +-45 degrees. --p (slide), --m (middle)
+   and --r (swing) are set by initMenu while it animates; nothing here transitions, so the movement can be reversed at any moment. */
+.nav-menu-btn{
+  --nm-h:calc(var(--text-main)*2.3);--nm-w:calc(var(--text-main)*2.3);--nm-t:1.2px;         /* a hairline drawn as a border: browsers snap borders to whole device pixels, so the three stripes are always equally thick (about the type's stem weight) on every screen */
+  --nm-a:calc(var(--text-main)*.19);--nm-z:calc(var(--text-main)*.2325);                 /* space above the first and below the last stripe (they sum to line-height − cap-height) */
+  --nm-p:calc((var(--nm-h) - var(--nm-a) - var(--nm-z) - var(--nm-t))/2);                /* distance from one stripe to the next */
+  display:none;position:relative;pointer-events:auto;background:none;border:0;padding:0;margin:0;cursor:pointer;line-height:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.nav-menu-btn::before{content:"";position:absolute;inset:-.9rem -.8rem}               /* a bigger target for a finger */
+.nm-bars{--p:0;--r:0;--m:0;display:block;position:relative;width:var(--nm-w);height:var(--nm-h)}
+.nm-bars i{position:absolute;left:0;width:100%;height:0;border-top:var(--nm-t) solid currentColor}
+.nm-bars i:nth-child(1){top:var(--nm-a);transform:translateY(calc(var(--nm-p)*var(--p))) rotate(calc(45deg*var(--r)))}
+.nm-bars i:nth-child(2){top:calc(var(--nm-a) + var(--nm-p));opacity:calc(1 - var(--m));transform:scaleX(calc(1 - var(--m)))}
+.nm-bars i:nth-child(3){top:calc(var(--nm-a) + var(--nm-p)*2);transform:translateY(calc(var(--nm-p)*var(--p)*-1)) rotate(calc(-45deg*var(--r)))}
+@supports (width:round(1.4px,1px)){
+  .nav-menu-btn{--nm-p:round(calc((var(--nm-h) - var(--nm-a) - var(--nm-z) - var(--nm-t))/2),1px)}   /* whole pixels, so the gaps stay equal on 1x screens and in device emulation */
+}
 /* Back — only on a project page: "← Works" / "← Archive", the list the visitor came from. Sits on grid column 7 (like the About text) */
 .nav-back{pointer-events:none;position:absolute;left:calc(50% + var(--gutter)/2);top:var(--space-1);display:flex;align-items:center;gap:.5rem;line-height:1;padding-bottom:2px;white-space:nowrap;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .4s var(--ease-ui),visibility 0s .4s}
 html[data-view="project"] .nav-back{pointer-events:auto;opacity:1;visibility:visible;transition-delay:0s}
@@ -257,8 +277,8 @@ html:not([data-view="archive"]):not([data-view="project"]):not([data-view="conta
 .card{position:absolute;left:0;top:0;opacity:0;visibility:hidden;overflow:hidden;background:linear-gradient(155deg,var(--ph-a),var(--ph-b));will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .card.has-img{background:var(--ph-b)}
 .card-img{position:absolute;inset:0;overflow:hidden}
-.card-img img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
-.card-img img.is-loaded{opacity:1}
+.card-img img,.card-img video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
+.card-img img.is-loaded,.card-img video.is-loaded{opacity:1}
 
 /* NOTE: nothing between .lib and .lib-row may create a stacking context, or the blend stops working */
 .lib-gallery{position:relative;height:100%;padding-bottom:var(--space-1)}
@@ -401,6 +421,13 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .ar-row.is-from .ar-link{animation:ar-from 2.2s var(--ease-ui) 1 both}
 @keyframes ar-from{0%{background:rgba(0,0,0,.09)}100%{background:rgba(0,0,0,0)}}
 .ar-foot{display:flex;justify-content:flex-end;align-items:baseline;gap:1rem;padding-top:var(--space-1-5);font-size:var(--text-main);line-height:1}
+.archive .ar-foot{justify-content:space-between;align-items:flex-end;gap:calc(var(--space-1-5)*2);padding-top:calc(var(--space-1-5)*3.4)}
+.ar-note{margin:0;font-size:var(--text-small);line-height:1.5;font-weight:400;letter-spacing:-.005em;opacity:.55}
+@media (max-width:767px){
+  .archive .ar-foot{flex-direction:column;align-items:stretch;gap:calc(var(--space-1-5)*1.7);padding-top:calc(var(--space-1-5)*2.6)}
+  .archive .ar-foot .ar-top{order:-1;align-self:flex-end}
+}
+.ar-note span{display:block}   /* two rows: the sentence about the pictures, then the one about their rights */
 .ar-top{position:relative;padding:0 0 2px;border:0;background:none;color:inherit;line-height:1;cursor:pointer}
 
 /* hover preview (mouse only): follows the cursor, flips to its left near the right edge */
@@ -410,8 +437,8 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .ar-pc{position:absolute;inset:0;opacity:0;transition:opacity .3s var(--ease-ui);background:linear-gradient(155deg,var(--ph-a),var(--ph-b))}
 .ar-pc.is-on{opacity:1}
 .ar-pc.has-img{background:var(--ph-b)}
-.ar-pc img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s var(--ease-ui)}
-.ar-pc img.is-loaded{opacity:1}
+.ar-pc img,.ar-pc video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s var(--ease-ui)}
+.ar-pc img.is-loaded,.ar-pc video.is-loaded{opacity:1}
 @media (hover:none),(max-width:767px){.ar-prev{display:none}}
 
 @media (max-width:991px){
@@ -452,9 +479,13 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 /* appendix: its title stands in the same column as the list (7, the column of the text above), the rows under it — role in grey, name next to it */
 .pj-credits{align-items:baseline;row-gap:0}
 .pj-credits[hidden]{display:none}
-.pj-ck{grid-column:7/span 4;margin:0 0 .35rem;font-size:var(--text-main);line-height:1.25;font-weight:500;letter-spacing:-.01em}
+.pj-ck{grid-column:7/span 4;margin:0 0 .85rem;font-size:var(--text-main);line-height:1.25;font-weight:500;letter-spacing:-.01em}
 .pj-ck span{display:block;opacity:.55}
 .pj-clist{grid-column:7/span 4;margin:0;padding:0}
+.pj-clist .pj-m{padding:.4rem 0}
+.pj-clist .pj-m.is-rep{padding-top:0}
+.pj-clist .pj-m.is-rep dt{opacity:0}
+.pj-clist .pj-m.is-grp{margin-top:.55rem}
 .pj-rv{opacity:0;transform:translate3d(0,12px,0)}
 .pj-rv.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
 /* the way back up (the Archive's .ar-foot / .ar-top), after the appendix: a page of many pictures ends here */
@@ -462,11 +493,18 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 
 .pj-fig{margin:0;grid-column:1/-1;opacity:0;transform:translate3d(0,36px,0)}
 .pj-fig.is-half{grid-column:span 6}
+.pj-fig.is-solo{grid-column:1/-1}   /* a half that would stand alone in its row (an odd one out) takes the whole row, as it does on a phone — no empty column */
 .pj-fig.is-in{opacity:1;transform:none;transition:opacity 1.1s var(--ease-ui) var(--d,0s),transform 1.4s var(--ease-ui) var(--d,0s)}
 .pj-media{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--ph-a),var(--ph-b))}
 .pj-media.has-img{background:var(--ph-b)}
-.pj-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
-.pj-media img.is-loaded{opacity:1}
+.pj-media img,.pj-media video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
+.pj-media img.is-loaded,.pj-media video.is-loaded{opacity:1}
+/* a video sits over its poster (the still, if there is one) and fades in once its first frame is ready. A looping clip is only a moving picture, so the pointer goes
+   through it; it becomes clickable only when the visitor has to start it (reduced motion, or the browser refused to autoplay), and a clip with controls keeps them */
+video.vid{pointer-events:none;background:transparent}
+video.vid.is-blocked,video.vid[controls]{pointer-events:auto;cursor:pointer}
+video.vid[controls]{cursor:auto;object-fit:contain;background:#000}
+@media (prefers-reduced-motion:reduce){video.vid{pointer-events:auto;cursor:pointer}}
 
 .pj-next{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--space-1-5);align-items:end;padding-top:var(--space-1-5);color:inherit;opacity:0;transform:translate3d(0,24px,0)}
 .pj-next.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
@@ -641,8 +679,8 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .info-visual{position:relative;width:min(16vw,16em);aspect-ratio:3/2;flex:0 0 auto;clip-path:inset(0% 100% 0% 0%)}
 .info-visual-card{position:absolute;inset:0;overflow:hidden;background:linear-gradient(155deg,var(--ph-a),var(--ph-b))}
 .info-visual-img{position:absolute;inset:0;overflow:hidden}
-.info-visual-img img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
-.info-visual-img img.is-loaded{opacity:1}
+.info-visual-img img,.info-visual-img video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
+.info-visual-img img.is-loaded,.info-visual-img video.is-loaded{opacity:1}
 .info-visual.has-img .info-visual-card{background:var(--ph-b)}
 .info-title{display:flex;flex-direction:column;max-width:14.3em}
 .info-title-row{display:block}
@@ -690,12 +728,11 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 @media (max-width:767px){
   .m-menu{display:block}
   .nav-links{display:none}
-  .nav-menu-btn{display:grid;padding:0}                                /* reference: flush with the container edge */
+  .nav-menu-btn{display:block}                                         /* flush with the container edge, like the logo on the other side */
   .nav-inner{min-height:calc(var(--space-1)*2 + var(--text-main)*1.3)}
 }
 @media (max-width:479px){
   .nav-inner{width:calc(100% - var(--margin)*2)}                       /* reference: .nav container = 100% − 2·margin on phones */
-  .nav-menu-btn{padding:0 5px}
 }
 .m-inner{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center}
 @media (max-width:479px){.m-inner{width:calc(100% - var(--margin)*2)}}   /* reference: .mobile_menu_container = 100% − 2·margin on phones */
@@ -737,7 +774,7 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
     </nav>
 
     <button class="nav-menu-btn" type="button" data-menu-btn aria-expanded="false" aria-controls="menu" aria-label="Open menu">
-      <span data-menu-txt>Menu</span><span data-close-txt aria-hidden="true">Close</span>
+      <span class="nm-bars" aria-hidden="true" data-menu-bars><i></i><i></i><i></i></span>
     </button>
   </div>
 </header>
@@ -811,6 +848,7 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
     </header>
     <ol class="ar-list" data-ar-list></ol>
     <footer class="ar-foot">
+      <p class="ar-note"><span>Some mockup photographs are used for presentation purposes only.</span> <span>All rights to these photographs belong to their respective creators.</span></p>
       <button class="ar-top" type="button" data-underline data-ar-top>Back to top</button>
     </footer>
   </div>
@@ -836,7 +874,7 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
     </div>
     <div class="pj-gallery" data-pj="gallery"></div>
     <section class="pj-credits u-grid" data-pj="credits" aria-labelledby="pj-credits-h">
-      <h2 class="pj-ck pj-rv" id="pj-credits-h"><span>Appendix</span></h2>
+      <h2 class="pj-ck pj-rv" id="pj-credits-h"><span>Collaborator</span></h2>
       <dl class="pj-clist" data-pj="credits-list"></dl>
     </section>
     <footer class="ar-foot pj-foot">
@@ -1105,7 +1143,7 @@ class Wheel {
     this.pull += (1 - Math.pow(1 - .15, dt * 60)) * (s - this.pull);
     if (Math.abs(this.pull) < 1e-3) this.pull = 0;
     const { W, H, R, cy, step, cw, ch, N } = this;
-    const blur = Math.abs(this.pull) > .02 && !reduced() ? (Math.abs(this.pull) * 2.4).toFixed(2) : '0';
+    const blur = Math.abs(this.pull) > .02 && !reduced() ? (Math.abs(this.pull) * 0.9).toFixed(2) : '0';
     for (let i = 0; i < N; i++) {
       const t = shortest(i - e, N) * step;
       const px = W / 2 + R * Math.sin(t), py = H / 2 - (cy + R * Math.cos(t));
@@ -1167,6 +1205,7 @@ function tick(dt) {
   const e = -slider.current;
   if (!app.paused) reel.scrub(e);
   wheel.update(e, slider.target, slider.current, dt);
+  wheelMedia(e);
   const idx = wrapRound(e, app.N);
   if (idx !== app.active && !app.paused) setActive(idx);
   return slider.moving || wheel.pull !== 0;
@@ -1205,7 +1244,7 @@ function buildCards(P) {
     const c = document.createElement('div');
     c.className = 'card';
     c.innerHTML = '<div class="card-img"></div>';
-    if (p.image) { c.classList.add('has-img'); loadImg($('.card-img', c), p.image, p.name); }
+    if (p.image) { c.classList.add('has-img'); c._v = loadMedia($('.card-img', c), p.image, p.name, { poster: p.poster }); }
     host.appendChild(c);
     app.cards.push(c);
   });
@@ -1220,6 +1259,96 @@ function loadImg(host, src, alt) {
   host.appendChild(img);
   if (img.complete && img.naturalWidth) img.classList.add('is-loaded');
 }
+
+/* ==========================================================================
+   MEDIA — a picture or a video
+   --------------------------------------------------------------------------
+   Wherever a project has a picture (`image`, `images`) it may be a video instead: "clip.mp4" (.webm .mov .m4v .ogv work too), written exactly like a
+   picture. Here a video is a silent loop that behaves like the pictures do: nothing is fetched until it comes near the screen, it plays while it is on
+   screen and pauses when it is not (or when the tab is hidden), and it fades in as soon as its first frame is there. Optional, written as
+   { src, poster, ratio, controls, alt }:
+     poster    a still that shows until the first frame is ready (and stays for visitors who asked their system for less motion)
+     controls  a clip with sound: no autoplay, no loop, the browser's own controls; it only pauses by itself when it leaves the screen
+   Reduced motion, or a phone that refuses autoplay (battery saver): the poster / first frame shows, and a tap starts the clip.
+   ========================================================================== */
+const isVideo = src => /\.(?:mp4|m4v|mov|webm|ogv)(?:[?#]|$)/i.test(String(src || ''));
+const want = new Set();                                                  // the clips that should be playing right now (a hidden tab pauses them and wakes them again)
+
+/* a picture goes into `host` like loadImg does; a video becomes a <video> (no source yet: see mediaLoad) and is returned */
+function loadMedia(host, src, alt, o) {
+  o = o || {};
+  if (!isVideo(src)) { loadImg(host, src, alt); return null; }
+  if (o.poster) loadImg(host, o.poster, '');                             // the still sits under the video until its first frame is ready
+  const v = document.createElement('video');
+  v.className = 'vid'; v.dataset.src = src; v.preload = 'none';
+  v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+  v.disablePictureInPicture = true; v.setAttribute('disableremoteplayback', '');
+  if (o.controls) { v.controls = true; v.setAttribute('controlslist', 'nodownload noremoteplayback'); }
+  else { v.muted = v.defaultMuted = true; v.setAttribute('muted', ''); v.loop = true; v.setAttribute('role', 'img'); }
+  if (alt) v.setAttribute('aria-label', alt);
+  const ready = () => v.classList.add('is-loaded');
+  v.addEventListener('loadeddata', ready);
+  v.addEventListener('playing', () => { ready(); v.classList.remove('is-blocked'); });
+  v.addEventListener('click', () => {                                    // only reachable when the visitor has to start it (see video.vid in the CSS)
+    if (v.controls) return;
+    if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else if (reduced()) v.pause();
+  });
+  host.appendChild(v);
+  return v;
+}
+
+function mediaLoad(v) {
+  if (!v || v.getAttribute('src') || !v.dataset.src) return;
+  const s = v.dataset.src;
+  v.preload = 'metadata';
+  v.src = /#/.test(s) ? s : s + '#t=0.001';                              // (the tiny offset makes Safari paint the first frame without playing)
+}
+
+function mediaPlay(v, on) {
+  if (!v) return;
+  if (!on) { want.delete(v); if (!v.paused) v.pause(); return; }
+  mediaLoad(v);
+  if (v.controls || reduced()) return;                                   // a clip with sound, or a visitor who wants less motion: they start it themselves
+  want.add(v);
+  const p = v.play();
+  if (p && p.catch) p.catch(e => { if (e && e.name === 'NotAllowedError') v.classList.add('is-blocked'); });   // autoplay refused: the poster stays, a tap starts it
+}
+
+/* drop everything a video holds (its download and its decoder) — used when its box leaves the page */
+function mediaRelease(root) {
+  if (!root) return;
+  $$('video', root).forEach(v => {
+    want.delete(v);
+    try { v.pause(); } catch (e) {}
+    if (v.getAttribute('src')) { v.removeAttribute('src'); try { v.load(); } catch (e) {} }
+  });
+}
+
+/* the pictures of a scrolling page (the project page): a video starts loading a screen before it is needed and plays while it is on screen */
+const mio = { near: null, view: null };
+function mediaWatchInit(root) {
+  mio.near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { mediaLoad(e.target._v); mio.near.unobserve(e.target); } }), { root, rootMargin: '120% 0px' });
+  mio.view = new IntersectionObserver(es => es.forEach(e => mediaPlay(e.target._v, e.isIntersecting)), { root, threshold: .1 });
+}
+const mediaWatch = host => { if (host && host._v && mio.near) { mio.near.observe(host); mio.view.observe(host); } };
+const mediaUnwatch = () => { if (mio.near) { mio.near.disconnect(); mio.view.disconnect(); } };
+
+/* a hidden tab pauses the clips that were playing, a returning one wakes them */
+document.addEventListener('visibilitychange', () => {
+  want.forEach(v => { try { if (document.hidden) v.pause(); else { const p = v.play(); if (p && p.catch) p.catch(() => {}); } } catch (e) {} });
+});
+
+/* the Works wheel: a video cover plays while its card is on screen and within a step and a half of the front — not during the intro, not under the panel / menu, not on another page */
+function wheelMedia(e) {
+  const N = app.N, live = app.view === 'works' && !app.paused && info.state === 'closed' && !menu.open;
+  for (let i = 0; i < N; i++) {
+    const c = app.cards[i];
+    if (!c || !c._v) continue;
+    const on = live && c._vis === true && Math.abs(shortest(i - e, N)) <= 1.6;
+    if (on !== !!c._play) { c._play = on; mediaPlay(c._v, on); }
+  }
+}
+const wheelMediaOff = () => app.cards.forEach(c => { if (c._v) { c._play = false; mediaPlay(c._v, false); } });
 
 /* ==========================================================================
    INTRO
@@ -1329,6 +1458,7 @@ function initInput() {
     if (e.key === 'Tab' && info.state !== 'closed') { trapFocus(e); return; }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (app.view === 'project') {
+      if (e.target && e.target.closest && e.target.closest('video[controls]')) return;          // a clip with controls: the arrows seek, they do not change the project
       if (e.key === 'ArrowRight') { e.preventDefault(); if (!e.repeat) projectStep(1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); if (!e.repeat) projectStep(-1); }
       return;
@@ -1427,7 +1557,7 @@ function fillInfo(i) {
         '<div class="info-btn-wrap" data-reveal-btn>' + link + '</div>' +
       '</div>' +
     '</div>';
-  if (p.image) { $('.info-visual', infoGrid).classList.add('has-img'); loadImg($('.info-visual-img', infoGrid), p.image, p.name); }
+  if (p.image) { $('.info-visual', infoGrid).classList.add('has-img'); mediaPlay(loadMedia($('.info-visual-img', infoGrid), p.image, p.name, { poster: p.poster }), true); }
   infoGrid.setAttribute('aria-label', p.name);
   $$('[data-info-link]', infoGrid).forEach(a => a.addEventListener('click', ev => {
     if (modified(ev)) return;                                  // "open in a new tab" goes straight to the browser
@@ -1487,6 +1617,7 @@ function resetInfo() {
   infoEl.classList.remove('is-open'); infoEl.setAttribute('aria-hidden', 'true');
   document.documentElement.classList.remove('is-sheet');
   mainEl.inert = false;
+  mediaRelease(infoGrid);
   infoGrid.innerHTML = '';
   info.state = 'closed'; info.trigger = null; info.after = null;
 }
@@ -1499,6 +1630,7 @@ function closeInfo(fast) {
     infoEl.classList.remove('is-open'); infoEl.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('is-sheet');
     mainEl.inert = false;
+    mediaRelease(infoGrid);
     infoGrid.innerHTML = '';
     info.state = 'closed';
     const t = info.trigger && document.contains(info.trigger) ? info.trigger : $('.lib-title[tabindex="0"]');
@@ -1536,7 +1668,7 @@ function initInfo() {
 const menu = { open: false, tw: [], clip: 0, sw: 0, timer: 0, lines: [], rules: [] };
 function initMenu() {
   const btn = $('[data-menu-btn]'), el = $('[data-menu]');
-  const tMenu = $('[data-menu-txt]', btn), tClose = $('[data-close-txt]', btn);
+  const bars = $('[data-menu-bars]', btn);
   menu.lines = $$('[data-menu-text]', el).flatMap(splitLines);
   menu.lines.forEach(l => setY(l, 115));
   menu.rules = $$('.m-line i', el);
@@ -1553,7 +1685,15 @@ function initMenu() {
   const thaw = () => FROZEN.forEach(p => el.style.removeProperty(p));
 
   const setClip = v => { menu.clip = v; el.style.clipPath = 'inset(0% 0% ' + ((1 - v) * 100).toFixed(3) + '%)'; };
-  const setSwap = v => { menu.sw = v; tMenu.style.transform = 'translateY(calc(' + (-100 * v).toFixed(3) + '% + ' + (-2 * v).toFixed(3) + 'px))'; tClose.style.transform = 'translateY(calc(' + (100 * (1 - v)).toFixed(3) + '% + ' + (2 * (1 - v)).toFixed(3) + 'px))'; };   // 2px extra: a parked label never peeks through a fractional clip edge
+  /* the stripes: v runs 0 (three stripes) → 1 (X). The outer two slide to the middle (0 → .6) while the middle one thins out (0 → .4), then they swing to ±45° (.35 → 1);
+     each part has its own soft ease, so it reads as one movement, and any v in between is a valid picture: a tap during the movement simply turns it round. */
+  const part = (v, a, b) => E.sineInOut(clamp((v - a) / (b - a), 0, 1));
+  const setBars = v => {
+    menu.sw = v;
+    bars.style.setProperty('--p', part(v, 0, .6).toFixed(4));
+    bars.style.setProperty('--m', part(v, 0, .4).toFixed(4));
+    bars.style.setProperty('--r', part(v, .35, 1).toFixed(4));
+  };
   const setRule = (r, v) => { r._s = v; r.style.transform = 'scaleX(' + v.toFixed(4) + ')'; };
 
   window.openMenu = () => {
@@ -1564,9 +1704,9 @@ function initMenu() {
     el.classList.add('is-open'); el.setAttribute('aria-hidden', 'false');
     document.documentElement.classList.add('is-menu');
     btn.setAttribute('aria-expanded', 'true'); btn.setAttribute('aria-label', 'Close menu');
-    if (reduced()) { setClip(1); setSwap(1); menu.lines.forEach(l => setY(l, 0)); menu.rules.forEach(r => setRule(r, 1)); return; }
+    if (reduced()) { setClip(1); setBars(1); menu.lines.forEach(l => setY(l, 0)); menu.rules.forEach(r => setRule(r, 1)); return; }
     const T = menu.tw;
-    T.push(tween({ from: menu.sw, to: 1, dur: .4, ease: E.transition, run: setSwap }));
+    T.push(tween({ from: menu.sw, to: 1, dur: .6, ease: E.linear, run: setBars }));
     T.push(tween({ from: menu.clip, to: 1, dur: .8, ease: E.transition, run: setClip }));
     menu.lines.forEach((l, k) => T.push(tween({ from: l._y == null ? 115 : l._y, to: 0, delay: .4 + k * .09, dur: 1, ease: E.heading, run: v => setY(l, v) })));
     menu.rules.forEach((r, k) => T.push(tween({ from: r._s || 0, to: 1, delay: .6 + k * .1, dur: 1, ease: E.p4InOut, run: v => setRule(r, v) })));
@@ -1583,9 +1723,9 @@ function initMenu() {
       thaw();
       btn.focus({ preventScroll: true });
     };
-    if (reduced()) { setClip(0); setSwap(0); done(); return; }
+    if (reduced()) { setClip(0); setBars(0); done(); return; }
     const T = menu.tw;
-    T.push(tween({ from: menu.sw, to: 0, dur: .4, ease: E.transition, run: setSwap }));
+    T.push(tween({ from: menu.sw, to: 0, dur: .5, ease: E.linear, run: setBars }));
     T.push(tween({ from: menu.clip, to: 0, dur: .5, ease: E.transition, run: setClip, done }));
     menu.lines.forEach(l => T.push(tween({ from: l._y || 0, to: 115, dur: .35, ease: E.p2In, run: v => setY(l, v) })));
   };
@@ -1939,11 +2079,11 @@ function arShow(a, e) {
     const p = app.archive[i];
     c = ar.cards[i] = document.createElement('div');
     c.className = 'ar-pc';
-    if (p.image) { c.classList.add('has-img'); loadImg(c, p.image, p.name); }
+    if (p.image) { c.classList.add('has-img'); c._v = loadMedia(c, p.image, p.name, { poster: p.poster }); }
     ar.stack.appendChild(c);
   }
-  if (ar.shown >= 0 && ar.cards[ar.shown]) ar.cards[ar.shown].classList.remove('is-on');
-  c.classList.add('is-on'); ar.shown = i;
+  if (ar.shown >= 0 && ar.cards[ar.shown]) { ar.cards[ar.shown].classList.remove('is-on'); mediaPlay(ar.cards[ar.shown]._v, false); }
+  c.classList.add('is-on'); ar.shown = i; mediaPlay(c._v, true);
   if (!ar.on) { ar.on = true; ar.placed = false; ar.w = ar.prev.offsetWidth; ar.h = ar.prev.offsetHeight; ar.prev.classList.add('is-on'); }
   wake();
 }
@@ -1952,7 +2092,7 @@ function arHide() {
   if (!ar.on) return;
   ar.on = false; ar.placed = false;
   ar.prev.classList.remove('is-on');
-  if (ar.cards[ar.shown]) ar.cards[ar.shown].classList.remove('is-on');
+  if (ar.cards[ar.shown]) { ar.cards[ar.shown].classList.remove('is-on'); mediaPlay(ar.cards[ar.shown]._v, false); }
   ar.shown = -1;
 }
 
@@ -2032,25 +2172,38 @@ function projectRender(p) {
   const shown = rows.filter(r => r[1]);
   get('meta').innerHTML = shown.map(r => '<div class="pj-m"><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>').join('');
 
-  /* pictures: the cover first, then `images`; none at all → four placeholder frames. The first is full width, then pairs; an odd one out closes full width. */
+  /* pictures: the cover first, then `images`; none at all → four placeholder frames. Without a `size` the first is full width, then pairs, and an odd one out closes full width.
+     An item may say `size: "full"` or `size: "half"` to pick its own width wherever it stands in the order; half widths sit two to a row, a half that would be alone in its row takes the whole row. */
   const pics = [];
-  if (p.image) pics.push({ src: p.image, alt: p.name });
+  if (p.image) pics.push({ src: p.image, alt: p.name, poster: p.poster, cover: true });
   (p.images || []).forEach(x => pics.push(typeof x === 'string' ? { src: x, alt: p.name } : Object.assign({ alt: p.name }, x)));
   if (!pics.length) ['3/2', '4/5', '4/5', '3/2'].forEach(r => pics.push({ ratio: r }));
   const loneLast = (pics.length - 1) % 2 === 1;
+  mediaUnwatch(); mediaRelease(get('gallery')); mediaRelease(get('next'));   // (the pictures about to be replaced may hold videos)
+  /* decide every width first: a half that ends up alone in its row (the last of an odd run of halves) takes the whole row, so no column stays empty */
+  const halves = pics.map((x, k) => x.size === 'half' ? true : x.size === 'full' ? false : k > 0 && !(loneLast && k === pics.length - 1));
+  const solo = halves.map((hf, k) => { if (!hf) return false; let a = k; while (a > 0 && halves[a - 1]) a--; return (k - a) % 2 === 0 && !halves[k + 1]; });
   get('gallery').innerHTML = pics.map((x, k) => {
-    const half = k > 0 && !(loneLast && k === pics.length - 1);
-    const ratio = x.ratio || (half ? '4/5' : '3/2');
-    return '<figure class="pj-fig' + (half ? ' is-half' : '') + '"' + (x.src ? '' : ' aria-hidden="true"') + '>' +
-      '<div class="pj-media' + (x.src ? ' has-img' : '') + '" style="aspect-ratio:' + esc(ratio) + '"' + (x.src ? ' data-src="' + esc(x.src) + '" data-alt="' + esc(x.alt || '') + '"' : '') + '></div></figure>';
+    const half = halves[k];
+    const ratio = x.ratio || (half ? '4/5' : x.cover || !isVideo(x.src) ? '3/2' : '16/9');   // (a video that is not the cover: 16/9 unless it says otherwise)
+    return '<figure class="pj-fig' + (half ? ' is-half' : '') + (solo[k] ? ' is-solo' : '') + '"' + (x.src ? '' : ' aria-hidden="true"') + '>' +
+      '<div class="pj-media' + (x.src ? ' has-img' : '') + '" style="aspect-ratio:' + esc(ratio) + '"' +
+      (x.src ? ' data-src="' + esc(x.src) + '" data-alt="' + esc(x.alt || '') + '"' + (x.poster ? ' data-poster="' + esc(x.poster) + '"' : '') + (x.controls ? ' data-controls="1"' : '') : '') + '></div></figure>';
   }).join('');
-  $$('.pj-media[data-src]', el).forEach(m => loadImg(m, m.dataset.src, m.dataset.alt));
+  $$('.pj-media[data-src]', el).forEach(m => {
+    m._v = loadMedia(m, m.dataset.src, m.dataset.alt, { poster: m.dataset.poster, controls: m.dataset.controls === '1' });
+    mediaWatch(m);
+  });
 
   /* the appendix under the pictures: this project's own rows, else the shared placeholder rows; none at all → no block */
   const cr = (Array.isArray(p.credits) ? p.credits : pj.credits)
     .map(c => (Array.isArray(c) ? { role: c[0], name: c[1] } : c || {})).filter(c => c.role || c.name);
   get('credits').hidden = !cr.length;
-  get('credits-list').innerHTML = cr.map(c => '<div class="pj-m"><dt>' + esc(c.role || '') + '</dt><dd>' + esc(c.name || '') + '</dd></div>').join('');
+  /* a role is written once: the rows under it (same role, one person each) leave it out — still in the markup for screen readers, but invisible — and a new role starts after a little air */
+  get('credits-list').innerHTML = cr.map((c, k) => {
+    const rep = k > 0 && c.role && cr[k - 1].role === c.role;
+    return '<div class="pj-m' + (rep ? ' is-rep' : k > 0 ? ' is-grp' : '') + '"><dt>' + esc(c.role || '') + '</dt><dd>' + esc(c.name || '') + '</dd></div>';
+  }).join('');
 
   const nx = get('next');
   nx.hidden = n < 2; nx.href = pjHref(next);
@@ -2059,7 +2212,7 @@ function projectRender(p) {
     '<span class="pj-next-img pj-media' + (next.image ? ' has-img' : '') + '" aria-hidden="true"></span>' +
     '<span class="pj-next-t">' + esc(next.name) + '</span>' +
     '<span class="pj-next-a" aria-hidden="true">' + ARROW + '</span>';
-  if (next.image && n > 1) loadImg($('.pj-next-img', nx), next.image, '');
+  if (next.image && n > 1) { const h = $('.pj-next-img', nx); h._v = loadMedia(h, next.image, '', { poster: next.poster }); mediaWatch(h); }
 }
 
 /* ---------- the "Next project" block: a preview of that project's cover (mouse only) ----------
@@ -2073,11 +2226,11 @@ function pkShow(e) {
   const next = pj.list[mod(pj.idx + 1, pj.list.length)], r = nx.getBoundingClientRect();
   pk.tx = e.clientX; pk.rt = r.top; pk.rb = r.bottom;
   if (pk.on && pk.slug === next.slug) { wake(); return; }
-  if (pk.card) pk.card.remove();
+  if (pk.card) { mediaRelease(pk.card); pk.card.remove(); }
   const c = pk.card = document.createElement('div');
   c.className = 'ar-pc is-on';
-  if (next.image) { c.classList.add('has-img'); loadImg(c, next.image, next.name); }
-  pk.stack.appendChild(c); pk.slug = next.slug;
+  if (next.image) { c.classList.add('has-img'); c._v = loadMedia(c, next.image, next.name, { poster: next.poster }); }
+  pk.stack.appendChild(c); pk.slug = next.slug; mediaPlay(c._v, true);
   if (!pk.on) { pk.on = true; pk.placed = false; pk.w = pk.el.offsetWidth; pk.h = pk.el.offsetHeight; pk.el.classList.add('is-on'); }
   wake();
 }
@@ -2085,6 +2238,7 @@ function pkShow(e) {
 function pkHide() {
   if (!pk.on) return;
   pk.on = false; pk.placed = false; pk.slug = '';
+  if (pk.card) mediaPlay(pk.card._v, false);
   pk.el.classList.remove('is-on');
 }
 
@@ -2226,6 +2380,7 @@ function initProject() {
   nx.addEventListener('pointerleave', pkHide);
   pj.el.addEventListener('scroll', () => { if (pk.on) pkHide(); }, { passive: true });                     // a wheel turn moves the block under a still cursor: drop the preview
   pj.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); pj.io.unobserve(e.target); } }), { root: pj.el, rootMargin: '0px 0px -8% 0px' });
+  mediaWatchInit(pj.el);
   $('[data-pj="top"]', pj.el).addEventListener('click', () => pj.el.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }));   // as the Archive's "Back to top"
   pj.el.addEventListener('click', e => {
     const a = e.target.closest('[data-step],[data-next]');
@@ -2537,8 +2692,9 @@ const measureNav = () => document.documentElement.style.setProperty('--nav-h', M
 
 function leaveView(v) {
   syncVeil(null);
-  if (v === 'archive') { arHide(); ar.io.disconnect(); }
-  else if (v === 'project') { killAll(pj.tw); pj.io.disconnect(); clearTimeout(pj.dog); pj.busy = false; pj.queue = 0; pj.el.style.opacity = ''; pj.el.classList.remove('is-playing'); pkHide(); }
+  if (v === 'works') wheelMediaOff();
+  else if (v === 'archive') { arHide(); ar.io.disconnect(); }
+  else if (v === 'project') { mediaUnwatch(); mediaRelease(pj.el); killAll(pj.tw); pj.io.disconnect(); clearTimeout(pj.dog); pj.busy = false; pj.queue = 0; pj.el.style.opacity = ''; pj.el.classList.remove('is-playing'); pkHide(); }
 }
 
 function enterView(route, run, origin) {
@@ -2758,21 +2914,32 @@ window.__works = { boot, app };
      year        shown everywhere
      category    second line in the panel / Archive  ("Social Media")
      description the paragraph in the panel and on the project page
-     image       cover image, landscape 3:2 (empty = placeholder). Used on the Works wheel, in the
-                 panel, in the hover previews and as the first picture of the project page.
-                 Loaded lazily with a soft fade-in.
+     image       cover, landscape 3:2 (empty = placeholder): a picture "assets/projects/houm-yoga/cover.jpg" or a video "…/cover.mp4".
+                 Used on the Works wheel, in the panel, in the hover previews and as the first picture of the
+                 project page. Loaded lazily with a soft fade-in.
      works       its place on the Works wheel: 1, 2, 3 … (leave it out → the project is only in the Archive)
 
    Optional — the project page uses them when they are there:
-     images      more pictures for the project page, in order. A picture is "file.jpg"
-                 or { src: "file.jpg", ratio: "4/5", alt: "…" }  (ratio = width/height,
-                 default 3/2; the layout alternates full width · two side by side).
+     images      more pictures AND videos for the project page, in order. An item is "file.jpg" or "clip.mp4"
+                 or { src: "clip.mp4", poster: "clip-poster.jpg", ratio: "16/9", size: "full", alt: "…" }
+                 (ratio = width/height: 3/2 for a full-width picture, 16/9 for a full-width video, 4/5 for a half-width one if left out.
+                 size = "full" or "half": the width of that picture, wherever it stands in the order. Half widths sit two to a row;
+                 a half that is alone in its row keeps the left column. Left out → the automatic layout: the cover full width, then
+                 pairs, and an odd one out at the end full width. The cover is always full width.)
                  No images yet? Four placeholder frames are shown.
+     poster      only with a video cover: a still ("cover-poster.jpg") that shows until the video's first frame is ready
+
+   VIDEOS. A file ending in .mp4 (best: H.264, and .webm .mov .m4v .ogv also work) is a video wherever a picture would go —
+   `image` and `images`, so also on the wheel, in the panel and in the hover previews. It is a silent loop: not fetched until it
+   comes near the screen, playing while it is on screen, paused when it is not (or when the tab is hidden). Keep each one
+   short and small (a few MB). A clip WITH sound that the visitor starts himself: { src: "film.mp4", poster: "film.jpg",
+   ratio: "16/9", controls: true } (no autoplay, no loop, the browser's controls). Visitors who asked their system for less
+   motion see the poster (or the first frame) and tap to play.
      client      shown in the project's info list
      role        shown in the info list (and in brackets in the Works panel)
      link        an external page (Behance, the client's site …) → "Visit project ↗"
-     credits     [{ role: "Creative Director", name: "Jane Doe" }, …] — the Appendix under the pictures.
-                 Left out → the placeholder rows in  const credits  below.  credits: [] → no Appendix.
+     credits     [{ role: "Creative Director", name: "Jane Doe" }, …] — the Collaborator list under the pictures.
+                 Left out → the placeholder rows in  const credits  below.  credits: [] → no Collaborator list.
      slug        the web address, #project/houm-yoga — made from the name if left out
                  (set it yourself if you rename a project and want the old link to live on)
    ------------------------------------------------------------------ */
@@ -2780,44 +2947,552 @@ const LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do e
 
 const projects = [
   /* 2026 */
-  { name: "Houm Yoga",                  year: 2026, category: "Social Media",    works: 1,  description: LOREM, image: "" },
-  { name: "Houm Grounds",               year: 2026, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Goethe Institut",            year: 2026, category: "Social Media",    works: 13, description: LOREM, image: "" },
-  { name: "Two Hands Full",             year: 2026, category: "Packaging",       works: 7,  description: LOREM, image: "" },
-  { name: "7 Speed",                    year: 2026, category: "Social Media",    works: 6,  description: LOREM, image: "" },
-  { name: "Jullien",                    year: 2026, category: "Social Media",    works: 4,  description: LOREM, image: "" },
-  { name: "Garis Tegak",                year: 2026, category: "Visual Identity", works: 2,  description: LOREM, image: "" },
-  { name: "Seperti Angka 8",            year: 2026, category: "Visual Identity", works: 14, description: LOREM, image: "" },
-  { name: "Bukan Kendalimu",            year: 2026, category: "Visual Identity", works: 10, description: LOREM, image: "" },
-  { name: "Terabas",                    year: 2026, category: "Visual Identity", works: 5,  description: LOREM, image: "" },
-  { name: "Pulang Ke Stadion",          year: 2026, category: "Documentary",                 description: LOREM, image: "" },
+  { name: "Houm Yoga",                  year: 2026, category: "Social Media",    works: 1,
+    description: "Social media management for a wellness hub centered on feeling trendy yet welcoming, like home. The approach shapes a distinct personality for the space across digital touchpoints without losing its warmth.",
+    image: "assets/projects/houm-yoga/cover.jpg",
+    images: [
+      { src: "assets/projects/houm-yoga/01.mp4", poster: "assets/projects/houm-yoga/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/houm-yoga/02.jpg", size: "full" },
+      { src: "assets/projects/houm-yoga/03.mp4", poster: "assets/projects/houm-yoga/03-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/houm-yoga/04.mp4", poster: "assets/projects/houm-yoga/04-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/houm-yoga/05.jpg", size: "full" },
+      { src: "assets/projects/houm-yoga/06.mp4", poster: "assets/projects/houm-yoga/06-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/houm-yoga/07.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Bagas Adyaksa"],
+      ["Graphic Designer", "Bayu Kusuma"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Photographer", "Nugie Rian"]
+    ] },
+  { name: "Houm Grounds",               year: 2026, category: "Visual Identity", works: 9,
+    description: "A visual identity project for a Hyrox focused wellness hub. The system brings together the intensity of Hyrox training with the calm, home like grounding of the broader Houm wellness brand.",
+    image: "assets/projects/houm-grounds/cover.jpg",
+    images: [
+      { src: "assets/projects/houm-grounds/01.jpg", size: "half" },
+      { src: "assets/projects/houm-grounds/02.jpg", size: "half" },
+      { src: "assets/projects/houm-grounds/03.jpg", size: "half" },
+      { src: "assets/projects/houm-grounds/04.jpg", size: "half" },
+      { src: "assets/projects/houm-grounds/05.jpg", size: "half" },
+      { src: "assets/projects/houm-grounds/06.jpg", size: "half" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Goethe Institut",            year: 2026, category: "Social Media",    works: 13,
+    description: "An illustration project developing mascot assets for an educational program at Goethe Institut. Designed around a student oriented atmosphere, the character set leans into a bright, cheerful, and playful direction. Making the program’s communication feel approachable and engaging across digital touchpoints.",
+    image: "assets/projects/goethe-institut/cover.jpg",
+    images: [
+      { src: "assets/projects/goethe-institut/01.mp4", poster: "assets/projects/goethe-institut/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/goethe-institut/02.jpg", size: "full" },
+      { src: "assets/projects/goethe-institut/03.mp4", poster: "assets/projects/goethe-institut/03-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/goethe-institut/04.jpg", size: "full" },
+      { src: "assets/projects/goethe-institut/05.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Januar Rianto"],
+      ["Art Director", "Nisrina Aulia"],
+      ["Graphic Designer", "Nisrina Aulia"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Two Hands Full",             year: 2026, category: "Packaging",       works: 7,
+    description: "A packaging design project for the coffee bean lineup of Two Hands Full Roasters. Focusing on clarity and shelf presence, the system gives each release a distinct identity while keeping the roastery’s character consistent across the range.",
+    image: "assets/projects/two-hands-full/cover.jpg",
+    images: [
+      { src: "assets/projects/two-hands-full/01.jpg", size: "half" },
+      { src: "assets/projects/two-hands-full/02.jpg", size: "half" },
+      { src: "assets/projects/two-hands-full/03.jpg", size: "half" },
+      { src: "assets/projects/two-hands-full/04.jpg", size: "full" },
+      { src: "assets/projects/two-hands-full/05.jpg", size: "full" },
+      { src: "assets/projects/two-hands-full/06.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Januar Rianto"],
+      ["Art Director", "Nisrina Aulia"],
+      ["Graphic Designer", "Nisrina Aulia"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "7 Speed",                    year: 2026, category: "Social Media",    works: 6,
+    description: "Social media management for a character driven coffee shop connected to cycling, running, and eco conscious communities. It leans into a street sensibility that stays measured and approachable. Effortless yet composed.",
+    image: "assets/projects/7-speed/cover.jpg",
+    images: [
+      { src: "assets/projects/7-speed/01.mp4", poster: "assets/projects/7-speed/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/7-speed/02.jpg", size: "half" },
+      { src: "assets/projects/7-speed/03.jpg", size: "half" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Shan Savero"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Photographer", "Nugie Rian"],
+      ["Photographer", "Alviyena Inkamano"]
+    ] },
+  { name: "Jullien",                    year: 2026, category: "Social Media",    works: 4,
+    description: "Social media management for a fine dining restaurant, with a specific focus on its bar and weekly jazz performances. The work translates the venue’s core character into commercial social media formats while staying true to its identity.",
+    image: "assets/projects/jullien/cover.jpg",
+    images: [
+      { src: "assets/projects/jullien/01.mp4", poster: "assets/projects/jullien/01-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Bagas Adyaksa"],
+      ["Graphic Designer", "Nawwar Shafy"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Photographer", "Nugie Rian"],
+      ["Photographer", "Alviyena Inkamano"]
+    ] },
+  { name: "Garis Tegak",                year: 2026, category: "Visual Identity", works: 2,
+    description: "An EP project by Lafa Pratomo examining how modern individuals navigate structural pressures across economics, politics, uncertainty, life direction, and relationships. It unfolds through distinct single universes shaped by collaborating musicians, each offering a visual response to those themes.",
+    image: "assets/projects/garis-tegak/cover.jpg",
+    images: [
+      { src: "assets/projects/garis-tegak/01.jpg", size: "full" },
+      { src: "assets/projects/garis-tegak/02.jpg", size: "full" },
+      { src: "assets/projects/garis-tegak/03.mp4", poster: "assets/projects/garis-tegak/03-poster.jpg", size: "half", ratio: "4/5" },
+      { src: "assets/projects/garis-tegak/04.jpg", size: "full" },
+      { src: "assets/projects/garis-tegak/05.mp4", poster: "assets/projects/garis-tegak/05-poster.jpg", size: "half", ratio: "4/5" },
+      { src: "assets/projects/garis-tegak/06.jpg", size: "full" },
+      { src: "assets/projects/garis-tegak/07.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Bagas Adyaksa"],
+      ["Project Manager", "Nathanael Christian"],
+      ["Graphic Designer", "Bayu Kusuma"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Seperti Angka 8",            year: 2026, category: "Visual Identity", works: 14,
+    description: "Part of the Garis Tegak universe, this collaboration between Lafa Pratomo, Feby Putri, and Matter Mos looks at the shifting dynamics of domestic life from sweetness to friction and the choice to face internal and external pressures together, arriving at a deeper sense of mutual surrender.",
+    image: "assets/projects/seperti-angka-8/cover.jpg",
+    images: [
+      { src: "assets/projects/seperti-angka-8/01.jpg", size: "full" },
+      { src: "assets/projects/seperti-angka-8/02.jpg", size: "full" },
+      { src: "assets/projects/seperti-angka-8/03.jpg", size: "full" },
+      { src: "assets/projects/seperti-angka-8/04.jpg", size: "full" },
+      { src: "assets/projects/seperti-angka-8/05.jpg", size: "full" },
+      { src: "assets/projects/seperti-angka-8/06.jpg", size: "full" },
+      { src: "assets/projects/seperti-angka-8/07.mp4", poster: "assets/projects/seperti-angka-8/07-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/seperti-angka-8/08.mp4", poster: "assets/projects/seperti-angka-8/08-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/seperti-angka-8/09.mp4", poster: "assets/projects/seperti-angka-8/09-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Bagas Adyaksa"],
+      ["Project Manager", "Nathanael Christian"],
+      ["Graphic Designer", "Bayu Kusuma"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Music Video", "Kama Production House"],
+      ["Music Video", "KithLabo"],
+      ["Music Video", "Syaip Studio"]
+    ] },
+  { name: "Bukan Kendalimu",            year: 2026, category: "Visual Identity", works: 10,
+    description: "A collaboration with Lafa Pratomo, Hursa, and Nadhif Basalamah centered on letting go of past outcomes, decisions, wins, and missteps. It leaves room for grief and feeling overwhelmed while holding onto openness, moving forward day by day, and surrendering to time and the creator.",
+    image: "assets/projects/bukan-kendalimu/cover.jpg",
+    images: [
+      { src: "assets/projects/bukan-kendalimu/01.jpg", size: "full" },
+      { src: "assets/projects/bukan-kendalimu/02.jpg", size: "half" },
+      { src: "assets/projects/bukan-kendalimu/03.jpg", size: "half" },
+      { src: "assets/projects/bukan-kendalimu/04.jpg", size: "full" },
+      { src: "assets/projects/bukan-kendalimu/05.jpg", size: "full" },
+      { src: "assets/projects/bukan-kendalimu/06.jpg", size: "full" },
+      { src: "assets/projects/bukan-kendalimu/07.jpg", size: "full" },
+      { src: "assets/projects/bukan-kendalimu/08.mp4", poster: "assets/projects/bukan-kendalimu/08-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Bagas Adyaksa"],
+      ["Project Manager", "Nathanael Christian"],
+      ["Graphic Designer", "Luky Wiranda"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Photographer", "Nugie Rian"],
+      ["Music Video", "Kama Production House"],
+      ["Music Video", "KithLabo"],
+      ["Music Video", "Syaip Studio"]
+    ] },
+  { name: "Terabas",                    year: 2026, category: "Visual Identity", works: 5,
+    description: "A collaboration with Lafa Pratomo, Bilal Indrajaya, and The Jansen following someone who naturally becomes a sounding board and safe space for others’ anxieties, even while carrying their own turmoil and doubts around surrender. Anchored by a remembered piece of advice, the track pushes forward through gray optimism. Simply cutting straight through whatever comes next.",
+    image: "assets/projects/terabas/cover.jpg",
+    images: [
+      { src: "assets/projects/terabas/01.jpg", size: "full" },
+      { src: "assets/projects/terabas/02.jpg", size: "half" },
+      { src: "assets/projects/terabas/03.jpg", size: "half" },
+      { src: "assets/projects/terabas/04.jpg", size: "full" },
+      { src: "assets/projects/terabas/05.jpg", size: "full" },
+      { src: "assets/projects/terabas/06.jpg", size: "full" },
+      { src: "assets/projects/terabas/07.mp4", poster: "assets/projects/terabas/07-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/terabas/08.mp4", poster: "assets/projects/terabas/08-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Creative Director", "Gema Semesta"],
+      ["Art Director", "Bagas Adyaksa"],
+      ["Project Manager", "Nathanael Christian"],
+      ["Graphic Designer", "Luky Wiranda"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Photographer", "Mikha Satria"],
+      ["Videographer", "Alviyena Inkamano"],
+      ["Videographer", "Nugie Rian"],
+      ["Music Video", "Kama Production House"],
+      ["Music Video", "KithLabo"],
+      ["Music Video", "Syaip Studio"]
+    ] },
+  { name: "Pulang Ke Stadion",          year: 2026, category: "Documentary",
+    description: "A final year project exploring how Bandung’s football stadium is evolving into a more inclusive space. Set against past trauma, media narratives, and stereotypes surrounding Persib supporters, the film takes a transparent, reflective approach by documenting real progress without glossing over what still needs work.",
+    image: "assets/projects/pulang-ke-stadion/cover.jpg",
+    images: [
+      { src: "assets/projects/pulang-ke-stadion/01.mp4", poster: "assets/projects/pulang-ke-stadion/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/02.mp4", poster: "assets/projects/pulang-ke-stadion/02-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/03.mp4", poster: "assets/projects/pulang-ke-stadion/03-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/04.mp4", poster: "assets/projects/pulang-ke-stadion/04-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/05.mp4", poster: "assets/projects/pulang-ke-stadion/05-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/06.mp4", poster: "assets/projects/pulang-ke-stadion/06-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/07.mp4", poster: "assets/projects/pulang-ke-stadion/07-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/08.mp4", poster: "assets/projects/pulang-ke-stadion/08-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/09.mp4", poster: "assets/projects/pulang-ke-stadion/09-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/10.mp4", poster: "assets/projects/pulang-ke-stadion/10-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/11.mp4", poster: "assets/projects/pulang-ke-stadion/11-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/12.mp4", poster: "assets/projects/pulang-ke-stadion/12-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/pulang-ke-stadion/13.mp4", poster: "assets/projects/pulang-ke-stadion/13-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Director", "Rafila Famedian"],
+      ["DOP", "Rafila Famedian"],
+      ["Cast", "Rafila Famedian"],
+      ["Cast", "Fredy"],
+      ["Cast", "Budi"],
+      ["Cast", "Erwin"],
+      ["Cast", "Alby"],
+      ["Cast", "Cibil"],
+      ["Cast", "Umi"],
+      ["Cameraman", "Reza Firdaus"],
+      ["Assistant Director", "Nada Syarifah"]
+    ] },
 
   /* 2025 */
-  { name: "Bru",                        year: 2025, category: "Packaging",                   description: LOREM, image: "" },
-  { name: "Umbira",                     year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Rimbun",                     year: 2025, category: "Visual Identity", works: 15, description: LOREM, image: "" },
-  { name: "Tanirra",                    year: 2025, category: "Visual Identity", works: 11, description: LOREM, image: "" },
-  { name: "Mandala",                    year: 2025, category: "Typography",      works: 12, description: LOREM, image: "" },
-  { name: "Aloev",                      year: 2025, category: "Exhibition",      works: 9,  description: LOREM, image: "" },
-  { name: "Bikasoga",                   year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Atklub",                     year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Stiluso",                    year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Lemarbel",                   year: 2025, category: "Visual Identity", works: 8,  description: LOREM, image: "" },
-  { name: "Cass up!",                   year: 2025, category: "Campaign",                    description: LOREM, image: "" },
-  { name: "Dualoque",                   year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Bona",                       year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Zenki",                      year: 2025, category: "Visual Identity",             description: LOREM, image: "" },
-  { name: "Tachi",                      year: 2025, category: "Social Media",                description: LOREM, image: "" },
+  { name: "Bru",                        year: 2025, category: "Packaging",
+    description: "Acting as design support for a coffee roastery, the task involved developing product and packaging systems, including can designs. The approach sought to merge informative product data with a refined aesthetic to ensure both functional clarity and visual appeal. The intervention provides a balanced experience where utility and form are intentionally aligned.",
+    image: "assets/projects/bru/cover.jpg",
+    images: [
+      { src: "assets/projects/bru/01.mp4", poster: "assets/projects/bru/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bru/02.jpg", size: "half" },
+      { src: "assets/projects/bru/03.jpg", size: "half" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Art Director", "Dian Purba"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Photography", "Bru"]
+    ] },
+  { name: "Umbira",                     year: 2025, category: "Visual Identity",
+    description: "A rebranding project tasked with transitioning a minimalist aesthetic into a vibrant, maximalist illustrative language. The intervention sought to refresh the coffee brand’s image in response to client needs while preserving its core essence. The shift provides a more spirited and dynamic visual dialogue without disconnecting from the brand’s established roots.",
+    image: "assets/projects/umbira/cover.jpg",
+    images: [
+      { src: "assets/projects/umbira/01.jpg", size: "full" },
+      { src: "assets/projects/umbira/02.jpg", size: "full" },
+      { src: "assets/projects/umbira/03.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Yasmin Aulia"],
+      ["Graphic Designer", "Andry Januaris"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Graphic Designer", "Alif Ramadhan"]
+    ] },
+  { name: "Rimbun",                     year: 2025, category: "Visual Identity", works: 15,
+    description: "Responding to the need for a sanctuary within a dense urban landscape, this project explores a visual identity rooted in the brand’s organic essence. The application of bread fiber textures as a primary key visual aims to establish a grounded, homey atmosphere. The resulting system serves as a visual ‘pause’, aligning material inspired elements with the bakery’s core philosophy.",
+    image: "assets/projects/rimbun/cover.jpg",
+    images: [
+      { src: "assets/projects/rimbun/01.jpg", size: "half" },
+      { src: "assets/projects/rimbun/02.jpg", size: "half" },
+      { src: "assets/projects/rimbun/03.jpg", size: "half" },
+      { src: "assets/projects/rimbun/04.jpg", size: "full" },
+      { src: "assets/projects/rimbun/05.jpg", size: "half" },
+      { src: "assets/projects/rimbun/06.jpg", size: "half" },
+      { src: "assets/projects/rimbun/07.jpg", size: "half" },
+      { src: "assets/projects/rimbun/08.jpg", size: "half" },
+      { src: "assets/projects/rimbun/09.jpg", size: "full" }
+    ],
+    credits: [
+      ["Art Director", "Rafila Famedian"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Graphic Designer", "Nada Syarifah"],
+      ["Graphic Designer", "Reza Firdaus"]
+    ] },
+  { name: "Tanirra",                    year: 2025, category: "Visual Identity", works: 11,
+    description: "This visual identity attempts to translate the ethereal qualities of Balinese floral scents into a tangible brand system. By utilizing heritage inspired color palettes and flower centric key visuals, the design maintains a strong sense of place and tradition. The project focuses on inheriting cultural nuances while positioning the fragrance within a modern, inherited tone and manner.",
+    image: "assets/projects/tanirra/cover.jpg",
+    images: [
+      { src: "assets/projects/tanirra/01.jpg", size: "full" },
+      { src: "assets/projects/tanirra/02.jpg", size: "full" },
+      { src: "assets/projects/tanirra/03.jpg", size: "full" },
+      { src: "assets/projects/tanirra/04.jpg", size: "full" },
+      { src: "assets/projects/tanirra/05.jpg", size: "full" }
+    ],
+    credits: [
+      ["Art Director", "Rafila Famedian"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Graphic Designer", "Nada Syarifah"],
+      ["Graphic Designer", "Reza Firdaus"]
+    ] },
+  { name: "Mandala",                    year: 2025, category: "Type Design",     works: 12,
+    description: "Derived from the spiritual philosophies and protective symbolism of Balinese gringsing fabric, this project explores the construction of a modern vernacular typeface. The design respects the original motifs while adapting their geometry for contemporary editorial use. The intervention seeks to bridge traditional spiritual narratives with modern typographic requirements through a thoughtful editorial implementation.", image: "",
+    credits: [
+      ["Art Director", "Ignatius Soekarno"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Aloev",                      year: 2025, category: "Exhibition",
+    description: "Contribute as design support for Aloev’s 10th anniversary celebration, the task involved translating the studio’s interior ethos into a cohesive exhibition identity. The process focused on the execution of environmental graphics, including curatorial wall texts and editorial layouts. The intervention ensures a consistent visual tone that honors the studio’s decade long practice.",
+    image: "assets/projects/aloev/cover.jpg",
+    images: [
+      { src: "assets/projects/aloev/01.mp4", poster: "assets/projects/aloev/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/aloev/03.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Eldhie Rutfi"],
+      ["Graphic Designer", "Putri Qori"],
+      ["Graphic Designer", "Isan Nurfaisal"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Bikasoga",                   year: 2025, category: "Visual Identity",
+    description: "Addressing a visual identity that had become disconnected from contemporary relevance, this project explores a sensitive modernization of an established community brand. The approach focuses on preserving the recognizable core essence while introducing refined visual treatments. The goal was to maintain familiarity for the existing community while subtly broadening appeal for a newer demographic.",
+    image: "assets/projects/bikasoga/cover.jpg",
+    images: [
+      { src: "assets/projects/bikasoga/01.jpg", size: "full" },
+      { src: "assets/projects/bikasoga/02.jpg", size: "full" },
+      { src: "assets/projects/bikasoga/03.jpg", size: "full" },
+      { src: "assets/projects/bikasoga/04.jpg", size: "full" },
+      { src: "assets/projects/bikasoga/05.jpg", size: "full" }
+    ],
+    credits: [
+      ["Art Director", "Yasmin Aulia"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Atklub",                     year: 2025, category: "Visual Identity",
+    description: "This project focuses on the practical translation of a visual identity system into a social media kickstart. The execution involves interpreting existing guidelines into specific digital layouts, consistent copywriting, and a unified Instagram tone of voice. The objective was to ensure the brand’s visual ‘spirit’ remains cohesive and functional across high-speed social media touchpoints.",
+    image: "assets/projects/atklub/cover.jpg",
+    images: [
+      { src: "assets/projects/atklub/01.jpg", size: "full" },
+      { src: "assets/projects/atklub/02.jpg", size: "full" },
+      { src: "assets/projects/atklub/03.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Yasmin Aulia"],
+      ["Graphic Designer", "Isan Nurfaisal"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Stiluso",                    year: 2025, category: "Visual Identity",
+    description: "The project focuses on documenting a leather brand’s visual identity into a comprehensive guideline system. By standardizing the application of visual elements and social media treatments, the archive provides a disciplined framework for long term use. The result is a consolidated manual that ensures visual consistency across physical and digital touchpoints.",
+    image: "assets/projects/stiluso/cover.jpg",
+    images: [
+      { src: "assets/projects/stiluso/01.jpg", size: "half" },
+      { src: "assets/projects/stiluso/02.jpg", size: "half" },
+      { src: "assets/projects/stiluso/03.jpg", size: "full" },
+      { src: "assets/projects/stiluso/04.jpg", size: "full" },
+      { src: "assets/projects/stiluso/05.jpg", size: "full" },
+      { src: "assets/projects/stiluso/06.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Eldhie Rutfi"],
+      ["Graphic Designer", "Andry Januaris"],
+      ["Graphic Designer", "Putri Qori"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Lemarbel",                   year: 2025, category: "Visual Identity", works: 8,
+    description: "Consolidating the visual identity of a padel court and studio into a structured brand manual. The archive defines the parameters for visual usage, from physical media applications to systematic social media environments. This framework serves as a technical reference to maintain the brand’s visual integrity within its specialized community.",
+    image: "assets/projects/lemarbel/cover.jpg",
+    images: [
+      { src: "assets/projects/lemarbel/01.jpg", size: "full" },
+      { src: "assets/projects/lemarbel/02.jpg", size: "full" },
+      { src: "assets/projects/lemarbel/03.jpg", size: "half" },
+      { src: "assets/projects/lemarbel/04.jpg", size: "half" },
+      { src: "assets/projects/lemarbel/05.jpg", size: "full" },
+      { src: "assets/projects/lemarbel/06.jpg", size: "full" },
+      { src: "assets/projects/lemarbel/07.jpg", size: "half" },
+      { src: "assets/projects/lemarbel/08.jpg", size: "full" },
+      { src: "assets/projects/lemarbel/09.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Art Director", "Aditya Krisna"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Putri Qori"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Interior Design", "NARK+ Design Bureau"]
+    ] },
+  { name: "Cass Up!",                   year: 2025, category: "Campaign",
+    description: "Addressing the urgency of food security through the lens of diversification, this campaign identity centers on cassava as a sustainable local resource. The design employs a visual tone and messaging strategy specifically tailored to engage a younger demographic. The outcome is an efficient communication system that bridges local agricultural urgency with contemporary audience relevance.", image: "",
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Eldhie Rutfi"],
+      ["Graphic Designer", "Andry Januaris"],
+      ["Graphic Designer", "Putri Qori"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Dualoque",                   year: 2025, category: "Visual Identity",
+    description: "Translating the philanthropic spirit of a wellness hub into an empathetic visual identity system. The design focuses on the core narrative of human connectivity and the fundamental necessity of being heard. The resulting social media framework ensures that digital interactions remain consistent with the brand’s supportive and reflective essence.",
+    image: "assets/projects/dualoque/cover.jpg",
+    images: [
+      { src: "assets/projects/dualoque/01.jpg", size: "full" },
+      { src: "assets/projects/dualoque/02.jpg", size: "full" },
+      { src: "assets/projects/dualoque/03.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Vevaldy Yusuf"],
+      ["Graphic Designer", "Yasmin Aulia"],
+      ["Graphic Designer", "Eldhie Rutfi"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
+  { name: "Bona",                       year: 2025, category: "Visual Identity",
+    description: "An exploration of integrating visual identity into environmental graphic design, with a primary focus on custom illustrations. The challenge involved developing a prestigious art style that remains consistent with the brasserie’s core identity. This integration creates a cohesive atmospheric experience where physical space and visual narratives are intentionally aligned.",
+    image: "assets/projects/bona/cover.jpg",
+    images: [
+      { src: "assets/projects/bona/01.jpg", size: "full" },
+      { src: "assets/projects/bona/02.jpg", size: "full" },
+      { src: "assets/projects/bona/03.jpg", size: "full" },
+      { src: "assets/projects/bona/04.jpg", size: "full" },
+      { src: "assets/projects/bona/05.jpg", size: "full" },
+      { src: "assets/projects/bona/06.jpg", size: "full" }
+    ],
+    credits: [
+      ["Creative Director", "Shani Nur"],
+      ["Branding Director", "Putri Qori"],
+      ["Graphic Designer", "Eldhie Rutfi"],
+      ["Graphic Designer", "Yasmin Aulia"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Graphic Designer", "Naufal Farras"]
+    ] },
+  { name: "Zenki",                      year: 2025, category: "Visual Identity",
+    description: "Exploring the duality of relaxation and positive energy, this project develops a visual identity and product system for a matcha based brand. The design draws inspiration from zen stone characteristics to translate inner peace into a tangible brand experience. The resulting identity acts as a visual conduit for a relaxed, yet energized lifestyle.",
+    image: "assets/projects/zenki/cover.jpg",
+    images: [
+      { src: "assets/projects/zenki/01.jpg", size: "full" },
+      { src: "assets/projects/zenki/02.jpg", size: "full" },
+      { src: "assets/projects/zenki/03.jpg", size: "full" },
+      { src: "assets/projects/zenki/04.jpg", size: "full" }
+    ],
+    credits: [
+      ["Art Director", "Rafila Famedian"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Graphic Designer", "Nada Syarifah"],
+      ["Graphic Designer", "Reza Firdaus"]
+    ] },
+  { name: "Kaulinan Sans",              year: 2025, category: "Type Design",
+    description: "An experimental type design project translating a tangible object into a typeface. Drawing from the theme of imagination, I turned to the ninja toy figurine, a familiar childhood staple for many in Indonesia, particularly Gen Z, and translated its spirit into a typographic design practice.",
+    image: "assets/projects/kaulinan-sans/cover.jpg",
+    images: [
+      { src: "assets/projects/kaulinan-sans/01.jpg", size: "full" },
+      { src: "assets/projects/kaulinan-sans/02.jpg", size: "full" },
+      { src: "assets/projects/kaulinan-sans/03.jpg", size: "full" },
+      { src: "assets/projects/kaulinan-sans/04.jpg", size: "full" },
+      { src: "assets/projects/kaulinan-sans/05.jpg", size: "full" },
+      { src: "assets/projects/kaulinan-sans/06.jpg", size: "full" },
+      { src: "assets/projects/kaulinan-sans/07.jpg", size: "full" }
+    ],
+    credits: [
+      ["Art Director", "Ignatius Soekarno"],
+      ["Graphic Designer", "Rafila Famedian"]
+    ] },
 
   /* 2024 */
-  { name: "The Less I Know The Better", year: 2024, category: "Music Video",     works: 3,  description: LOREM, image: "" },
-  { name: "Bodypack Audagami",          year: 2024, category: "Campaign",                    description: LOREM, image: "" },
-  { name: "Apex Media+",                year: 2024, category: "Magazine",                    description: LOREM, image: "" },
-  { name: "Alam Santosa",               year: 2024, category: "Documentary",                 description: LOREM, image: "" }
+  { name: "The Less I Know The Better", year: 2024, category: "Music Video",     works: 3,
+    description: "An experimental videography study responding to Tame Impala’s The Less I Know The Better by translating its mood and essence into visual form. It pairs narrative flow and cinematography with a strong psychedelic visual edge.",
+    image: "assets/projects/the-less-i-know-the-better/cover.jpg",
+    images: [
+      { src: "assets/projects/the-less-i-know-the-better/01.mp4", poster: "assets/projects/the-less-i-know-the-better/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/02.mp4", poster: "assets/projects/the-less-i-know-the-better/02-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/03.mp4", poster: "assets/projects/the-less-i-know-the-better/03-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/04.mp4", poster: "assets/projects/the-less-i-know-the-better/04-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/05.mp4", poster: "assets/projects/the-less-i-know-the-better/05-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/06.mp4", poster: "assets/projects/the-less-i-know-the-better/06-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/07.mp4", poster: "assets/projects/the-less-i-know-the-better/07-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/08.mp4", poster: "assets/projects/the-less-i-know-the-better/08-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/09.mp4", poster: "assets/projects/the-less-i-know-the-better/09-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/the-less-i-know-the-better/10.mp4", poster: "assets/projects/the-less-i-know-the-better/10-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Director", "Rafi Naufal"],
+      ["Cast", "Rafila Famedian"],
+      ["DOP", "Rifqi Najmu"],
+      ["Cameraman", "Natifa Nurhanifa"],
+      ["Set", "Vera Almaida"]
+    ] },
+  { name: "Bodypack Audagami",          year: 2024, category: "Campaign",
+    description: "An experimental study exploring commercial advertising through short form storytelling. Rather than leaning into a hard sell, the piece introduces the product’s vision in a way that feels natural and relevant to audiences drawn to an active lifestyle.",
+    image: "assets/projects/bodypack-audagami/cover.jpg",
+    images: [
+      { src: "assets/projects/bodypack-audagami/01.mp4", poster: "assets/projects/bodypack-audagami/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/02.mp4", poster: "assets/projects/bodypack-audagami/02-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/03.mp4", poster: "assets/projects/bodypack-audagami/03-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/04.mp4", poster: "assets/projects/bodypack-audagami/04-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/05.mp4", poster: "assets/projects/bodypack-audagami/05-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/06.mp4", poster: "assets/projects/bodypack-audagami/06-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/07.mp4", poster: "assets/projects/bodypack-audagami/07-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/08.mp4", poster: "assets/projects/bodypack-audagami/08-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/09.mp4", poster: "assets/projects/bodypack-audagami/09-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/bodypack-audagami/10.mp4", poster: "assets/projects/bodypack-audagami/10-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Director", "Rafila Famedian"],
+      ["DOP", "Rafila Famedian"],
+      ["Cameraman", "Rafila Famedian"],
+      ["Cast", "Muhammad Hasan"],
+      ["Cast", "Nada Syarifah"],
+      ["Cast", "Dzikran Izharudin"]
+    ] },
+  { name: "Apex Media+",                year: 2024, category: "Magazine",
+    description: "Developed as a collaborative coursework project, this gaming focused magazine covers new releases, retro titles, and industry awards. Working as a team, our involvement spans from topic curation and editorial direction to visual execution and the printing process.",
+    image: "assets/projects/apex-media/cover.jpg",
+    images: [
+      { src: "assets/projects/apex-media/01.jpg", size: "full" },
+      { src: "assets/projects/apex-media/02.jpg", size: "full" },
+      { src: "assets/projects/apex-media/03.jpg", size: "full" },
+      { src: "assets/projects/apex-media/04.jpg", size: "full" },
+      { src: "assets/projects/apex-media/05.jpg", size: "full" },
+      { src: "assets/projects/apex-media/06.jpg", size: "full" }
+    ],
+    credits: [
+      ["Art Director", "Raihan Azfa"],
+      ["Graphic Designer", "Rafila Famedian"],
+      ["Graphic Designer", "Ricky"]
+    ] },
+  { name: "Alam Santosa",               year: 2024, category: "Documentary",
+    description: "Combining promotional intent with a documentary lens, this videography project looks closely at Alam Santosa as an educational tourism site. It highlights how spaces like this can serve as early learning grounds, spaces for experimentation, and cultural preservation for children and the wider public.",
+    image: "assets/projects/alam-santosa/cover.jpg",
+    images: [
+      { src: "assets/projects/alam-santosa/01.mp4", poster: "assets/projects/alam-santosa/01-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/02.mp4", poster: "assets/projects/alam-santosa/02-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/03.mp4", poster: "assets/projects/alam-santosa/03-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/04.mp4", poster: "assets/projects/alam-santosa/04-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/05.mp4", poster: "assets/projects/alam-santosa/05-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/06.mp4", poster: "assets/projects/alam-santosa/06-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/07.mp4", poster: "assets/projects/alam-santosa/07-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/08.mp4", poster: "assets/projects/alam-santosa/08-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/09.mp4", poster: "assets/projects/alam-santosa/09-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/10.mp4", poster: "assets/projects/alam-santosa/10-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/11.mp4", poster: "assets/projects/alam-santosa/11-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/12.mp4", poster: "assets/projects/alam-santosa/12-poster.jpg", size: "full", ratio: "3/2" }
+    ],
+    credits: [
+      ["Director", "Rafi Naufal"],
+      ["DOP", "Rifqi Najmu"],
+      ["Cameraman", "Natifa Nurhanifa"],
+      ["Set", "Rafila Famedian"],
+      ["Set", "Vera Almaida"]
+    ] }
 ];
 
 /* ------------------------------------------------------------------
-   CREDITS — the placeholder rows every project page shows in its Appendix, under the pictures, until
+   CREDITS — the placeholder rows every project page shows in its Collaborator list, under the pictures, until
    the project has its own  credits: [...]  (see above). Role on the left, name on the right.
    ------------------------------------------------------------------ */
 const credits = [
@@ -2837,8 +3512,8 @@ const credits = [
    Longer text still fits: the type just scales down a little.
    ------------------------------------------------------------------ */
 const about = {
-  headline:   "Graphic designer based in Jakarta, Indonesia. I provide graphic design needs, approaching each project in a humanist way, with care for the details from start to finish.",
-  body:       "This approach isn’t tied to one type of work. It’s what I bring to every project, and it’s the foundation of my four main services:",
+  headline:   "Graphic designer based in Jakarta, Indonesia. I provide graphic design needs, approaching each project with people in mind and care for the details from start to finish.",
+  body:       "This mindset isn’t tied to one type of work. It’s what I bring to every project, and it’s the foundation of my four main services:",
   services:   ["Creative Direction", "Visual Identity", "Editorial Design", "Social Media Strategy"]
 };
 
