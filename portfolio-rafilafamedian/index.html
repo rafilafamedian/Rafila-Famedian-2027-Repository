@@ -397,11 +397,9 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .is-in .ar-t,.is-in .ct-t{transform:none;transition:transform 1.2s var(--ease-ui) var(--d,0s)}
 .ar-contain{
   --ar-size:clamp(1.125rem,calc(var(--h2)*.62),2.25rem);
-  padding-top:calc(var(--space-1)*2 + var(--text-main)*2.015 + 9vh);
+  padding-top:calc(var(--space-1)*2 + var(--text-main)*2.015 + 5vh);
   padding-bottom:calc(12vh + env(safe-area-inset-bottom,0px));
 }
-.ar-head{align-items:end;margin-bottom:calc(var(--space-1-5)*2.5)}
-.ar-h1{grid-column:1/span 9;margin:0;font-size:var(--display);line-height:.95;font-weight:500;letter-spacing:-.04em}
 
 .ar-list{position:relative;margin:0;padding:0;list-style:none}
 .ar-list::after{content:"";display:block;height:0;border-top:1px solid var(--hair)}
@@ -421,13 +419,15 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .ar-row.is-from .ar-link{animation:ar-from 2.2s var(--ease-ui) 1 both}
 @keyframes ar-from{0%{background:rgba(0,0,0,.09)}100%{background:rgba(0,0,0,0)}}
 .ar-foot{display:flex;justify-content:flex-end;align-items:baseline;gap:1rem;padding-top:var(--space-1-5);font-size:var(--text-main);line-height:1}
-.archive .ar-foot{justify-content:space-between;align-items:flex-end;gap:calc(var(--space-1-5)*2);padding-top:calc(var(--space-1-5)*3.4)}
-.ar-note{margin:0;font-size:var(--text-small);line-height:1.5;font-weight:400;letter-spacing:-.005em;opacity:.55}
-@media (max-width:767px){
-  .archive .ar-foot{flex-direction:column;align-items:stretch;gap:calc(var(--space-1-5)*1.7);padding-top:calc(var(--space-1-5)*2.6)}
-  .archive .ar-foot .ar-top{order:-1;align-self:flex-end}
+.archive .ar-foot{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:calc(var(--space-1-5)*5.5);align-items:baseline;padding-top:calc(var(--space-1-5)*3.4)}
+.archive .ar-note{grid-column:4/-1}
+.archive .ar-foot .ar-top{grid-column:1/-1;justify-self:end}      /* the note stands in the Collaborator column; Back to top is on the right, as on a project page */
+.ar-note{margin:0;font-size:max(var(--text-main),calc(var(--ar-size)*.5));line-height:1.35;font-weight:400;letter-spacing:-.01em;opacity:.55}
+@media (min-width:768px){.ar-note span{white-space:nowrap}}
+@media (max-width:991px){
+  .archive .ar-note{grid-column:3/-1}      /* the names start at column 3 here */
 }
-.ar-note span{display:block}   /* two rows: the sentence about the pictures, then the one about their rights */
+.ar-note span{display:block;text-wrap:balance}   /* two rows: the sentence about the pictures, then the one about their rights */
 .ar-top{position:relative;padding:0 0 2px;border:0;background:none;color:inherit;line-height:1;cursor:pointer}
 
 /* hover preview (mouse only): follows the cursor, flips to its left near the right edge */
@@ -445,8 +445,6 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
   .ar-name{grid-column:3/9}
 }
 @media (max-width:767px){
-  .ar-head{row-gap:var(--space-1-5)}
-  .ar-h1{grid-column:1/-1}
   .ar-link{align-items:start}
   .ar-num{grid-column:1/3;grid-row:1}
   .ar-name{grid-column:3/11;grid-row:1}
@@ -466,6 +464,10 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .pj-title{margin:0 0 calc(var(--space-1-5)*2.5);font-size:var(--display);line-height:.98;font-weight:500;letter-spacing:-.04em}
 .pj-info{align-items:baseline;margin-bottom:calc(var(--space-1-5)*3)}                /* the first row (Year) sits on the same baseline as the first line of the text */
 .pj-meta{grid-column:1/span 4;margin:0;padding:0}
+.pj-meta[hidden],.pj-tag[hidden]{display:none}
+.pj-tag{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:baseline;margin:calc(var(--space-1-5)*-1) 0 calc(var(--space-1-5)*1.6);font-size:var(--text-main);line-height:1.25;font-weight:400;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.pj-tag-in{grid-column:7/span 4;display:grid;grid-template-columns:var(--tag-w,9em) auto;justify-content:start;align-items:baseline}   /* the paragraph's left edge: the category, then the year in a column that fits the longest category */
+.pj-tag-in span{opacity:.55}
 .pj-m{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);padding:.3rem 0;font-size:var(--text-main);line-height:1.25;opacity:0;transform:translate3d(0,12px,0)}
 .pj-m.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
 .pj-m dt{grid-column:1/3;margin:0;opacity:.55}
@@ -483,13 +485,11 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .pj-ck span{display:block;opacity:.55}
 .pj-clist{grid-column:7/span 4;margin:0;padding:0}
 .pj-clist .pj-m{padding:.4rem 0}
-.pj-clist .pj-m.is-rep{padding-top:0}
 .pj-clist .pj-m.is-rep dt{opacity:0}
-.pj-clist .pj-m.is-grp{margin-top:.55rem}
 .pj-rv{opacity:0;transform:translate3d(0,12px,0)}
 .pj-rv.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
 /* the way back up (the Archive's .ar-foot / .ar-top), after the appendix: a page of many pictures ends here */
-.pj-foot{margin-bottom:calc(var(--space-1-5)*4)}
+.pj-foot{margin-bottom:calc(var(--space-1-5)*4);padding-top:calc(var(--space-1-5)*5.5)}     /* clear air between the Collaborator list and Back to top */
 
 .pj-fig{margin:0;grid-column:1/-1;opacity:0;transform:translate3d(0,36px,0)}
 .pj-fig.is-half{grid-column:span 6}
@@ -500,11 +500,10 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .pj-media img,.pj-media video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s var(--ease-ui)}
 .pj-media img.is-loaded,.pj-media video.is-loaded{opacity:1}
 /* a video sits over its poster (the still, if there is one) and fades in once its first frame is ready. A looping clip is only a moving picture, so the pointer goes
-   through it; it becomes clickable only when the visitor has to start it (reduced motion, or the browser refused to autoplay), and a clip with controls keeps them */
+   through it; it becomes clickable only when the browser refused to autoplay, and a clip with controls keeps them */
 video.vid{pointer-events:none;background:transparent}
 video.vid.is-blocked,video.vid[controls]{pointer-events:auto;cursor:pointer}
 video.vid[controls]{cursor:auto;object-fit:contain;background:#000}
-@media (prefers-reduced-motion:reduce){video.vid{pointer-events:auto;cursor:pointer}}
 
 .pj-next{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--space-1-5);align-items:end;padding-top:var(--space-1-5);color:inherit;opacity:0;transform:translate3d(0,24px,0)}
 .pj-next.is-in{opacity:1;transform:none;transition:opacity 1s var(--ease-ui) var(--d,0s),transform 1.2s var(--ease-ui) var(--d,0s)}
@@ -523,11 +522,16 @@ video.vid[controls]{cursor:auto;object-fit:contain;background:#000}
   .pj-pager{grid-column:7/13}
   .pj-meta{grid-column:1/-1}
   .pj-desc{grid-column:1/-1;order:-1;margin-bottom:var(--space-1-5)}
+  .pj-tag-in{grid-column:1/-1}
   .pj-ck{grid-column:1/-1}
   .pj-clist{grid-column:1/-1}
 }
 @media (max-width:767px){
   .pj-fig.is-half{grid-column:1/-1}
+  .pj-ck,.pj-clist{grid-column:7/-1}      /* the Collaborator block starts under the back arrow (column 7), as on a desktop screen */
+  .pj-clist .pj-m{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+  .pj-clist .pj-m dt{grid-column:1}
+  .pj-clist .pj-m dd{grid-column:2}
   .pj-next-t{grid-column:1/span 10}
   .pj-next-img{grid-column:1/span 8}
 }
@@ -843,9 +847,7 @@ video.vid[controls]{cursor:auto;object-fit:contain;background:#000}
 <!-- every project, newest first; rows are generated from the `projects` array (see buildArchive) -->
 <main id="view-archive" class="archive" data-archive tabindex="-1" aria-label="Archive — Rafila Famedian">
   <div class="u-container ar-contain">
-    <header class="ar-head u-grid" data-ar-head>
-      <h1 class="ar-h1"><span class="ar-c"><span class="ar-t">Archive</span></span></h1>
-    </header>
+    <h1 class="sr-only">Archive</h1>
     <ol class="ar-list" data-ar-list></ol>
     <footer class="ar-foot">
       <p class="ar-note"><span>Some mockup photographs are used for presentation purposes only.</span> <span>All rights to these photographs belong to their respective creators.</span></p>
@@ -868,6 +870,7 @@ video.vid[controls]{cursor:auto;object-fit:contain;background:#000}
       </nav>
     </div>
     <h1 class="pj-title" data-pj="title"></h1>
+    <p class="pj-tag pj-rv" data-pj="tag"></p>
     <div class="pj-info u-grid">
       <dl class="pj-meta" data-pj="meta"></dl>
       <div class="pj-desc"><p class="pj-lead" data-pj="desc"></p></div>
@@ -1269,7 +1272,7 @@ function loadImg(host, src, alt) {
    { src, poster, ratio, controls, alt }:
      poster    a still that shows until the first frame is ready (and stays for visitors who asked their system for less motion)
      controls  a clip with sound: no autoplay, no loop, the browser's own controls; it only pauses by itself when it leaves the screen
-   Reduced motion, or a phone that refuses autoplay (battery saver): the poster / first frame shows, and a tap starts the clip.
+   A silent clip plays whatever the motion setting is (it is the work itself). A phone that refuses autoplay (battery saver): the poster / first frame shows until the first touch or scroll, then it plays.
    ========================================================================== */
 const isVideo = src => /\.(?:mp4|m4v|mov|webm|ogv)(?:[?#]|$)/i.test(String(src || ''));
 const want = new Set();                                                  // the clips that should be playing right now (a hidden tab pauses them and wakes them again)
@@ -1291,8 +1294,9 @@ function loadMedia(host, src, alt, o) {
   v.addEventListener('playing', () => { ready(); v.classList.remove('is-blocked'); });
   v.addEventListener('click', () => {                                    // only reachable when the visitor has to start it (see video.vid in the CSS)
     if (v.controls) return;
-    if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else if (reduced()) v.pause();
+    if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
   });
+  v.addEventListener('canplay', () => { if (want.has(v) && v.paused && !document.hidden) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } });   // played too early (nothing to show yet): try again once it can
   host.appendChild(v);
   return v;
 }
@@ -1308,10 +1312,23 @@ function mediaPlay(v, on) {
   if (!v) return;
   if (!on) { want.delete(v); if (!v.paused) v.pause(); return; }
   mediaLoad(v);
-  if (v.controls || reduced()) return;                                   // a clip with sound, or a visitor who wants less motion: they start it themselves
-  want.add(v);
+  if (v.controls) return;                                                // a clip with sound: the visitor starts it themselves
+  want.add(v);                                                           // (a silent loop is the work itself, so it plays whatever the motion setting is)
   const p = v.play();
-  if (p && p.catch) p.catch(e => { if (e && e.name === 'NotAllowedError') v.classList.add('is-blocked'); });   // autoplay refused: the poster stays, a tap starts it
+  if (p && p.catch) p.catch(e => { if (e && e.name === 'NotAllowedError') { v.classList.add('is-blocked'); armRetry(); } });   // autoplay refused (battery saver…): the next touch / scroll / key starts every clip that should be playing
+}
+
+/* a browser that refused autoplay (iOS low power mode, a data saver) allows it after the first gesture: start every clip that should be playing then */
+let retryArmed = false;
+function armRetry() {
+  if (retryArmed) return;
+  retryArmed = true;
+  const go = () => {
+    retryArmed = false;
+    ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'].forEach(t => window.removeEventListener(t, go, true));
+    want.forEach(v => { if (v.paused && !document.hidden) { const p = v.play(); if (p && p.catch) p.catch(e => { if (e && e.name === 'NotAllowedError') armRetry(); }); } });
+  };
+  ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'].forEach(t => window.addEventListener(t, go, { capture: true, passive: true }));
 }
 
 /* drop everything a video holds (its download and its decoder) — used when its box leaves the page */
@@ -1553,7 +1570,7 @@ function fillInfo(i) {
     '<div class="info-yearcol">' +
       '<div class="info-spacer" aria-hidden="true"></div>' +
       '<div class="info-col-inner">' +
-        '<p class="t-main info-year" data-reveal="b">(' + esc(p.year) + ')</p>' +
+        '<p class="t-main info-year" data-reveal="b">' + esc(p.year) + '</p>' +
         '<div class="info-btn-wrap" data-reveal-btn>' + link + '</div>' +
       '</div>' +
     '</div>';
@@ -2114,10 +2131,10 @@ function arTick(dt) {
 
 /* restore = { y, slug } puts the page back where it was · instant = coming back (Back / Forward): no animation, and the project you were looking at glows */
 function archiveEnter(restore, instant) {
-  const el = ar.el, head = $('[data-ar-head]', el), calm = !!instant || reduced();
+  const el = ar.el, calm = !!instant || reduced();
   ar.io.disconnect(); arHide();
   el.classList.toggle('is-instant', calm);
-  head.classList.remove('is-in'); ar.rows.forEach(r => r.classList.remove('is-in', 'is-from'));
+  ar.rows.forEach(r => r.classList.remove('is-in', 'is-from'));
   el.scrollTop = 0;
   void el.offsetHeight;                                                  // the hidden state is laid out before anything transitions
   if (restore && restore.y) el.scrollTop = restore.y;
@@ -2127,9 +2144,8 @@ function archiveEnter(restore, instant) {
     if (r.top < 0 || r.bottom > innerHeight) el.scrollTop += r.top - (innerHeight - r.height) / 2;
   }
   if (calm) {
-    head.classList.add('is-in'); ar.rows.forEach(r => r.classList.add('is-in'));
+    ar.rows.forEach(r => r.classList.add('is-in'));
   } else {
-    head.style.setProperty('--d', '.15s'); head.classList.add('is-in');
     let k = 0;
     ar.rows.forEach(r => {
       const b = r.getBoundingClientRect();
@@ -2154,6 +2170,20 @@ function archiveEnter(restore, instant) {
 const pj = { el: null, slug: '', p: null, origin: 'works', list: [], idx: 0, lines: [], tw: [], io: null, busy: false, credits: [], queue: 0, dog: 0, from: null, openPos: null };
 const PJ_REVEAL = '.pj-m, .pj-fig, .pj-next, .pj-rv';
 
+/* the year starts at the same place on every project: just after the longest category of the whole archive (measured once, in em so it follows the font size) */
+let tagEm = 0;
+function tagWidth(el) {
+  if (!tagEm) {
+    try {
+      const cs = getComputedStyle(el), cx = document.createElement('canvas').getContext('2d');
+      cx.font = '400 100px ' + cs.fontFamily;
+      tagEm = Math.max(...(app.archive || []).map(q => cx.measureText(q.category || '').width / 100)) + 1.4;
+    } catch (e) { tagEm = 0; }
+    if (!isFinite(tagEm) || tagEm < 3) tagEm = Math.max(0, ...(app.archive || []).map(q => String(q.category || '').length)) * .6 + 1.4;
+  }
+  return tagEm.toFixed(2) + 'em';
+}
+
 function projectRender(p) {
   const el = pj.el, n = pj.list.length, i = pj.idx, w = Math.max(2, String(n).length);
   const get = k => $('[data-pj="' + k + '"]', el);
@@ -2162,15 +2192,20 @@ function projectRender(p) {
   [get('prev'), get('forward')].forEach((a, k) => { a.hidden = n < 2; a.href = pjHref(k ? next : prev); });
   get('title').innerHTML = abText(p.name, true);
   get('desc').innerHTML = p.description ? abText(p.description, true) : '';
+  /* under the title, one small line across the whole grid like the Previous / Next row: the category at the left edge, the year at the right — no labels */
+  const tag = [p.category, p.year].filter(Boolean);
+  get('tag').innerHTML = tag.length ? '<span class="pj-tag-in">' + tag.map(t => '<span>' + esc(t) + '</span>').join('') + '</span>' : ''; get('tag').hidden = !tag.length;
+  get('tag').style.setProperty('--tag-w', tagWidth(get('tag')));
   get('desc').parentNode.hidden = !p.description;
 
   const ext = p.link && /^https?:/i.test(p.link);
-  const rows = [['Year', esc(p.year)], ['Category', esc(p.category || '')]];
+  const rows = [];
   if (p.client) rows.push(['Client', esc(p.client)]);
   if (p.role) rows.push(['Role', esc(p.role)]);
   if (ext) rows.push(['Link', '<a href="' + esc(p.link) + '" target="_blank" rel="noopener" data-underline>Visit project ↗</a>']);
   const shown = rows.filter(r => r[1]);
   get('meta').innerHTML = shown.map(r => '<div class="pj-m"><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>').join('');
+  get('meta').hidden = !shown.length;
 
   /* pictures: the cover first, then `images`; none at all → four placeholder frames. Without a `size` the first is full width, then pairs, and an odd one out closes full width.
      An item may say `size: "full"` or `size: "half"` to pick its own width wherever it stands in the order; half widths sit two to a row, a half that would be alone in its row takes the whole row. */
@@ -2199,10 +2234,10 @@ function projectRender(p) {
   const cr = (Array.isArray(p.credits) ? p.credits : pj.credits)
     .map(c => (Array.isArray(c) ? { role: c[0], name: c[1] } : c || {})).filter(c => c.role || c.name);
   get('credits').hidden = !cr.length;
-  /* a role is written once: the rows under it (same role, one person each) leave it out — still in the markup for screen readers, but invisible — and a new role starts after a little air */
+  /* a role is written once: the rows under it (same role, one person each) leave it out — still in the markup for screen readers, but invisible. Every row is the same distance from the next. */
   get('credits-list').innerHTML = cr.map((c, k) => {
     const rep = k > 0 && c.role && cr[k - 1].role === c.role;
-    return '<div class="pj-m' + (rep ? ' is-rep' : k > 0 ? ' is-grp' : '') + '"><dt>' + esc(c.role || '') + '</dt><dd>' + esc(c.name || '') + '</dd></div>';
+    return '<div class="pj-m' + (rep ? ' is-rep' : '') + '"><dt>' + esc(c.role || '') + '</dt><dd>' + esc(c.name || '') + '</dd></div>';
   }).join('');
 
   const nx = get('next');
@@ -2452,16 +2487,18 @@ function buildContact(c) {
   const at = n => n.toFixed(3) + 's';
   const link = (href, inner) => '<a href="' + esc(href) + '"' + (/^https?:/i.test(href) ? ' target="_blank" rel="noopener"' : '') + ' data-underline>' + inner + '</a>';
 
-  /* the address: label above, then the address itself on one line — a mailto: link */
+  /* the big address block (label + one line) is only filled when `contact.mail` exists; today the email is a row of the list, and the block stays empty so the layout keeps its space */
   const m = c.mail || {}, addr = String(m.value || '').trim();
-  const key = $('[data-ct="mailkey"]', el), mail = $('[data-ct="mail"]', el);
-  key.innerHTML = rise(m.label || ''); key.style.setProperty('--d', at(.6));
-  mail.setAttribute('href', m.href || 'mailto:' + addr);
-  guardLink(mail, addr, 'Email copied · ' + addr, 'Email · ' + addr);
-  mail.style.setProperty('--d', at(.98));                                // (the underline)
-  const at1 = addr.indexOf('@') + 1, two = at1 > 1 && at1 < addr.length ? esc(addr.slice(0, at1)) + '<br>' + esc(addr.slice(at1)) : esc(addr);   // phones: "…@" / "….com"
-  mail.innerHTML = '<span class="sr-only">' + esc(addr) + '</span>' +
-    '<span class="ct-c" aria-hidden="true" style="--d:' + at(.68) + '"><span class="ct-t ct-t-d">' + esc(addr) + '</span><span class="ct-t ct-t-m">' + two + '</span></span>';
+  if (addr) {
+    const key = $('[data-ct="mailkey"]', el), mail = $('[data-ct="mail"]', el);
+    key.innerHTML = rise(m.label || ''); key.style.setProperty('--d', at(.6));
+    mail.setAttribute('href', m.href || 'mailto:' + addr);
+    guardLink(mail, addr, 'Email copied · ' + addr, 'Email · ' + addr);
+    mail.style.setProperty('--d', at(.98));                                // (the underline)
+    const at1 = addr.indexOf('@') + 1, two = at1 > 1 && at1 < addr.length ? esc(addr.slice(0, at1)) + '<br>' + esc(addr.slice(at1)) : esc(addr);   // phones: "…@" / "….com"
+    mail.innerHTML = '<span class="sr-only">' + esc(addr) + '</span>' +
+      '<span class="ct-c" aria-hidden="true" style="--d:' + at(.68) + '"><span class="ct-t ct-t-d">' + esc(addr) + '</span><span class="ct-t ct-t-m">' + two + '</span></span>';
+  }
 
   /* the list: a rule above every row (and one under the last), label · value; a row with an `href` is a link all the way across */
   const items = c.items || [], list = $('[data-ct="list"]', el);
@@ -2476,7 +2513,10 @@ function buildContact(c) {
   }).join('');
   $$('.ct-row.has-link', list).forEach((row, i) => {
     const it = items.filter(x => x.href)[i], a = $('a[href]', row);
-    if (it && a) guardLink(a, it.href, it.label + ' link copied', it.label + ' · ' + it.href);
+    if (it && a) {
+      const em = /^mailto:/i.test(it.href);                              // an e-mail row: if no mail app opens, the address itself is copied
+      guardLink(a, em ? it.value : it.href, em ? 'Email copied · ' + it.value : it.label + ' link copied', em ? 'Email · ' + it.value : it.label + ' · ' + it.href);
+    }
   });
   list.addEventListener('click', e => {
     const row = e.target.closest('.has-link'), a = row && $('a[href]', row);
@@ -2933,8 +2973,8 @@ window.__works = { boot, app };
    `image` and `images`, so also on the wheel, in the panel and in the hover previews. It is a silent loop: not fetched until it
    comes near the screen, playing while it is on screen, paused when it is not (or when the tab is hidden). Keep each one
    short and small (a few MB). A clip WITH sound that the visitor starts himself: { src: "film.mp4", poster: "film.jpg",
-   ratio: "16/9", controls: true } (no autoplay, no loop, the browser's controls). Visitors who asked their system for less
-   motion see the poster (or the first frame) and tap to play.
+   ratio: "16/9", controls: true } (no autoplay, no loop, the browser's controls). A silent loop plays whatever the visitor's motion
+   setting is; only a browser that refuses autoplay (battery saver) shows the poster until the first touch or scroll.
      client      shown in the project's info list
      role        shown in the info list (and in brackets in the Works panel)
      link        an external page (Behance, the client's site …) → "Visit project ↗"
@@ -2956,7 +2996,7 @@ const projects = [
       { src: "assets/projects/houm-yoga/03.mp4", poster: "assets/projects/houm-yoga/03-poster.jpg", size: "full", ratio: "3/2" },
       { src: "assets/projects/houm-yoga/04.mp4", poster: "assets/projects/houm-yoga/04-poster.jpg", size: "full", ratio: "3/2" },
       { src: "assets/projects/houm-yoga/05.jpg", size: "full" },
-      { src: "assets/projects/houm-yoga/06.mp4", poster: "assets/projects/houm-yoga/06-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/houm-yoga/06.mp4", poster: "assets/projects/houm-yoga/06-poster.jpg", size: "half", ratio: "4/5" },
       { src: "assets/projects/houm-yoga/07.jpg", size: "full" }
     ],
     credits: [
@@ -2981,7 +3021,7 @@ const projects = [
       ["Creative Director", "Gema Semesta"],
       ["Graphic Designer", "Rafila Famedian"]
     ] },
-  { name: "Goethe Institut",            year: 2026, category: "Social Media",    works: 13,
+  { name: "Goethe Institut",            year: 2026, category: "Illustration",    works: 13,
     description: "An illustration project developing mascot assets for an educational program at Goethe Institut. Designed around a student oriented atmosphere, the character set leans into a bright, cheerful, and playful direction. Making the program’s communication feel approachable and engaging across digital touchpoints.",
     image: "assets/projects/goethe-institut/cover.jpg",
     images: [
@@ -3033,7 +3073,7 @@ const projects = [
     description: "Social media management for a fine dining restaurant, with a specific focus on its bar and weekly jazz performances. The work translates the venue’s core character into commercial social media formats while staying true to its identity.",
     image: "assets/projects/jullien/cover.jpg",
     images: [
-      { src: "assets/projects/jullien/01.mp4", poster: "assets/projects/jullien/01-poster.jpg", size: "full", ratio: "3/2" }
+      { src: "assets/projects/jullien/01.mp4", poster: "assets/projects/jullien/01-poster.jpg", size: "half", ratio: "4/5" }
     ],
     credits: [
       ["Creative Director", "Gema Semesta"],
@@ -3238,6 +3278,15 @@ const projects = [
     ] },
   { name: "Mandala",                    year: 2025, category: "Type Design",     works: 12,
     description: "Derived from the spiritual philosophies and protective symbolism of Balinese gringsing fabric, this project explores the construction of a modern vernacular typeface. The design respects the original motifs while adapting their geometry for contemporary editorial use. The intervention seeks to bridge traditional spiritual narratives with modern typographic requirements through a thoughtful editorial implementation.", image: "",
+    image: "assets/projects/mandala/cover.jpg",
+    images: [
+      { src: "assets/projects/mandala/01.jpg", size: "full" },
+      { src: "assets/projects/mandala/02.jpg", size: "full" },
+      { src: "assets/projects/mandala/03.jpg", size: "full" },
+      { src: "assets/projects/mandala/04.jpg", size: "full" },
+      { src: "assets/projects/mandala/05.jpg", size: "full" },
+      { src: "assets/projects/mandala/06.jpg", size: "full" }
+    ],
     credits: [
       ["Art Director", "Ignatius Soekarno"],
       ["Graphic Designer", "Rafila Famedian"]
@@ -3329,6 +3378,10 @@ const projects = [
     ] },
   { name: "Cass Up!",                   year: 2025, category: "Campaign",
     description: "Addressing the urgency of food security through the lens of diversification, this campaign identity centers on cassava as a sustainable local resource. The design employs a visual tone and messaging strategy specifically tailored to engage a younger demographic. The outcome is an efficient communication system that bridges local agricultural urgency with contemporary audience relevance.", image: "",
+    image: "assets/projects/cass-up/cover.jpg",
+    images: [
+      { src: "assets/projects/cass-up/01.mp4", poster: "assets/projects/cass-up/01-poster.jpg", size: "full", ratio: "3/2" }
+    ],
     credits: [
       ["Creative Director", "Shani Nur"],
       ["Branding Director", "Vevaldy Yusuf"],
@@ -3378,7 +3431,11 @@ const projects = [
       { src: "assets/projects/zenki/01.jpg", size: "full" },
       { src: "assets/projects/zenki/02.jpg", size: "full" },
       { src: "assets/projects/zenki/03.jpg", size: "full" },
-      { src: "assets/projects/zenki/04.jpg", size: "full" }
+      { src: "assets/projects/zenki/04.jpg", size: "half" },
+      { src: "assets/projects/zenki/05.jpg", size: "half" },
+      { src: "assets/projects/zenki/06.jpg", size: "full" },
+      { src: "assets/projects/zenki/07.jpg", size: "full" },
+      { src: "assets/projects/zenki/08.jpg", size: "half" }
     ],
     credits: [
       ["Art Director", "Rafila Famedian"],
@@ -3480,7 +3537,8 @@ const projects = [
       { src: "assets/projects/alam-santosa/09.mp4", poster: "assets/projects/alam-santosa/09-poster.jpg", size: "full", ratio: "3/2" },
       { src: "assets/projects/alam-santosa/10.mp4", poster: "assets/projects/alam-santosa/10-poster.jpg", size: "full", ratio: "3/2" },
       { src: "assets/projects/alam-santosa/11.mp4", poster: "assets/projects/alam-santosa/11-poster.jpg", size: "full", ratio: "3/2" },
-      { src: "assets/projects/alam-santosa/12.mp4", poster: "assets/projects/alam-santosa/12-poster.jpg", size: "full", ratio: "3/2" }
+      { src: "assets/projects/alam-santosa/12.mp4", poster: "assets/projects/alam-santosa/12-poster.jpg", size: "full", ratio: "3/2" },
+      { src: "assets/projects/alam-santosa/13.mp4", poster: "assets/projects/alam-santosa/13-poster.jpg", size: "full", ratio: "3/2" }
     ],
     credits: [
       ["Director", "Rafi Naufal"],
@@ -3525,11 +3583,11 @@ const about = {
      note    the paragraph at the bottom right
    ------------------------------------------------------------------ */
 const contact = {
-  mail: { label: "Mail", value: "work@rafilafamedian.com" },
   items: [
     { label: "Address",   value: "Jakarta, Indonesia" },
-    { label: "Instagram", value: "rbfamedian",        href: "https://www.instagram.com/rbfamedian/" },
+    { label: "Email",     value: "rafilafamedian99@gmail.com", href: "mailto:rafilafamedian99@gmail.com" },
     { label: "Phone",     value: "+62 895-1796-5909", href: "https://wa.me/+6289517965909" },
+    { label: "Instagram", value: "rbfamedian",        href: "https://www.instagram.com/rbfamedian/" },
     { label: "Behance",   value: "Rafila Famedian",   href: "https://www.behance.net/rafilafamedian1" },
     { label: "LinkedIn",  value: "Rafila Famedian",   href: "https://www.linkedin.com/in/rafilafamedian/" }
   ],
