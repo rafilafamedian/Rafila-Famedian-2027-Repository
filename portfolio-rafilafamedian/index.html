@@ -476,7 +476,8 @@ html:not([data-view="about"]) .about,html:not([data-view="works"]) .lib,html:not
 .pj-desc{grid-column:7/span 4}
 .pj-lead{display:flow-root;margin:-.18em 0;font-size:max(1.0625rem,var(--a-lg));line-height:1.3;font-weight:500;letter-spacing:-.03em}
 
-.pj-gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-bottom:calc(var(--space-1-5)*4)}
+.pj-gallery{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;margin-bottom:calc(var(--space-1-5)*4)}   /* the space between pictures: 10px, 6px on a phone */
+@media (max-width:767px){.pj-gallery{gap:6px}}
 
 /* appendix: its title stands in the same column as the list (7, the column of the text above), the rows under it — role in grey, name next to it */
 .pj-credits{align-items:baseline;row-gap:0}
