@@ -518,6 +518,12 @@ video.vid[controls]{cursor:auto;object-fit:contain;background:#000}
   .pj-next:hover .pj-next-a svg{transform:translateX(.35em)}
 }
 @media (hover:none),(max-width:767px){.pj-next-img{display:block;grid-column:1/span 5;aspect-ratio:3/2}}
+/* desktop: the title starts where the paragraph does (column 7), and the index note follows it, on the Previous / Next row; a long title may take two rows (see pjFitTitle) */
+@media (min-width:992px){
+  .pj-title{margin-left:calc(50% + var(--gutter)/2);text-wrap:balance}
+  .pj-index{grid-column:7/span 3;grid-row:1}
+  .pj-pager{grid-column:10/13;grid-row:1}
+}
 @media (max-width:991px){
   .pj-pager{grid-column:7/13}
   .pj-meta{grid-column:1/-1}
@@ -2292,7 +2298,20 @@ function pkTick(dt) {
   return Math.abs(gx - pk.x) > .25 || Math.abs(gy - pk.y) > .25;
 }
 
+/* desktop: the title sits in the right half (column 7 on), so a long one wraps; it keeps the display size when it fits in two rows and is made just smaller when it would need three */
+function pjFitTitle() {
+  const t = $('[data-pj="title"]', pj.el), s = t && $('[data-a-split]', t);
+  if (!s) return;
+  t.style.fontSize = '';
+  if (!matchMedia('(min-width:992px)').matches) return;
+  s.textContent = s.dataset.text != null ? s.dataset.text : s.textContent.trim();     // (back to plain words, whatever a split left behind)
+  const cs = getComputedStyle(t), fs0 = parseFloat(cs.fontSize), lh = parseFloat(cs.lineHeight) || fs0 * .98;
+  let k = 1;
+  while (k > .55 && t.offsetHeight > lh * 2.05) { k -= .02; t.style.fontSize = (fs0 * k).toFixed(2) + 'px'; }
+}
+
 function pjSplit() {
+  pjFitTitle();
   pj.lines = [];
   $$('[data-a-split]', pj.el).forEach(t => pj.lines.push(...splitLines(t)));
 }
@@ -3383,12 +3402,11 @@ const projects = [
       { src: "assets/projects/cass-up/01.mp4", poster: "assets/projects/cass-up/01-poster.jpg", size: "full", ratio: "3/2" }
     ],
     credits: [
-      ["Creative Director", "Shani Nur"],
-      ["Branding Director", "Vevaldy Yusuf"],
-      ["Graphic Designer", "Eldhie Rutfi"],
-      ["Graphic Designer", "Andry Januaris"],
-      ["Graphic Designer", "Putri Qori"],
-      ["Graphic Designer", "Rafila Famedian"]
+      ["Head of Project", "Adzikra Baskara"],
+      ["Copywriter", "Jessica Daniela"],
+      ["Researcher", "Rafi Naufal"],
+      ["Graphic Designer", "Paramitha Agustina"],
+      ["Illustrator", "Rafila Famedian"]
     ] },
   { name: "Dualoque",                   year: 2025, category: "Visual Identity",
     description: "Translating the philanthropic spirit of a wellness hub into an empathetic visual identity system. The design focuses on the core narrative of human connectivity and the fundamental necessity of being heard. The resulting social media framework ensures that digital interactions remain consistent with the brand’s supportive and reflective essence.",
