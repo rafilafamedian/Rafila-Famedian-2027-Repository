@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="project">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CV — Rafila Famedian</title>
+<meta name="description" content="Curriculum vitae of Rafila Famedian, graphic designer based in Jakarta. Available in Bahasa Indonesia and English (PDF).">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<style>html{background:#fff;color-scheme:light}</style>
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* CV — a sibling of the Contact page: the same stylesheet rules (copied from the site), the Project page's white palette, breathing light, header, ruled list and hairlines.
+   The PDFs sit next to this file in /cv/. To add a version, copy a .ct-row below and change the link and the label. */
+:root{
+  --gutter:1rem;
+  --margin:clamp(.5rem,calc((.5 - ((1.5 - .5)/(90 - 20)*20))*1rem + ((1.5 - .5)/(90 - 20))*100vw),1.5rem);
+  --text-main:clamp(.7475rem,calc((.7475 - ((1 - .7475)/(120 - 20)*20))*1rem + ((1 - .7475)/(120 - 20))*100vw),1rem);
+  --text-small:clamp(.65rem,calc((.65 - ((.85 - .65)/(120 - 20)*20))*1rem + ((.85 - .65)/(120 - 20))*100vw),.85rem);
+  --h2:clamp(1.25rem,calc((1.25 - ((4.25 - 1.25)/(120 - 20)*20))*1rem + ((4.25 - 1.25)/(120 - 20))*100vw),4.25rem);
+  --display:clamp(2.3125rem,calc((2.3125 - ((7.5 - 2.3125)/(120 - 20)*20))*1rem + ((7.5 - 2.3125)/(120 - 20))*100vw),7.5rem);
+  --space-1:clamp(.625rem,calc((.625 - ((1 - .625)/(120 - 20)*20))*1rem + ((1 - .625)/(120 - 20))*100vw),1rem);
+  --space-1-5:clamp(1rem,calc((1 - ((1.5 - 1)/(120 - 20)*20))*1rem + ((1.5 - 1)/(120 - 20))*100vw),1.5rem);
+
+  --ease-out-quart:cubic-bezier(.165,.84,.44,1);
+  --ease-ui:cubic-bezier(.16,1,.3,1);
+}
+/* Project — optical white: the pictures are the colour (the white page of the site; the breathing light is the warm grey of About's) */
+[data-theme="project"]{
+  color-scheme:light;
+  --bg:#fff; --fg:#000; --hair:rgba(0,0,0,.12);
+  --inv-bg:#000; --inv-fg:#fff;
+  --sheet-bg:#000; --sheet-fg:#fff;
+  --menu-bg:#a1a098; --menu-fg:#000; --menu-hair:rgba(255,255,255,.1);
+  --ph-a:#ececf0; --ph-b:#d9d9de;
+  --breath-rgb:161 160 152; --breath-a:.28;
+}
+
+/* ---------- base ---------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none}
+html body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:'Inter',ui-sans-serif,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  font-size:var(--text-main);font-weight:500;line-height:1;letter-spacing:-.01em;
+  min-height:100vh;min-height:100dvh;overflow:hidden;overscroll-behavior:none;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-synthesis:none;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;letter-spacing:inherit}
+:focus{outline:none}
+:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+::selection{background:var(--inv-bg);color:var(--inv-fg)}
+/* ---------- breathing background ---------------------------------------------
+   A plain black block with three very faint, very large lights that slowly swell
+   and drift (9 s / 13.5 s / 18 s, so the three never line up). They give the page
+   a pulse; they are not meant to be looked at. The lights sit low on the screen,
+   away from the titles, and their strength is capped by --breath-a, so the white
+   titles stay pure white (the difference blend needs a near-black backdrop).
+   Only transform + opacity are animated (compositor only, nothing repaints).
+   The animation pauses while a sheet / the menu covers the page and stops for
+   prefers-reduced-motion. Tune it with --breath-a (strength) and --breath-rgb. */
+.bg-breath{
+  --bk:var(--breath-k,1);                                   /* size factor of the three lights: each grows around its own centre */
+  --glow:radial-gradient(closest-side,
+    rgb(var(--breath-rgb)/var(--breath-a)) 0%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.95)) 12.5%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.81)) 25%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.62)) 37.5%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.43)) 50%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.27)) 62.5%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.15)) 75%,
+    rgb(var(--breath-rgb)/calc(var(--breath-a)*.07)) 87.5%,
+    rgb(var(--breath-rgb)/0) 100%);
+  position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict;
+}
+.bg-breath i{position:absolute;display:block;background:var(--glow);opacity:0;will-change:transform,opacity}
+.bg-breath i:nth-child(1){width:calc(78vmax*var(--bk));height:calc(78vmax*var(--bk));left:calc(-6vmax - 39vmax*(var(--bk) - 1));bottom:calc(-46vmax - 39vmax*(var(--bk) - 1));animation:breathe-a 9s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(2){width:calc(70vmax*var(--bk));height:calc(70vmax*var(--bk));right:calc(-14vmax - 35vmax*(var(--bk) - 1));bottom:calc(-40vmax - 35vmax*(var(--bk) - 1));animation:breathe-b 13.5s cubic-bezier(.37,0,.63,1) infinite}
+.bg-breath i:nth-child(3){width:calc(56vmax*var(--bk));height:calc(56vmax*var(--bk));left:calc(34vw - 28vmax*(var(--bk) - 1));top:calc(46vh - 28vmax*(var(--bk) - 1));animation:breathe-c 18s cubic-bezier(.37,0,.63,1) infinite}
+@keyframes breathe-a{0%,100%{opacity:.8;transform:translate3d(0,0,0) scale(.86)}50%{opacity:1;transform:translate3d(9vw,-7vh,0) scale(1.18)}}
+@keyframes breathe-b{0%,100%{opacity:1;transform:translate3d(0,0,0) scale(1.14)}50%{opacity:.75;transform:translate3d(-10vw,-5vh,0) scale(.84)}}
+@keyframes breathe-c{0%,100%{opacity:.7;transform:translate3d(-6vw,4vh,0) scale(.82)}50%{opacity:1;transform:translate3d(7vw,-6vh,0) scale(1.18)}}
+.is-sheet .bg-breath i,.is-menu .bg-breath i{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.bg-breath i:nth-child(n){animation:none;opacity:.7;transform:none}}
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.u-container{position:relative;width:calc(100% - var(--margin));margin-left:auto;margin-right:auto}
+.u-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--gutter)}
+
+/* hairline underline used by every link: draws in from the left, out to the right */
+[data-underline]{position:relative}
+[data-underline]::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-out-quart);pointer-events:none;
+}
+@media (hover:hover){[data-underline]:hover::after{transform:scaleX(1);transform-origin:left}}
+[data-underline].is-active::after{transform:scaleX(1);transform-origin:left}
+
+/* ---------- header -------------------------------------------------------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.nav-inner{display:flex;align-items:flex-start;justify-content:space-between;padding-top:var(--space-1);padding-bottom:var(--space-1);min-height:calc(var(--space-1)*2 + var(--text-main)*2.015)}
+.nav-logo{pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;white-space:nowrap;cursor:pointer}
+.nav-logo span{display:block}
+.nav-links{display:flex;align-items:center;justify-content:flex-end;gap:2rem;margin:0;padding:0;list-style:none}
+.nav-link{pointer-events:auto;position:relative;display:flex;align-items:flex-start;line-height:1;padding-bottom:2px;cursor:pointer}
+.contact{
+  --a-lg:clamp(.875rem,calc((.875 - ((2 - .875)/(120 - 20)*20))*1rem + ((2 - .875)/(120 - 20))*100vw),2rem);
+  --a-s15:clamp(1rem,calc((1 - ((1.5 - 1)/(120 - 20)*20))*1rem + ((1.5 - 1)/(120 - 20))*100vw),1.5rem);
+}
+.ar-c,.ct-c{display:block;min-width:0;overflow:clip;padding-bottom:.2em;margin-bottom:-.2em}
+.ar-t,.ct-t{display:block;transform:translate3d(0,118%,0)}
+.is-in .ar-t,.is-in .ct-t{transform:none;transition:transform 1.2s var(--ease-ui) var(--d,0s)}
+/* ---------- contact ----------------------------------------------------------
+   One screen, laid out like the Santal reference's contact: the address in big type on the left,
+   a ruled list and a short note on the right, a hairline down the middle (grid column 7 — the same
+   column the About text starts on). Below 768 px it stacks into one column.
+   The page is a scroller only so a very short screen can still reach everything.
+   Text sits in a clip (.ct-c) and rises (.ct-t); hairlines draw. All of it is CSS transitions that
+   start when the page gets .is-in (--d = each piece's delay), like the Archive. */
+.contact{
+  position:fixed;inset:0;z-index:1;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
+  touch-action:pan-y pinch-zoom;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.25) transparent;
+}
+.contact:focus{outline:none}
+.contact::-webkit-scrollbar{width:10px}
+.contact::-webkit-scrollbar-thumb{background:rgba(0,0,0,.25);border:3px solid transparent;border-radius:10px;background-clip:content-box}
+.ct-contain{
+  position:relative;display:flex;flex-direction:column;min-height:100%;
+  padding-top:var(--nav-h,calc(var(--space-1)*2 + var(--text-main)*2.015));
+  padding-bottom:calc(var(--a-s15) + env(safe-area-inset-bottom,0px));
+}
+.ct-grid{flex:1 1 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+
+/* left: the address, vertically centred */
+.ct-main{
+  grid-column:1/span 6;min-width:0;container-type:inline-size;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:calc(var(--space-1-5)*.7);
+  padding-bottom:calc(var(--nav-h,3.75rem)*.5);                            /* optical centre: a little above the middle */
+}
+.ct-k{margin:0;font-size:var(--text-main);line-height:1.25;font-weight:500;letter-spacing:-.01em;opacity:.55}
+.ct-mail{
+  --ct-size:clamp(1.25rem,3.4vw,4rem);
+  position:relative;display:block;width:fit-content;max-width:100%;padding-bottom:.06em;
+  font-size:var(--ct-size);line-height:1;font-weight:500;letter-spacing:-.04em;white-space:nowrap;
+}
+@supports (width:1cqw){.ct-mail{--ct-size:min(7.5rem,calc(100cqw*.077))}}      /* the whole address on ONE line, sized from the column it sits in (the address is ~11.4 em wide, so it takes ~88 % of the column) */
+.ct-mail .ct-c{padding-bottom:.2em;margin-bottom:-.2em}
+.ct-mail::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:max(1px,.026em);background:currentColor;
+  transform:scaleX(0);transform-origin:0 50%;pointer-events:none;
+}
+.contact.is-in .ct-mail::after{transform:none;transition:transform 1.5s var(--ease-ui) var(--d,0s)}
+@media (hover:hover){.contact.is-in .ct-mail:hover::after{animation:ct-redraw 1.1s var(--ease-ui) 1}}
+@keyframes ct-redraw{
+  0%{transform:scaleX(1);transform-origin:100% 50%}
+  45%{transform:scaleX(0);transform-origin:100% 50%}
+  46%{transform:scaleX(0);transform-origin:0 50%}
+  100%{transform:scaleX(1);transform-origin:0 50%}
+}
+
+/* right: the list at the top, the note at the bottom; the column starts at the hairline so the rules meet it */
+.ct-side{
+  --ct-in:calc(var(--gutter)*1.5);
+  grid-column:7/span 6;min-width:0;margin-left:calc(var(--gutter)/-2);padding-left:var(--ct-in);
+  display:flex;flex-direction:column;justify-content:space-between;gap:calc(var(--space-1-5)*2);
+}
+.ct-list{margin:0;padding:calc(var(--space-1-5)*1.4) 0 0}
+.ct-row{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--gutter);padding:1rem 0;font-size:var(--text-main);line-height:1.25}
+.ct-v{margin:0;font-weight:500;letter-spacing:-.01em}
+.ct-v a{position:relative;display:inline-block;padding-bottom:2px}
+.ct-row.has-link{cursor:pointer}                                                  /* the whole row is the link (see buildContact) */
+@media (hover:hover){.ct-row.has-link:hover [data-underline]::after{transform:scaleX(1);transform-origin:left}}
+.ct-rule{position:absolute;left:calc(var(--ct-in)*-1);top:0;width:calc(100% + var(--ct-in));height:0;pointer-events:none}
+.ct-rule.is-end{top:auto;bottom:0}
+.ct-rule i{display:block;width:100%;height:0;border-top:1px solid var(--hair);transform:scaleX(0);transform-origin:0 50%}
+.contact.is-in .ct-rule i{transform:none;transition:transform 1.5s var(--ease-ui) calc(var(--d,0s) - .08s)}
+.contact.is-in .ct-rule.is-end i{transition-delay:calc(var(--d,0s) + .08s)}
+.ct-note{position:relative;padding-top:1rem}
+.ct-lead{display:flow-root;width:calc(66.6667% + var(--gutter)/3);margin:-.18em 0;font-size:max(1.0625rem,var(--a-lg));line-height:1.3;font-weight:500;letter-spacing:-.03em;text-wrap:pretty}   /* no lone last word */
+.contact .ln-mask{padding-bottom:.2em;margin-bottom:-.2em}
+.contact .ln{padding-bottom:0;white-space:nowrap;will-change:auto;transform:translate3d(0,125%,0)}
+.contact.is-in .ln{transform:none;transition:transform 1.35s var(--ease-ui) var(--d,0s)}
+
+/* the hairline down the middle */
+.ct-vline{position:absolute;left:50%;top:var(--nav-h,3.75rem);bottom:0;width:0;pointer-events:none}
+.ct-vline i{display:block;width:0;height:100%;border-left:1px solid var(--hair);transform:scaleY(0);transform-origin:50% 0}
+.contact.is-in .ct-vline i{transform:none;transition:transform 1.6s var(--ease-ui) .1s}
+
+@media (min-width:992px){.ct-row{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}}
+@media (max-width:991px){.ct-lead{width:100%}}
+
+/* ---- phones: the Santal reference's contact --------------------------------------------------------------
+   A hairline under the header and one down the middle; the address on the left, the facts on the right (label over value, starting at
+   the middle line), both centred in the upper two thirds; under a full-width hairline the note, in the right half.
+   Everything for it sits inside this query (or is hidden outside it): the layout above 767 px is exactly as it was. */
+.ct-hline{display:none}
+.ct-t-m{display:none}
+@media (max-width:767px){
+  .contact .ct-contain{--ct-edge:calc(var(--margin)/2);width:100%;height:100%;min-height:0;padding-bottom:env(safe-area-inset-bottom,0px)}   /* full width: the middle line is the middle of the screen */
+  .ct-grid{position:relative;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:2fr 1fr;column-gap:0;row-gap:0}
+  .ct-main{grid-column:1;grid-row:1;justify-content:center;gap:.45rem;padding:0 var(--gutter) 0 var(--ct-edge)}
+  .ct-k{font-size:calc(var(--text-main)*.82);line-height:1.2}
+  .ct-mail{--ct-size:clamp(1rem,4.7vw,2.4rem)}
+  .ct-mail::after{height:max(1.5px,.07em)}
+  .ct-t-d{display:none}
+  .ct-t-m{display:block}                                                          /* the address on two lines: …@ / …com */
+  .ct-side{display:contents}
+  .ct-list{grid-column:2;grid-row:1;align-self:center;padding:0 var(--ct-edge) 0 .35rem}
+  .ct-row{display:block;padding:0 0 .95rem}
+  .ct-row:last-child{padding-bottom:0}
+  .ct-v{margin-top:.2rem}
+  .ct-list .ct-rule{display:none}
+  .ct-note{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding-top:1rem}
+  .ct-rule{left:0;width:100%}
+  .ct-lead{grid-column:2;width:auto;margin:-.18em var(--ct-edge) 0 0;padding-left:.35rem;font-size:var(--text-main);line-height:1.32;letter-spacing:-.01em}
+  .ct-hline{display:block;position:absolute;left:0;top:var(--nav-h,3.75rem);width:100%;height:0;pointer-events:none}
+  .ct-hline i{display:block;width:100%;height:0;border-top:1px solid var(--hair);transform:scaleX(0);transform-origin:0 50%}
+  .contact.is-in .ct-hline i{transform:none;transition:transform 1.5s var(--ease-ui) .05s}
+}
+@supports (width:1cqw){@media (max-width:767px){.ct-mail{--ct-size:clamp(1rem,calc(100cqw/8.9),2.6rem)}}}     /* sized from its column: the longer line, "rafilafamedian.com" (8.5 em), takes ~95 % of it */
+@media (max-width:479px){.contact .ct-contain{--ct-edge:var(--margin)}}                                              /* in line with the header's own edge on phones */
+@media (max-width:767px){.nav-inner{min-height:calc(var(--space-1)*2 + var(--text-main)*1.3)}}
+@media (max-width:479px){.nav-inner{width:calc(100% - var(--margin)*2)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-breath" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="nav">
+  <div class="u-container nav-inner">
+    <a class="nav-logo" href="/" aria-label="Rafila Famedian, ©2027 Repository — home"><span>Rafila Famedian</span><span>©2027 Repository</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a class="nav-link" href="/" data-underline><span>Works</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="contact" data-contact tabindex="-1" aria-label="CV — Rafila Famedian">
+  <div class="u-container ct-contain">
+    <h1 class="sr-only">Curriculum Vitae — Rafila Famedian</h1>
+    <div class="ct-grid">
+      <section class="ct-main" aria-hidden="true"></section>
+      <div class="ct-side">
+        <dl class="ct-list">
+          <div class="ct-row has-link" style="--d:.72s">
+            <dt class="ct-k"><span class="ct-c"><span class="ct-t">Bahasa Indonesia</span></span></dt>
+            <dd class="ct-v" style="--d:.76s"><a href="/cv/CV-Rafila-Famedian-ID.pdf" target="_blank" rel="noopener" hreflang="id" data-underline><span class="ct-c"><span class="ct-t">Curriculum Vitae (PDF)</span></span></a></dd>
+            <span class="ct-rule" aria-hidden="true"><i></i></span>
+          </div>
+          <div class="ct-row has-link" style="--d:.81s">
+            <dt class="ct-k"><span class="ct-c"><span class="ct-t">English</span></span></dt>
+            <dd class="ct-v" style="--d:.85s"><a href="/cv/CV-Rafila-Famedian-EN.pdf" target="_blank" rel="noopener" hreflang="en" data-underline><span class="ct-c"><span class="ct-t">Curriculum Vitae (PDF)</span></span></a></dd>
+            <span class="ct-rule" aria-hidden="true"><i></i></span>
+            <span class="ct-rule is-end" aria-hidden="true"><i></i></span>
+          </div>
+        </dl>
+        <div class="ct-note" style="--d:1.15s">
+          <span class="ct-rule" aria-hidden="true"><i></i></span>
+          <p class="ct-lead"><span class="ct-c"><span class="ct-t" style="--d:1.2s">Curriculum Vitae</span></span></p>
+        </div>
+      </div>
+    </div>
+    <span class="ct-vline" aria-hidden="true"><i></i></span>
+    <span class="ct-hline" aria-hidden="true"><i></i></span>
+  </div>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement, page = document.querySelector('[data-contact]');
+  /* the header's height, like the site's measureNav: the hairlines start under it */
+  var measure = function () { var n = document.querySelector('.nav-inner'); if (n) root.style.setProperty('--nav-h', Math.ceil(n.getBoundingClientRect().height) + 'px'); };
+  measure(); addEventListener('resize', measure);
+  /* a click beside the words of a row still counts, as on Contact */
+  page.addEventListener('click', function (e) {
+    var row = e.target.closest('.has-link'), a = row && row.querySelector('a[href]');
+    if (a && !e.target.closest('a') && !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) a.click();
+  });
+  /* the page rises and the hairlines draw once the font is there (or after a short wait) */
+  var go = function () { if (page.classList.contains('is-in')) return; measure(); requestAnimationFrame(function () { requestAnimationFrame(function () { page.classList.add('is-in'); }); }); };
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(go); setTimeout(go, 1200); } else { go(); }
+})();
+</script>
+</body>
+</html>
