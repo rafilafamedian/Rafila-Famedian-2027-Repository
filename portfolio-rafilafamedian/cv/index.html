@@ -105,6 +105,7 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
 .nav-inner{display:flex;align-items:flex-start;justify-content:space-between;padding-top:var(--space-1);padding-bottom:var(--space-1);min-height:calc(var(--space-1)*2 + var(--text-main)*2.015)}
 .nav-logo{pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;white-space:nowrap;cursor:pointer}
 .nav-logo span{display:block}
+.nav-logo{pointer-events:none;cursor:default}   /* the name is a label on this page, not a link: the way back is "Works" */
 .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:2rem;margin:0;padding:0;list-style:none}
 .nav-link{pointer-events:auto;position:relative;display:flex;align-items:flex-start;line-height:1;padding-bottom:2px;cursor:pointer}
 .contact{
@@ -236,7 +237,7 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
 
 <header class="nav">
   <div class="u-container nav-inner">
-    <a class="nav-logo" href="/" aria-label="Rafila Famedian, ©2027 Repository — home"><span>Rafila Famedian</span><span>©2027 Repository</span></a>
+    <div class="nav-logo"><span>Rafila Famedian</span><span>©2027 Repository</span></div>
     <nav aria-label="Primary">
       <ul class="nav-links">
         <li><a class="nav-link" href="/" data-underline><span>Works</span></a></li>
