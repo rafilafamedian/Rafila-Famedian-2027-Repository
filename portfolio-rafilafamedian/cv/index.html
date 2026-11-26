@@ -91,6 +91,9 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
 .u-container{position:relative;width:calc(100% - var(--margin));margin-left:auto;margin-right:auto}
 .u-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--gutter)}
 
+.ln-mask{position:relative;display:block;overflow:clip;text-align:start}
+.ln{position:relative;display:block;padding-bottom:.2em;will-change:transform}
+
 /* hairline underline used by every link: draws in from the left, out to the right */
 [data-underline]{position:relative}
 [data-underline]::after{
@@ -267,7 +270,7 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
         </dl>
         <div class="ct-note" style="--d:1.15s">
           <span class="ct-rule" aria-hidden="true"><i></i></span>
-          <p class="ct-lead"><span class="ct-c"><span class="ct-t" style="--d:1.2s">Curriculum Vitae</span></span></p>
+          <p class="ct-lead"><span class="ln-mask"><span class="ln" style="--d:1.2s">Curriculum Vitae</span></span></p>
         </div>
       </div>
     </div>
@@ -287,9 +290,9 @@ button{font:inherit;color:inherit;letter-spacing:inherit}
     var row = e.target.closest('.has-link'), a = row && row.querySelector('a[href]');
     if (a && !e.target.closest('a') && !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) a.click();
   });
-  /* the page rises and the hairlines draw once the font is there (or after a short wait) */
-  var go = function () { if (page.classList.contains('is-in')) return; measure(); requestAnimationFrame(function () { requestAnimationFrame(function () { page.classList.add('is-in'); }); }); };
-  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(go); setTimeout(go, 1200); } else { go(); }
+  /* the page rises and the hairlines draw the moment it is there, exactly like contactEnter on the site: the hidden state is laid out first, then .is-in */
+  void page.offsetHeight;
+  page.classList.add('is-in');
 })();
 </script>
 </body>
